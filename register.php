@@ -1,21 +1,28 @@
 <?php
 include_once(__DIR__ ."/classes/User.php");
     if(!empty($_POST)){
-
         try {
         $user = new User();
         $user->setFirstname($_POST['firstname']);
         $user->setLastname($_POST['lastname']);
         $user->setEmail($_POST['email']);
         $user->setPassword($_POST['password']);
-
+        
         $firstname = $_POST['firstname'];
         $lastname = $_POST['lastname'];
         $email = $_POST['email'];
         $password = $_POST['password'];
 
+            function endFunc($str, $lastString) {
+                $count = strlen($lastString);
+                if($count == 0){
+                    return true;
+                }
+                return (substr($str, -$count) === $lastString);
+            } 
+
             if(!empty($firstname) || !empty($lastname)  || !empty($email) || !empty($password)){
-                if($user->setEmail($_POST['email'] == "@student.thomasmore.be")){
+                if(endFunc($email, "@student.thomasmore.be")){
                     //email eindigd op @student.thomasmore.be
                     $user->save();
                     $succes = "User saved";
@@ -31,7 +38,7 @@ include_once(__DIR__ ."/classes/User.php");
     } catch (\Throwable $th){
         $error = $th->getMessage();
     }
-    }
+    } 
 
     $users = User::getAll();
 

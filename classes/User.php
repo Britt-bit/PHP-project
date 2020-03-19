@@ -120,6 +120,8 @@ include_once(__DIR__ . "/Db.php");
             return $result;
         }
 
+        
+
         public static function getAll(){
             $conn = Db::getConnection();
 
