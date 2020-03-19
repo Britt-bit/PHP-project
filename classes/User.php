@@ -69,7 +69,7 @@ include_once(__DIR__ . "/Db.php");
         public function setEmail($email)
         {
             if(empty($email)){
-                throw new Exception("email cannot be empty");
+                throw new Exception("email moet eindigen op @student.thomasmore.be");
             }
                 $this->email = $email;
 

@@ -28,3 +28,12 @@
     background: #0062cc;
     color: #fff;
 }
+
+.form__error
+{
+  color: red;
+  font-weight: lighter;
+  padding: 0.5em 1em;
+  margin-bottom: 1em;
+  font-size: 0.9em;
+}

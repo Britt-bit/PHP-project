@@ -3,19 +3,34 @@ include_once(__DIR__ ."/classes/User.php");
     if(!empty($_POST)){
 
         try {
-            $user = new User();
-            $user->setFirstname($_POST['firstname']);
-            $user->setLastname($_POST['lastname']);
-            $user->setEmail($_POST['email']);
-            $user->setPassword($_POST['password']);
+        $user = new User();
+        $user->setFirstname($_POST['firstname']);
+        $user->setLastname($_POST['lastname']);
+        $user->setEmail($_POST['email']);
+        $user->setPassword($_POST['password']);
 
-            $user->save();
-            $succes = "User saved";
+        $firstname = $_POST['firstname'];
+        $lastname = $_POST['lastname'];
+        $email = $_POST['email'];
+        $password = $_POST['password'];
 
-            header("Location: index.php");
-        } catch (\Throwable $th){
-            $error = $th->getMessage();
-        }
+            if(!empty($firstname) || !empty($lastname)  || !empty($email) || !empty($password)){
+                if($user->setEmail($_POST['email'] == "@student.thomasmore.be")){
+                    //email eindigd op @student.thomasmore.be
+                    $user->save();
+                    $succes = "User saved";
+                
+                    header("Location: index.php");
+                } else {
+                    $error = $th->getMessage();
+                } 
+                } else {
+                    $error = $th->getMessage();
+                } 
+            
+    } catch (\Throwable $th){
+        $error = $th->getMessage();
+    }
     }
 
     $users = User::getAll();
@@ -31,17 +46,12 @@ include_once(__DIR__ ."/classes/User.php");
     <link rel="stylesheet" href="css/register.css">
 </head>
 <body>
-    <?php if(isset($error)): ?> 
-        <div class="error" style="color: red;"><?php echo $error; ?></div>
-    <?php endif; ?>
 
-    <?php if(isset($error)): ?>
-        <div class="succes" style="color: green;"><?php echo $succes; ?></div>
-    <?php endif; ?>
     <div class="container register-form">
         <div class="form">
             <div class="note">
                 <p>Sign up voor de IMD buddy app.</p>
+                
             </div>
 
             <form action="" method="POST">
@@ -65,6 +75,13 @@ include_once(__DIR__ ."/classes/User.php");
                         </div>
                     </div>
                     <button type="submit" class="btnSubmit">Sign me up</button>
+                    <?php if( isset($error) ): ?>
+				<div class="form__error">
+					<p>
+						<?php echo $error; ?>
+					</p>
+				</div>
+				<?php endif; ?>
                 </div>
                 </form>
             </div>
