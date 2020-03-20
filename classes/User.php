@@ -23,7 +23,7 @@ include_once(__DIR__ . "/Db.php");
         public function setFirstname($firstname)
         {
             if(empty($firstname)){
-                throw new Exception("firsname cannot be empty");
+                throw new Exception("Firsname cannot be empty");
             }
                 $this->firstname = $firstname;
 
@@ -46,7 +46,7 @@ include_once(__DIR__ . "/Db.php");
         public function setLastname($lastname)
         {
             if(empty($lastname)){
-                throw new Exception("lastname cannot be empty");
+                throw new Exception("Lastname cannot be empty");
             }
                 $this->lastname = $lastname;
 
@@ -66,14 +66,18 @@ include_once(__DIR__ . "/Db.php");
          *
          * @return  self
          */ 
+
         public function setEmail($email)
         {
-            if(empty($email)){
-                throw new Exception("email moet eindigen op @student.thomasmore.be");
-            }
-                $this->email = $email;
 
+
+            if(empty($email)){
+                throw new Exception("Email cannot be empty");
+            } 
+                
+                $this->email = $email;
                 return $this;
+               
         }
 
         /**
@@ -92,7 +96,7 @@ include_once(__DIR__ . "/Db.php");
         public function setPassword($password)
         {
             if(empty($password)){
-                throw new Exception("password cannot be empty");
+                throw new Exception("Password cannot be empty");
             }
                 $this->password = $password;
 
@@ -130,5 +134,6 @@ include_once(__DIR__ . "/Db.php");
             $users = $statement->fetchAll(PDO::FETCH_ASSOC);
             return $users;
         }
+
+      
     }
-?>

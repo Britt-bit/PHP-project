@@ -8,10 +8,7 @@ include_once(__DIR__ ."/classes/User.php");
         $user->setEmail($_POST['email']);
         $user->setPassword($_POST['password']);
         
-        $firstname = $_POST['firstname'];
-        $lastname = $_POST['lastname'];
         $email = $_POST['email'];
-        $password = $_POST['password'];
 
             function endFunc($str, $lastString) {
                 $count = strlen($lastString);
@@ -21,15 +18,19 @@ include_once(__DIR__ ."/classes/User.php");
                 return (substr($str, -$count) === $lastString);
             } 
 
-            if(!empty($firstname) || !empty($lastname)  || !empty($email) || !empty($password)){
+            if(!empty($_POST['firstname']) || !empty($_POST['lastname'])  || !empty($email) || !empty($_POST['password'])){
+                
                 if(endFunc($email, "@student.thomasmore.be")){
                     //email eindigd op @student.thomasmore.be
+                    $password = password_hash($_POST['password'], PASSWORD_DEFAULT, ["cost" => 12]);
+                    $user->setPassword($password);
                     $user->save();
                     $succes = "User saved";
                 
                     header("Location: index.php");
                 } else {
-                    $error = $th->getMessage();
+                    throw new Exception("Email moet eindigen op @student.thomasmore.be");
+                    
                 } 
                 } else {
                     $error = $th->getMessage();
@@ -82,12 +83,13 @@ include_once(__DIR__ ."/classes/User.php");
                         </div>
                     </div>
                     <button type="submit" class="btnSubmit">Sign me up</button>
+                    <br> <br>
                     <?php if( isset($error) ): ?>
-				<div class="form__error">
-					<p>
-						<?php echo $error; ?>
-					</p>
-				</div>
+				    <div class="alert alert-danger" role="alert">
+					    <p>
+						    <?php echo $error; ?>
+					    </p>
+				    </div>
 				<?php endif; ?>
                 </div>
                 </form>
