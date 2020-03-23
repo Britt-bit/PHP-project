@@ -7,7 +7,7 @@ include_once(__DIR__ ."/classes/User.php");
         $user->setLastname($_POST['lastname']);
         $user->setEmail($_POST['email']);
         $user->setPassword($_POST['password']);
-        
+
         $email = $_POST['email'];
 
             function endFunc($str, $lastString) {
@@ -19,8 +19,10 @@ include_once(__DIR__ ."/classes/User.php");
             } 
 
             if(!empty($_POST['firstname']) || !empty($_POST['lastname'])  || !empty($email) || !empty($_POST['password'])){
-                
                 if(endFunc($email, "@student.thomasmore.be")){
+                    if($user->myemail() < 1){
+
+                    
                     //email eindigd op @student.thomasmore.be
                     $password = password_hash($_POST['password'], PASSWORD_DEFAULT, ["cost" => 12]);
                     $user->setPassword($password);
@@ -28,6 +30,9 @@ include_once(__DIR__ ."/classes/User.php");
                     $succes = "User saved";
                 
                     header("Location: index.php");
+                } else {
+                    throw new Exception("Email bestaat al");
+                }
                 } else {
                     throw new Exception("Email moet eindigen op @student.thomasmore.be");
                     
@@ -42,6 +47,8 @@ include_once(__DIR__ ."/classes/User.php");
     } 
 
     $users = User::getAll();
+
+
 
 ?><!DOCTYPE html>
 <html lang="en">
@@ -67,18 +74,18 @@ include_once(__DIR__ ."/classes/User.php");
                     <div class="row">
                         <div class="col-md-6">
                             <div class="form-group">
-                                <input name="firstname" id="firstname" type="text" class="form-control" placeholder="Your Name *" value=""/>
+                                <input name="firstname" id="firstname" type="text" class="form-control" placeholder="Your Name *" value="<?php if(isset($_POST['firstname'])) echo $_POST['firstname']; ?>"/>
                             </div>
                             <div class="form-group">
-                                <input name="lastname" id="lastname" type="text" class="form-control" placeholder="Your lastname *" value=""/>
+                                <input name="lastname" id="lastname" type="text" class="form-control" placeholder="Your lastname *" value="<?php if(isset($_POST['lastname'])) echo $_POST['lastname']; ?>"/>
                             </div>
                         </div>
                         <div class="col-md-6">
                             <div class="form-group">
-                                <input name="email" id="email" type="text" class="form-control" placeholder="Your email *" value=""/>
+                                <input name="email" id="email" type="text" class="form-control" placeholder="Your email *" value="<?php if(isset($_POST['email'])) echo $_POST['email']; ?>"/>
                             </div>
                             <div class="form-group">
-                                <input name="password" id="password" type="text" class="form-control" placeholder="Your Password *" value=""/>
+                                <input name="password" id="password" type="password" class="form-control" placeholder="Your Password *" value=""/>
                             </div>
                         </div>
                     </div>

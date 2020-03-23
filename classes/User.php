@@ -128,11 +128,23 @@ include_once(__DIR__ . "/Db.php");
 
         public static function getAll(){
             $conn = Db::getConnection();
-
+            
             $statement = $conn->prepare("select * from user");
             $statement->execute();
             $users = $statement->fetchAll(PDO::FETCH_ASSOC);
             return $users;
+        }
+
+        public function myemail(){
+            $email = $this->getEmail();
+            $conn = Db::getConnection();
+
+            $check_email = ("SELECT email FROM user WHERE email='$email'");
+
+            foreach ($conn->query($check_email) as $row){
+                print $row['email'];
+            }
+            return $row;
         }
 
       
