@@ -1,0 +1,68 @@
+<?php
+
+    include_once('bootstrap.php');
+
+?>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+    <link href="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+    <link rel="stylesheet" href="css/register.css">
+</head>
+<body>
+
+    <div class="container">
+            <div class="note">
+                <p>Profile</p>
+                
+            </div>
+
+            <form action="" method="POST">
+                <div class="form-content">
+                    <!-- Avatar field -->
+                    <div class="form-group row col-md-4 text-center">
+                        <img src="#" alt="User Avatar">
+                        <input type="file" name="avatar" id="avatar" class="form-control">
+                    </div>
+                    <!-- Firstname field -->
+                    <div class="form-group row col-md-4 text-center">
+                        <label for="firstname">Firstname:</label>
+                        <input type="text" name="firstname" id="firstname">
+                    </div>
+                    <!-- Lastname field -->
+                    <div class="form-group row col-md-4 text-center">
+                        <label for="lastname">Lastname:</label>
+                        <input type="text" name="lastname" id="lastname">
+                    </div>
+                    <!-- email field -->
+                    <div class="form-group row col-md-4 text-center">
+                        <label for="email">Email:</label>
+                        <input type="text" name="email" id="email">
+                    </div>
+                    <!-- password field -->
+                    <div class="form-group row col-md-4 text-center">
+                        <label for="password">Password:</label>
+                        <input type="password" name="password" id="password">
+                    </div>
+                    <!-- Biography field -->
+                    <div class="form-group row col-md-4 text-center">
+                        <label for="bio">Biography:</label>
+                        <textarea name="bio" id="bio" cols="30" rows="5"></textarea>
+                    </div>
+                    <!-- submit button -->
+                    <div class="form-group row col-md-4 text-center">
+                        <input type="submit" class="btn btn-primary" value="Update">
+                    </div>
+                </div>
+            </form>
+    </div>
+
+<script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
+</body>
+</html>
