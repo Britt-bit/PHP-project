@@ -34,3 +34,16 @@ getAll = getAllUsers
 save = saveUser(Registration)
 
 answer : doen?
+
+4. database:
+    user biografie - text
+    user avatar - varchar
+    user password confirmation (2 keer password ingeven voor extra validation)
+
+5. Registration 
+- path meegeven default image ("images/uploads/default.png")
+- bio standaard waarde meegeven ("Hey, welkom op mijn profiel.")
+
+6. class aanmaken voor hashing en aanroepen in user classe adh van OOP
+
+7. $firstname = $this->getFirstname(); is niet nodig mag gewoon $this->firstname zijn

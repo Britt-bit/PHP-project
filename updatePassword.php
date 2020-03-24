@@ -7,14 +7,10 @@ error_reporting(E_ALL);
     /* get user */
     $user = new User();
     $getUser = $user->getUserById($_GET['id']);
-    /* image info */
-    $target_dir = "images/uploads/";
-    $target_file = $target_dir . $_FILES['avatar']['name'];
-    $uploadOk = 1;
-    $imageFileType = strtolower(pathinfo($target_file, PATHINFO_EXTENSION));
+    /* password update */
 
     if (!empty($_POST)) {
-        if ($_FILES["avatar"]["size"] > 2000000) {
+        if ($_FILES["fileToUpload"]["size"] > 2000000) {
             return $error = "Sorry, your file is too large.";
             $uploadOk = 0;
         }
@@ -25,20 +21,8 @@ error_reporting(E_ALL);
         if ($uploadOk != 1) {
             return $error = "Something went wrong";
         }
-        try {
-            $user = new User();
-            $user->setFirstname($_POST['firstname']);
-		    $user->setLastname($_POST['lastname']);        
-		    $user->setEmail($_POST['email']);
-            $user->setBio($_POST['bio']);
-            $user->setAvatar($target_file);
-
-            $user->updateUser();
-            return $succes = "Update completed";
-        } catch (\Throwable $th) {
-            throw $th;
-            return $error = "Update failed";
-        }
+        $user = new User();
+        
 
     }
 
@@ -56,16 +40,8 @@ error_reporting(E_ALL);
 <body>
 
     <div class="container">
-    <?php if (isset($succes)): ?>
-			<div class="alert alert-success">
-				<p>
-					<?php echo $succes ?>
-							
-				</p>
-			</div>
-        <?php endif; ?>
         <?php if (isset($error)): ?>
-			<div class="alert alert-danger">
+			<div class="form__error">
 				<p>
 					<?php echo $error ?>
 							
@@ -73,41 +49,26 @@ error_reporting(E_ALL);
 			</div>
         <?php endif; ?>
         <div class="note">
-            <p>Profile</p>
+            <p>Password</p>
                 
         </div>
 
         <form action="" method="POST" enctype="multipart/form-data">
             <div class="form-content">
-                <!-- Avatar field -->
-                    <div class="form-group row col-md-4 text-center">
-                        <img src="<?php echo $getUser['avatar'] ?>" alt="User Avatar">
-                        <input type="file" name="avatar" id="avatar" class="form-control">
+                <!-- Old password field -->
+                <div class="form-group row col-md-4 text-center">
+                        <label for="password">Old password:</label>
+                        <input type="password" name="password" id="password">
                     </div>
-                <!-- Firstname field -->
+                 <!-- New password field -->
                     <div class="form-group row col-md-4 text-center">
-                        <label for="firstname">Firstname:</label>
-                        <input type="text" name="firstname" id="firstname" value="<?php echo $getUser['firstname'] ?>">
+                        <label for="newPassword">New password:</label>
+                        <input type="password" name="newPassword" id="newPassword">
                     </div>
-                <!-- Lastname field -->
+                <!-- Confirm password field -->
                     <div class="form-group row col-md-4 text-center">
-                        <label for="lastname">Lastname:</label>
-                        <input type="text" name="lastname" id="lastname" value="<?php echo $getUser['lastname'] ?>">
-                    </div>
-                <!-- email field -->
-                    <div class="form-group row col-md-4 text-center">
-                        <label for="email">Email:</label>
-                        <input type="text" name="email" id="email"value="<?php echo $getUser['email'] ?>">
-                    </div>
-                 <!-- password field -->
-                    <div class="form-group row col-md-4 text-center">
-                        <label for="password">Password:</label>
-                         <a class="nav-link" href="updatePassword.php?id=<?php echo $_GET['id'] ?>">Change password</a>
-                    </div>
-                <!-- Biography field -->
-                    <div class="form-group row col-md-4 text-center">
-                        <label for="bio">Biography:</label>
-                        <textarea name="bio" id="bio" cols="30" rows="5"><?php echo $getUser['bio'] ?></textarea>
+                        <label for="confirmPassword">Confirm password:</label>
+                        <input type="password" name="confirmPassword" id="confirmPassword">
                     </div>
                 <!-- submit button -->
                     <div class="form-group row col-md-4 text-center">

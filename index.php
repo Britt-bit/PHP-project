@@ -7,5 +7,6 @@
 </head>
 <body>
     <h1>Logged in</h1>
+    <a class="nav-link" href="profile.php?id=<?php $_SESSION['user'][0] ?>">Profile</a>
 </body>
 </html>

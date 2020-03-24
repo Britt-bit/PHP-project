@@ -5,6 +5,8 @@ include_once(__DIR__ . "/Db.php");
         private $firstname;
         private $lastname;
         private $email;
+        private $avatar;
+        private $bio;
         private $password;
 
         /**
@@ -79,6 +81,46 @@ include_once(__DIR__ . "/Db.php");
                 return $this;
                
         }
+        
+        /**
+         * Get the value of avatar
+         */ 
+        public function getAvatar()
+        {
+                return $this->avatar;
+        }
+
+        /**
+         * Set the value of avatar
+         *
+         * @return  self
+         */ 
+        public function setAvatar($avatar)
+        {
+                $this->avatar = $avatar;
+
+                return $this;
+        }
+
+        /**
+         * Get the value of bio
+         */ 
+        public function getBio()
+        {
+                return $this->bio;
+        }
+
+        /**
+         * Set the value of bio
+         *
+         * @return  self
+         */ 
+        public function setBio($bio)
+        {
+                $this->bio = $bio;
+
+                return $this;
+        }
 
         /**
          * Get the value of password
@@ -146,6 +188,41 @@ include_once(__DIR__ . "/Db.php");
             }
             return $row;
         }
+        /* update user */
+        function getUserById($id){
+            $conn = Db::getConnection();
+            $statement = $conn->prepare('select * from user where id = :id');
+            $statement->bindParam(':id', $id);
+            $statement->execute();
+            $result = $statement->fetch();
+            return $result;
+        }
+        function updateUser()
+        {
+            try {
+               if (move_uploaded_file($_FILES["avatar"]["tmp_name"], $this->avatar)) {
+                    $conn = Db::getConnection();
+                    $statement = $conn->prepare("update user set firstname= :firstname, lastname= :lastname, email= :email, avatar= :avatar, bio= :bio");
+                    $statement->bindParam(":firstname", $this->firstname);
+                    $statement->bindParam(":lastname", $this->lastname);
+                    $statement->bindParam(":email", $this->email);
+                    $statement->bindParam(":avatar", $this->avatar);
+                    $statement->bindParam(":bio", $this->bio);
 
-      
+                    $statement->execute();
+               }else {
+                    $conn = Db::getConnection();
+                    $statement = $conn->prepare("update user set firstname= :firstname, lastname= :lastname, email= :email, bio= :bio");
+                    $statement->bindParam(":firstname", $this->firstname);
+                    $statement->bindParam(":lastname", $this->lastname);
+                    $statement->bindParam(":email", $this->email);
+                    $statement->bindParam(":bio", $this->bio);
+
+                    $statement->execute();
+               }
+            } catch (\Throwable $th) {
+                throw $th;
+            }
+            
+        }
     }
