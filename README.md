@@ -21,11 +21,11 @@ klaar met feature branch pull request naar develop en review door teamleden voor
 
 1. register.css? omzetten naar general style.css
 
-answer :
+answer : Done
 
 2. design?
 
-answer :
+answer : Ik heb gewoon iets van het bootstrap gehaald, dit is zeker niet definitief!
 
 3. naming conventions php
 
@@ -33,7 +33,7 @@ myemail = emailValidation
 getAll = getAllUsers
 save = saveUser(Registration)
 
-answer : doen?
+answer : doen? -> done, is zo idd veel makkelijker voor de rest
 
 4. database:
     user biografie - text
