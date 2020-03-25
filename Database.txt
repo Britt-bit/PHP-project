@@ -117,7 +117,8 @@ CREATE TABLE `user` (
   `password` varchar(300) NOT NULL,
   `profiletxt` tinytext,
   `features` varchar(300) DEFAULT NULL,
-  `buddy` tinyint(1) DEFAULT NULL
+  `buddy` tinyint(1) DEFAULT NULL,
+  `image` text
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
