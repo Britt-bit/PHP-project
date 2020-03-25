@@ -7,8 +7,11 @@ include_once(__DIR__ ."/classes/User.php");
         $user->setLastname($_POST['lastname']);
         $user->setEmail($_POST['email']);
         $user->setPassword($_POST['password']);
+        $user->setProfiletxt("Hey, welkom op mijn profiel.");
+        $user->setImage("href='images/default.png'");
 
         $email = $_POST['email'];
+        $passwordConfirmation = $_POST['passwordConfirmation'];
 
             function endFunc($str, $lastString) {
                 $count = strlen($lastString);
@@ -20,33 +23,35 @@ include_once(__DIR__ ."/classes/User.php");
 
             if(!empty($_POST['firstname']) || !empty($_POST['lastname'])  || !empty($email) || !empty($_POST['password'])){
                 if(endFunc($email, "@student.thomasmore.be")){
-                    if($user->myemail() < 1){
-
-                    
-                    //email eindigd op @student.thomasmore.be
-                    $password = password_hash($_POST['password'], PASSWORD_DEFAULT, ["cost" => 12]);
-                    $user->setPassword($password);
-                    $user->save();
-                    $succes = "User saved";
+                    if($user->emailValidation() < 1){
+                        if($_POST['password'] === $passwordConfirmation) {
+                            //email eindigd op @student.thomasmore.be
+                            //passwords match
+                            $user->setPassword($user->passwordHash());
+                            $user->saveUser();
+                            $succes = "User saved";
                 
-                    header("Location: index.php");
-                } else {
+                            header("Location: index.php");
+                        } else {
+                            throw new Exception("Passwords matchen niet");
+                        }
+                    } else {
                     throw new Exception("Email bestaat al");
-                }
+                    }
                 } else {
                     throw new Exception("Email moet eindigen op @student.thomasmore.be");
                     
                 } 
-                } else {
-                    $error = $th->getMessage();
-                } 
+            } else {
+                $error = $th->getMessage();
+        } 
             
     } catch (\Throwable $th){
         $error = $th->getMessage();
     }
     } 
 
-    $users = User::getAll();
+    $users = User::getAllUsers();
 
 
 
@@ -58,7 +63,7 @@ include_once(__DIR__ ."/classes/User.php");
     <title>Document</title>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
     <link href="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
-    <link rel="stylesheet" href="css/register.css">
+    <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
 
@@ -86,6 +91,9 @@ include_once(__DIR__ ."/classes/User.php");
                             </div>
                             <div class="form-group">
                                 <input name="password" id="password" type="password" class="form-control" placeholder="Your Password *" value=""/>
+                            </div>
+                            <div class="form-group">
+                                <input name="passwordConfirmation" id="passwordConfirmation" type="password" class="form-control" placeholder="Confirm your password *" value=""/>
                             </div>
                         </div>
                     </div>

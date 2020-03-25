@@ -6,6 +6,8 @@ include_once(__DIR__ . "/Db.php");
         private $lastname;
         private $email;
         private $password;
+        private $image;
+        private $profiletxt;
 
         /**
          * Get the value of firstname
@@ -104,20 +106,65 @@ include_once(__DIR__ . "/Db.php");
         }
 
 
-        public function save(){
+
+        /**
+         * Get the value of image
+         */ 
+        public function getImage()
+        {
+                return $this->image;
+        }
+                /**
+         * Set the value of image
+         *
+         * @return  self
+         */ 
+        public function setImage($image)
+        {
+                $this->image = $image;
+
+                return $this;
+        }
+
+              /**
+         * Get the value of profiletxt
+         */ 
+        public function getProfiletxt()
+        {
+                return $this->profiletxt;
+        }
+
+        /**
+         * Set the value of profiletxt
+         *
+         * @return  self
+         */ 
+        public function setProfiletxt($profiletxt)
+        {
+                $this->profiletxt = $profiletxt;
+
+                return $this;
+        }
+
+
+        public function saveUser(){
             $conn = Db::getConnection();
 
-            $statement = $conn->prepare("insert into user (firstname, lastname, email, password) values (:firstname, :lastname, :email, :password)");
+            $statement = $conn->prepare("insert into user (firstname, lastname, email, password, image, profiletxt) values (:firstname, :lastname, :email, :password, :image, :profiletxt)");
 
             $firstname = $this->getFirstname();
             $lastname = $this->getLastname();
             $email = $this->getEmail();
             $password = $this->getPassword();
+            $image = $this->getImage();
+            $profiletxt = $this->getProfiletxt();
 
             $statement->bindValue(":firstname", $firstname);
             $statement->bindValue(":lastname", $lastname);
             $statement->bindValue(":email", $email);
             $statement->bindValue(":password", $password);
+            $statement->bindValue(":image", $image);
+            $statement->bindValue(":profiletxt", $profiletxt);
 
             $result = $statement->execute();
 
@@ -126,7 +173,7 @@ include_once(__DIR__ . "/Db.php");
 
         
 
-        public static function getAll(){
+        public static function getAllUsers(){
             $conn = Db::getConnection();
             
             $statement = $conn->prepare("select * from user");
@@ -135,17 +182,25 @@ include_once(__DIR__ . "/Db.php");
             return $users;
         }
 
-        public function myemail(){
+        public function emailValidation(){
             $email = $this->getEmail();
             $conn = Db::getConnection();
 
             $check_email = ("SELECT email FROM user WHERE email='$email'");
 
             foreach ($conn->query($check_email) as $row){
-                print $row['email'];
+                 $row['email'];
             }
             return $row;
         }
 
-      
+        public function passwordHash(){
+
+            $password = password_hash($_POST['password'], PASSWORD_DEFAULT, ["cost" => 12]);
+            return $password;
+        }
+
+    
+
+
     }
