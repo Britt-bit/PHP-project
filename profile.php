@@ -7,37 +7,46 @@ error_reporting(E_ALL);
     /* get user */
     $user = new User();
     $getUser = $user->getUserById($_GET['id']);
-    /* image info */
-    $target_dir = "images/uploads/";
-    $target_file = $target_dir . $_FILES['avatar']['name'];
-    $uploadOk = 1;
-    $imageFileType = strtolower(pathinfo($target_file, PATHINFO_EXTENSION));
 
+    /* Error */
+    $errors = [];
     if (!empty($_POST)) {
-        if ($_FILES["avatar"]["size"] > 2000000) {
-            return $error = "Sorry, your file is too large.";
-            $uploadOk = 0;
+        /* image info */
+        $target_dir = "images/uploads/";
+        $target_file = $target_dir . $_FILES['avatar']['name'];
+        $uploadOk = 1;
+        $imageFileType = strtolower(pathinfo($target_file, PATHINFO_EXTENSION));
+        if (!empty($_POST['avatar'])) {
+            if ($_FILES["avatar"]["size"] > 2000000) {
+                $errors [] = "Sorry, your file is too large.";
+                $uploadOk = 0;
+            }
+            if ($imageFileType != "jpg" && $imageFileType != "png" && $imageFileType != "jpeg") {
+                $errors []= "Sorry, only JPG, JPEG & PNG files are allowed.";
+                $uploadOk = 0;
+            }
+            if ($uploadOk != 1) {
+                $errors [] = "Upload has failed";
+            }
         }
-        if ($imageFileType != "jpg" && $imageFileType != "png" && $imageFileType != "jpeg") {
-            return $error = "Sorry, only JPG, JPEG & PNG files are allowed.";
-            $uploadOk = 0;
+        if (count($errors) == 0) {
+            try {
+                $user = new User();
+                $user->setFirstname($_POST['firstname']);
+                $user->setLastname($_POST['lastname']);        
+                $user->setEmail($_POST['email']);
+                $user->setBio($_POST['bio']);
+                $user->setAvatar($target_file);
+    
+                $user->updateUser();
+                header('location: profile.php?id='.$_GET['id'] );
+            } catch (\Throwable $th) {
+                throw $th;
+                $errors [] = "Update failed";
+            }
         }
-        if ($uploadOk != 1) {
-            return $error = "Something went wrong";
-        }
-        try {
-            $user = new User();
-            $user->setFirstname($_POST['firstname']);
-		    $user->setLastname($_POST['lastname']);        
-		    $user->setEmail($_POST['email']);
-            $user->setBio($_POST['bio']);
-            $user->setAvatar($target_file);
-
-            $user->updateUser();
-            return $succes = "Update completed";
-        } catch (\Throwable $th) {
-            throw $th;
-            return $error = "Update failed";
+        else{
+            //var_dump($errors);
         }
 
     }
@@ -56,18 +65,12 @@ error_reporting(E_ALL);
 <body>
 
     <div class="container">
-    <?php if (isset($succes)): ?>
-			<div class="alert alert-success">
+        <?php if (count($errors) > 0): ?>
+			<div class="alert alert-danger mt-5">
 				<p>
-					<?php echo $succes ?>
-							
-				</p>
-			</div>
-        <?php endif; ?>
-        <?php if (isset($error)): ?>
-			<div class="alert alert-danger">
-				<p>
-					<?php echo $error ?>
+					<?php foreach ($errors as $error):?>
+                     <?php echo $error; ?> <br>
+                   <?php endforeach?>
 							
 				</p>
 			</div>
@@ -81,7 +84,7 @@ error_reporting(E_ALL);
             <div class="form-content">
                 <!-- Avatar field -->
                     <div class="form-group row col-md-4 text-center">
-                        <img src="<?php echo $getUser['avatar'] ?>" alt="User Avatar">
+                        <img class="img-thumbnail" src="<?php echo $getUser['avatar'] ?>" alt="User Avatar">
                         <input type="file" name="avatar" id="avatar" class="form-control">
                     </div>
                 <!-- Firstname field -->
