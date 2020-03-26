@@ -15,8 +15,14 @@ error_reporting(E_ALL);
     if (!empty($_POST)) {
         if ($_POST["newPassword"] == $_POST["confirmPassword"]) {
             try {
-                $user->setPassword($_POST['password']);
-                $user->setNewpassword($_POST['newPassword']);
+                $password = $user->setPassword($user->passwordHash($_POST['password']));
+                if ($user->passwordCheck($_GET['id'], $password)) {
+                    $user->setNewpassword($_POST['newPassword']);
+                    $user->updatePassword();
+                }
+                else {
+                    $errors[] = 'Password not updated';
+                }
 
                 $user->updatePassword();
             } catch (\Throwable $th) {
