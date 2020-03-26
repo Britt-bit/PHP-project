@@ -48,7 +48,9 @@ include_once(__DIR__ . "/classes/User.php");
 
                 <div>
                      <button type="submit" class="btnSubmit">Login</button>
-                     <input type="checkbox" id="rememberMe"><label for="rememberMe" class="form-control">Remember me</label>
+                     <br>
+                     <input type="checkbox" id="rememberMe"><label for="rememberMe" class="">Remember me</label>
+                     <br>
                      <a href="">Forgotten password?</a>
 
                 </div>
