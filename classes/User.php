@@ -8,6 +8,7 @@ include_once(__DIR__ . "/Db.php");
         private $avatar;
         private $bio;
         private $password;
+        private $newpassword;
 
         /**
          * Get the value of firstname
@@ -145,6 +146,25 @@ include_once(__DIR__ . "/Db.php");
                 return $this;
         }
 
+         /**
+         * Get the value of newpassword
+         */ 
+        public function getNewpassword()
+        {
+                return $this->newpassword;
+        }
+
+        /**
+         * Set the value of newpassword
+         *
+         * @return  self
+         */ 
+        public function setNewpassword($newpassword)
+        {
+                $this->newpassword = $newpassword;
+
+                return $this;
+        }
 
         public function save(){
             $conn = Db::getConnection();
@@ -199,7 +219,6 @@ include_once(__DIR__ . "/Db.php");
         }
         function updateUser()
         {
-            try {
                if (move_uploaded_file($_FILES["avatar"]["tmp_name"], $this->avatar)) {
                     $conn = Db::getConnection();
                     $statement = $conn->prepare("update user set firstname= :firstname, lastname= :lastname, email= :email, avatar= :avatar, bio= :bio");
@@ -220,9 +239,14 @@ include_once(__DIR__ . "/Db.php");
 
                     $statement->execute();
                }
-            } catch (\Throwable $th) {
-                throw $th;
-            }
             
+        }
+        function updatePassword()
+        {
+            $conn = Db::getConnection();
+            $statement = $conn->prepare("update user set password= :password");
+            $statement->bindParam(":password", $this->newpassword);
+
+            $statement->execute();
         }
     }
