@@ -7,6 +7,9 @@ error_reporting(E_ALL);
     /* get user */
     $user = new User();
     $getUser = $user->getUserById($_GET['id']);
+
+    /* Error */
+    $errors = [];
     /* password update */
 
     if (!empty($_POST)) {
@@ -40,10 +43,12 @@ error_reporting(E_ALL);
 <body>
 
     <div class="container">
-        <?php if (isset($error)): ?>
-			<div class="form__error">
+    <?php if (count($errors) > 0): ?>
+			<div class="alert alert-danger mt-5">
 				<p>
-					<?php echo $error ?>
+					<?php foreach ($errors as $error):?>
+                     <?php echo $error; ?> <br>
+                   <?php endforeach?>
 							
 				</p>
 			</div>
