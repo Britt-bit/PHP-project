@@ -20,7 +20,6 @@ function canLogin($email, $password){
     }
 }
 
-
 //Get de User
 $user = new User();
 $getUser = $user->getUserById($_GET['id']);
