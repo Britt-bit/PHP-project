@@ -1,19 +1,56 @@
 <?php 
 
-include_once(__DIR__ . "/classes/User.php");
+//klasse en database copy pasten naar hier
+include_once(__DIR__ . "./classes/User.php");
+include_once(__DIR__ . "./classes/Db.php");
 
-//detecteer submit
-    
+
+function canLogin($email, $password) {
+    //connectie met databank
+    $conn = Db::getConnection();
+    $statement = $conn->prepare("select * from users where email = '$email'");
+    $statement->execute();
+    $user = $statement->fetchAll(PDO::FETCH_ASSOC);
+
+
+    if (password_verify($password, $user['password'])){
+        return true;
+    }else{
+
+        return false; 
+    }
+
+}
+
+
+//detecteer submit 
+if (!empty($_POST)){
+
     //velden uitlezen in variabelen
-    //validatie: velden mogen niet leeg zijn
-    
-        //indien OK: login checken
-        //onthouden dat user aangelogd is
-        //redirect naar index.php
-        
-        //indien leeg: error genereren
+    $email = $_POST['email'];
+    $password = $_POST['password'];
+   
+       //validatie: velden mogen niet leeg zijn
+       if(!empty($email) && !empty($password)){
+   
+           if (canLogin($email, $password)) {
 
-
+           //indien OK: login checken
+           //onthouden dat user aangelogd is
+           //redirect naar index.php
+           header("Location: login.php");
+   
+           }else{
+               //user en password matchen niet
+               //error
+               $error ="Cannot log you in.";
+           }      
+       
+       }else{
+          //indien leeg: error genereren 
+          $error = "Email and password are required.";       
+       }
+}
 ?>
 
 
@@ -32,10 +69,16 @@ include_once(__DIR__ . "/classes/User.php");
     <div class = "container register-form">
         <div class="form">
 
-            <div class="note"><p>Login to your account</p></div>
+            <div class="note"><h2>Login to your account</h2></div>
 
             <form action="" method="POST">
-            
+        
+            <?php if(isset($error)): ?>
+                <div class="alert alert-danger" role="alert">
+                    <p><?php echo $error; ?></p>
+                </div>
+            <?php endif; ?>
+
                 <div class="col-md-6">
                             <div class="form-group">
                                 <input name="email" id="email" type="text" class="form-control" placeholder="Email" value="<?php if(isset($_POST['email'])) echo $_POST['email']; ?>"/>
@@ -47,13 +90,14 @@ include_once(__DIR__ . "/classes/User.php");
                 </div>
 
                 <div>
-                     <button type="submit" class="btnSubmit">Login</button>
+                     <button type="submit" class="btnSubmit" style="border-radius:20px; width:150px;">Login</button>
                      <br>
                      <input type="checkbox" id="rememberMe"><label for="rememberMe" class="">Remember me</label>
                      <br>
                      <a href="">Forgotten password?</a>
 
                 </div>
+
             </form>
         </div>
     </div>
