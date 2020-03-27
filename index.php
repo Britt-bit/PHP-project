@@ -8,6 +8,5 @@
 <body>
     <h1>Logged in</h1>
 
-    <a href="login.php">Log out?</a>
 </body>
 </html>

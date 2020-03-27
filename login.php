@@ -4,53 +4,23 @@
 include_once(__DIR__ . "./classes/User.php");
 include_once(__DIR__ . "./classes/Db.php");
 
+//Get de User
+$user = new User();
+$getUser = $user->getUserById($_GET['id']);
 
-function canLogin($email, $password) {
-    //connectie met databank
-    $conn = Db::getConnection();
-    $statement = $conn->prepare("select * from users where email = '$email'");
-    $statement->execute();
-    $user = $statement->fetchAll(PDO::FETCH_ASSOC);
+//Detecteer submit
+    //Velden uitlezen in variabelen
+    //Validatie: velden mogen niet leeg zijn
+    
+        //Indien OK: login checken
+        //Onthouden dat User aangelogd is
+        //Redirect naar index.php
 
+            //User en password matchen niet
+            //Error
 
-    if (password_verify($password, $user['password'])){
-        return true;
-    }else{
+            //Indien leeg: error genereren
 
-        return false; 
-    }
-
-}
-
-
-//detecteer submit 
-if (!empty($_POST)){
-
-    //velden uitlezen in variabelen
-    $email = $_POST['email'];
-    $password = $_POST['password'];
-   
-       //validatie: velden mogen niet leeg zijn
-       if(!empty($email) && !empty($password)){
-   
-           if (canLogin($email, $password)) {
-
-           //indien OK: login checken
-           //onthouden dat user aangelogd is
-           //redirect naar index.php
-           header("Location: login.php");
-   
-           }else{
-               //user en password matchen niet
-               //error
-               $error ="Cannot log you in.";
-           }      
-       
-       }else{
-          //indien leeg: error genereren 
-          $error = "Email and password are required.";       
-       }
-}
 ?>
 
 
@@ -66,41 +36,50 @@ if (!empty($_POST)){
 </head>
 <body>
     
-    <div class = "container register-form">
-        <div class="form">
+    <div class="container">
 
-            <div class="note"><h2>Login to your account</h2></div>
-
-            <form action="" method="POST">
-        
-            <?php if(isset($error)): ?>
-                <div class="alert alert-danger" role="alert">
-                    <p><?php echo $error; ?></p>
-                </div>
-            <?php endif; ?>
-
-                <div class="col-md-6">
-                            <div class="form-group">
-                                <input name="email" id="email" type="text" class="form-control" placeholder="Email" value="<?php if(isset($_POST['email'])) echo $_POST['email']; ?>"/>
-                            </div>
-
-                            <div class="form-group">
-                                <input name="password" id="password" type="password" class="form-control" placeholder="Password" value=""/>
-                            </div>                            
-                </div>
-
-                <div>
-                     <button type="submit" class="btnSubmit" style="border-radius:20px; width:150px;">Login</button>
-                     <br>
-                     <input type="checkbox" id="rememberMe"><label for="rememberMe" class="">Remember me</label>
-                     <br>
-                     <a href="">Forgotten password?</a>
-
-                </div>
-
-            </form>
-        </div>
+    <!--Error melding-->
+    <?php if(count($errors) >0):?>
+    <div class="alert alert-danger mt-5">
+        <?php foreach ($errors as $error):?>
+        <?php echo $error; ?> <br>
+        <?php endforeach?>
+    
     </div>
+    <?php endif;?>
+
+        <div class="note">
+            <p>Login</p>
+        </div>
+
+        <form action="" method="POST" >
+            <div class="form-content">
+                <!-- Email veld -->
+                <div class="form-group row col-md-4 text-center">
+                    <input name="email" id="email" type="text" placeholder="Email" value="<?php echo $getEmail['email']?>">
+                </div>
+            
+                <!-- Password veld -->
+                <div class="form-group row col-md-4 text-center">
+                    <input name="passwors" id="passwors" type="text" placeholder="Password" value="<?php echo $getPassword['password']?>">
+                </div>   
+
+                <!--Login button-->
+                <div class="form-group row col-md-4 text-center">
+                    <button type="submit" class="btnSubmit">Login</button>
+                    <br>
+                     <!--onthoud mij checkbox-->   
+                     <input type="checkbox" id="rememberMe"><label for="rememberMe" class="">Remember me</label>
+                    <br>
+                     <!--Password vergeten-->
+                     <a href="">Forgotten password?</a>
+                </div>
+                
+
+            </div>        
+        </form>
+    </div>
+   
 </body>
 <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
 <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
