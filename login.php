@@ -1,8 +1,26 @@
 <?php 
 
+//user email: britt@student.thomasmore.be --- --- --- password: Password123
+
 //klasse en database copy pasten naar hier
 include_once(__DIR__ . "./classes/User.php");
 include_once(__DIR__ . "./classes/Db.php");
+
+//connectie met de database
+function canLogin($email, $password){
+    $conn = Db::getConnection();
+    $statement = $conn->prepare("select * from users where email = '$email'");
+    $statement->execute();
+    $user = $statement->fetchAll(PDO::FETCH_ASSOC);
+    
+    if(password_verify($password, $user['password'])){
+        return true;
+    }else{
+        return false;
+    }
+
+}
+
 
 //Get de User
 $user = new User();
