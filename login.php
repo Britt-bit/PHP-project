@@ -8,7 +8,16 @@ include_once(__DIR__ . "./classes/Db.php");
 $user = new User();
 $getUser = $user->getUserById($_GET['id']);
 
+//Error
+$errors = [];
+
 //Detecteer submit
+if(!empty($_POST)){
+
+
+
+
+}
     //Velden uitlezen in variabelen
     //Validatie: velden mogen niet leeg zijn
     
