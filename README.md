@@ -47,3 +47,5 @@ answer : doen? -> done, is zo idd veel makkelijker voor de rest
 6. class aanmaken voor hashing en aanroepen in user classe adh van OOP
 
 7. $firstname = $this->getFirstname(); is niet nodig mag gewoon $this->firstname zijn
+
+8. $profiletxt -> omzetten naar $bio
