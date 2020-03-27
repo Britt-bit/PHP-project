@@ -18,7 +18,6 @@ function canLogin($email, $password){
     }else{
         return false;
     }
-
 }
 
 
@@ -32,21 +31,27 @@ $errors = [];
 //Detecteer submit
 if(!empty($_POST)){
 
-
-
-
-}
-    //Velden uitlezen in variabelen
+  //Velden uitlezen in variabelen
+  $email = $_POST['email'];
+  $password = $_POST['password'];
     //Validatie: velden mogen niet leeg zijn
-    
+    if(!empty($email) && !empty($password)){
         //Indien OK: login checken
         //Onthouden dat User aangelogd is
         //Redirect naar index.php
 
+        header ("Location: index.php");
+
+    }else{
             //User en password matchen niet
             //Error
-
-            //Indien leeg: error genereren
+            $error="Cannot log you in.";
+    }
+    }else{
+        //Indien leeg: error genereren
+        $error = "Email and password are required.";
+}
+  
 
 ?>
 
