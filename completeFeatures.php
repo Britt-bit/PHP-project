@@ -45,7 +45,7 @@ error_reporting(E_ALL);
 
 
             <h4>wat is je hobby?</h4>
-            <label for="locatie"></label><br>
+            <label for="hobby"></label><br>
             <input type="text" id="hobby" name="hobby" value=""><br><br>
 
             <input type="submit">
