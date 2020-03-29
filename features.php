@@ -14,11 +14,11 @@ error_reporting(E_ALL);
     //insert features
     if(!empty($_POST)){
         $feature = new feature();
-        $feature->setGames($_POST['games']);
-        $feature->setFilms($_POST['film']);
-        $feature->setMuziek($_POST['muziek']);
-        $feature->setVak($_POST['vak']);
-        $feature->setHobby($_POST['hobby']);
+        $feature->setGames(htmlspecialchars($_POST['games']));
+        $feature->setFilms(htmlspecialchars($_POST['film']));
+        $feature->setMuziek(htmlspecialchars($_POST['muziek']));
+        $feature->setVak(htmlspecialchars($_POST['vak']));
+        $feature->setHobby(htmlspecialchars($_POST['hobby']));
 
         $feature->insertFeatures();
     }
