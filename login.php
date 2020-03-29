@@ -3,44 +3,54 @@
 //user email: britt@student.thomasmore.be --- --- --- password: Password123
 
 //klasse en database copy pasten naar hier
-include_once(__DIR__ . "./classes/User.php");
-include_once(__DIR__ . "./classes/Db.php");
+include_once(__DIR__ . "/classes/User.php");
+include_once(__DIR__ . "/classes/Db.php");
 
 //connectie met de database
 function canLogin($email, $password){
-    $conn = Db::getConnection();
-    $statement = $conn->prepare("select * from users where email = '$email'");
-    $statement->execute();
-    $user = $statement->fetchAll(PDO::FETCH_ASSOC);
-    
-    if(password_verify($password, $user['password'])){
+ //   $conn = Db::getConnection();
+ //   $statement = $conn->prepare("SELECT `email`, `password` FROM `user` WHERE email = '$email'");
+ //   $statement->execute();
+ //   $user = $statement->fetchAll(PDO::FETCH_ASSOC);
+ $conn = new mysqli("localhost", "root", "root", "phpProject");
+ $email = $conn->real_escape_string($email);
+ $query = "SELECT `email`, `password` FROM `user` WHERE email = '$email'";
+ $result = $conn->query($query);
+ $user = $result->fetch_assoc();
+ var_dump($user);
+
+
+    if($password == $user['password']){
         return true;
     }else{
         return false;
     }
 }
 
+
 //Get de User
-$user = new User();
-$getUser = $user->getUserById($_GET['id']);
 
 //Error
 $errors = [];
 
 //Detecteer submit
 if(!empty($_POST)){
+    try{
+    $user = new User();
 
   //Velden uitlezen in variabelen
   $email = $_POST['email'];
   $password = $_POST['password'];
+    
     //Validatie: velden mogen niet leeg zijn
     if(!empty($email) && !empty($password)){
-        //Indien OK: login checken
-        //Onthouden dat User aangelogd is
-        //Redirect naar index.php
+        
+        if(canLogin($email, $password)){
+            session_start();
+            $_SESSION['email'] = $email;
 
-        header ("Location: index.php");
 
+            header ("Location: index.php");
     }else{
             //User en password matchen niet
             //Error
@@ -50,7 +60,10 @@ if(!empty($_POST)){
         //Indien leeg: error genereren
         $error = "Email and password are required.";
 }
-  
+} catch(\Throwable $th) {
+    $error = $th->getMessage();
+}
+}
 
 ?>
 
@@ -87,12 +100,12 @@ if(!empty($_POST)){
             <div class="form-content">
                 <!-- Email veld -->
                 <div class="form-group row col-md-4 text-center">
-                    <input name="email" id="email" type="text" placeholder="Email" value="<?php echo $getEmail['email']?>">
+                    <input name="email" id="email" type="text" placeholder="Email" value="<?php if(isset($_POST['email'])) echo $_POST['email']; ?>">
                 </div>
             
                 <!-- Password veld -->
                 <div class="form-group row col-md-4 text-center">
-                    <input name="passwors" id="passwors" type="text" placeholder="Password" value="<?php echo $getPassword['password']?>">
+                    <input name="password" id="password" type="password" placeholder="Password" value="">
                 </div>   
 
                 <!--Login button-->
