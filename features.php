@@ -12,6 +12,7 @@ error_reporting(E_ALL);
 
 
     //insert features
+    //htmlspecialchar
     if(!empty($_POST)){
         $feature = new feature();
         $feature->setGames(htmlspecialchars($_POST['games']));
