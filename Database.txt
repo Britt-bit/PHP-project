@@ -115,17 +115,17 @@ CREATE TABLE `user` (
   `lastname` varchar(300) NOT NULL,
   `email` varchar(300) NOT NULL,
   `password` varchar(300) NOT NULL,
-  `profiletxt` tinytext,
+  `bio` tinytext,
   `features` varchar(300) DEFAULT NULL,
   `buddy` tinyint(1) DEFAULT NULL,
-  `image` text
+  `avatar` text
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
 -- Dumping data for table `user`
 --
 
-INSERT INTO `user` (`user_id`, `firstname`, `lastname`, `email`, `password`, `profiletxt`, `features`, `buddy`) VALUES
+INSERT INTO `user` (`user_id`, `firstname`, `lastname`, `email`, `password`, `bio`, `features`, `buddy`) VALUES
 (19, 'Britt', 'Van der Linden', 'britt@student.thomasmore.be', 'Password123', NULL, NULL, 0);
 
 --
