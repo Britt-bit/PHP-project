@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost:3306
--- Generation Time: Mar 20, 2020 at 12:51 PM
+-- Generation Time: Mar 29, 2020 at 06:34 PM
 -- Server version: 5.7.25
 -- PHP Version: 7.3.1
 
@@ -51,6 +51,21 @@ CREATE TABLE `faq` (
   `faq_id` int(11) NOT NULL,
   `post_id` int(11) NOT NULL,
   `category_id` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `features`
+--
+
+CREATE TABLE `features` (
+  `user_id` int(11) NOT NULL,
+  `games` varchar(300) NOT NULL,
+  `films` varchar(300) NOT NULL,
+  `muziek` varchar(300) NOT NULL,
+  `vak` varchar(300) NOT NULL,
+  `hobby` varchar(300) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------
@@ -125,8 +140,8 @@ CREATE TABLE `user` (
 -- Dumping data for table `user`
 --
 
-INSERT INTO `user` (`user_id`, `firstname`, `lastname`, `email`, `password`, `bio`, `features`, `buddy`) VALUES
-(19, 'Britt', 'Van der Linden', 'britt@student.thomasmore.be', 'Password123', NULL, NULL, 0);
+INSERT INTO `user` (`user_id`, `firstname`, `lastname`, `email`, `password`, `bio`, `features`, `buddy`, `avatar`) VALUES
+(61, 'Britt', 'Van der Linden', 'britt@student.thomasmore.be', '$2y$12$0Jzq76eJDhva1mVftFwb/Oi4rySCZusvr0Ata55Luyr4sH.SN7fWi', 'I dont know what to write', NULL, NULL, 'images/uploads/default.png');
 
 --
 -- Indexes for dumped tables
@@ -137,6 +152,12 @@ INSERT INTO `user` (`user_id`, `firstname`, `lastname`, `email`, `password`, `bi
 --
 ALTER TABLE `buddy`
   ADD PRIMARY KEY (`buddy_id`);
+
+--
+-- Indexes for table `features`
+--
+ALTER TABLE `features`
+  ADD PRIMARY KEY (`user_id`);
 
 --
 -- Indexes for table `post`
@@ -167,6 +188,12 @@ ALTER TABLE `buddy`
   MODIFY `buddy_id` int(11) NOT NULL AUTO_INCREMENT;
 
 --
+-- AUTO_INCREMENT for table `features`
+--
+ALTER TABLE `features`
+  MODIFY `user_id` int(11) NOT NULL AUTO_INCREMENT;
+
+--
 -- AUTO_INCREMENT for table `post`
 --
 ALTER TABLE `post`
@@ -182,4 +209,4 @@ ALTER TABLE `replies`
 -- AUTO_INCREMENT for table `user`
 --
 ALTER TABLE `user`
-  MODIFY `user_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=20;
+  MODIFY `user_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=74;
