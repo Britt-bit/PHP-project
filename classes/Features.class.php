@@ -125,6 +125,7 @@ include_once(__DIR__ . "/User.php");
                     $statement = $conn->prepare("SELECT user_id FROM user WHERE email = '".$_SESSION['email']."'");
                     $statement->execute();
                     $id = $statement->fetch(PDO::FETCH_COLUMN);
+                    
 
                     $statement = $conn->prepare("insert into features (user_id, games, films, muziek, vak, hobby) values (:id, :games, :film, :muziek, :vak, :hobby)");
 
@@ -142,7 +143,8 @@ include_once(__DIR__ . "/User.php");
                     $statement->bindValue(":film", $film);
                     $statement->bindValue(":muziek", $muziek);
         
-                    $result = $statement->execute();
+                    $statement->execute();
+
 
         
             }
@@ -171,7 +173,7 @@ include_once(__DIR__ . "/User.php");
 
                         $statement = $conn->prepare("SELECT user_id FROM user WHERE email = '".$_SESSION['email']."'");
                         $statement->execute();
-                         $id = $statement->fetch(PDO::FETCH_COLUMN);
+                        $id = $statement->fetch(PDO::FETCH_COLUMN);
                     
                         $statement = $conn->prepare("SELECT games, films, muziek, vak FROM features WHERE user_id = :id");
                         $statement->bindValue(":id", $id);
@@ -197,7 +199,8 @@ include_once(__DIR__ . "/User.php");
                         $statement->bindValue(":id", $id);
                         $statement->bindValue(":hobby", $hobby);
                     
-                        $result = $statement->execute();
+                        $statement->execute();
+                        
             
                     
                         }
