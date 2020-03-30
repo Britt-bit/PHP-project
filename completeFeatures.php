@@ -19,6 +19,7 @@ error_reporting(E_ALL);
         $feature->setHobby($_POST['hobby']);
 
         $feature->insertHobby();
+        header("Location: index.php");
     }
 
 ?>
