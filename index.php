@@ -30,8 +30,8 @@ ini_set('display_errors', 1);
     //check of user features al ingevuld heeft. zoniet->redirect naar invulformulier
     $checkFeatures = feature::checkFeatures();
     if ($checkFeatures == false){
-        echo"features nog niet ingevuld";
-        //header("Location: features.php");
+        //echo"features nog niet ingevuld";
+        header("Location: features.php");
         exit();
     }
 
