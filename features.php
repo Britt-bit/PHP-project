@@ -22,6 +22,7 @@ error_reporting(E_ALL);
         $feature->setHobby(htmlspecialchars($_POST['hobby']));
 
         $feature->insertFeatures();
+        header("Location: index.php");
     }
 
 ?>
@@ -43,7 +44,7 @@ error_reporting(E_ALL);
                 
         </div>
 
-        <form action="index.php" method="post">
+        <form action="" method="post">
   
  
             <h4>Wat voor soort games speelt u graag?</h4>
@@ -91,7 +92,7 @@ error_reporting(E_ALL);
             <label for="hobby"></label><br>
             <input type="text" id="hobby" name="hobby" value=""><br><br>
 
-            <input type="submit">
+            <button type="submit" class="btnSubmit">Vervolledig profiel</button>
             </form>
 
     </div>
