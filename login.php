@@ -83,6 +83,7 @@ if(!empty($_POST)){
     <div class="container">
 
     <!--Error melding-->
+<<<<<<< Updated upstream
     <?php if(count($errors) >0):?>
     <div class="alert alert-danger mt-5">
         <?php foreach ($errors as $error):?>
@@ -91,6 +92,16 @@ if(!empty($_POST)){
     
     </div>
     <?php endif;?>
+=======
+    <?php if( isset($error) ): ?>
+				    <div class="alert alert-danger" role="alert">
+					    <p>
+						    <?php echo $error; ?>
+					    </p>
+				    </div>
+				<?php endif; ?>
+                </div>
+>>>>>>> Stashed changes
 
         <div class="note">
             <p>Login</p>
