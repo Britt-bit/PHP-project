@@ -21,7 +21,12 @@ function canLogin($email, $password){
 
  //var_dump($user);
 
- 
+ //Gehashte password, unhashen
+ if(password_verify($password, $user['password'])){
+    return true;
+    }else{
+        return false;
+    }
 
 
     if($password == $user['password']){
@@ -39,6 +44,8 @@ $errors = [];
 
 //Detecteer submit
 if(!empty($_POST)){
+
+
     try{
     $user = new User();
 
@@ -54,6 +61,7 @@ if(!empty($_POST)){
             $_SESSION['email'] = $email;
 
             header ("Location: index.php");
+
     }else{
             //User en password matchen niet
             //Error
@@ -67,6 +75,9 @@ if(!empty($_POST)){
     $error = $th->getMessage();
 }
 }
+
+
+
 
 ?>
 
