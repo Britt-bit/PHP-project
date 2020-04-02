@@ -12,12 +12,15 @@ function canLogin($email, $password){
  //   $statement = $conn->prepare("SELECT `email`, `password` FROM `user` WHERE email = '$email'");
  //   $statement->execute();
  //   $user = $statement->fetchAll(PDO::FETCH_ASSOC);
+
  $conn = new mysqli("localhost", "root", "root", "phpProject");
  $email = $conn->real_escape_string($email);
  $query = "SELECT `email`, `password` FROM `user` WHERE email = '$email'";
  $result = $conn->query($query);
  $user = $result->fetch_assoc();
- var_dump($user);
+
+ //var_dump($user);
+
 
 
     if($password == $user['password']){
@@ -48,7 +51,6 @@ if(!empty($_POST)){
         if(canLogin($email, $password)){
             session_start();
             $_SESSION['email'] = $email;
-
 
             header ("Location: index.php");
     }else{
@@ -83,14 +85,15 @@ if(!empty($_POST)){
     <div class="container">
 
     <!--Error melding-->
-    <?php if(count($errors) >0):?>
-    <div class="alert alert-danger mt-5">
-        <?php foreach ($errors as $error):?>
-        <?php echo $error; ?> <br>
-        <?php endforeach?>
-    
-    </div>
-    <?php endif;?>
+    <?php if( isset($error) ): ?>
+		<div class="alert alert-danger" role="alert">
+		    <p>
+		    <?php echo $error; ?>
+		    </p>
+	    </div>
+	<?php endif;?>
+        </div>
+
 
         <div class="note">
             <p>Login</p>
@@ -105,7 +108,10 @@ if(!empty($_POST)){
             
                 <!-- Password veld -->
                 <div class="form-group row col-md-4 text-center">
+
+
                     <input name="password" id="password" type="password" placeholder="Password" value="">
+
                 </div>   
 
                 <!--Login button-->

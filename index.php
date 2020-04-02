@@ -25,7 +25,6 @@ ini_set('display_errors', 1);
     <a class="nav-link" href="profile.php?id=<?php $_SESSION['user'][0] ?>">Profile</a>
     
 
-
     <?php 
     //check of user features al ingevuld heeft. zoniet->redirect naar invulformulier
     $checkFeatures = feature::checkFeatures();
@@ -34,6 +33,7 @@ ini_set('display_errors', 1);
         header("Location: features.php");
         exit();
     }
+
 
     // laten zien wanneer hobby nog niet is ingevuld 
     $hobby = feature::hobby();
