@@ -78,6 +78,9 @@ if(!empty($_POST)){
 }
 }
 
+
+
+
 ?>
  
  
@@ -122,19 +125,11 @@ if(!empty($_POST)){
                     </div>
            
                 <!-- Password veld -->
-<<<<<<< HEAD
 
                     <div class="form-group col-md-6">
                         <input name="password" id="password" type="password" placeholder="Password" class= "form-control"  value="">
                     </div>     
 
-=======
- 
-                    <div class="form-group col-md-6">
-                        <input name="password" id="password" type="password" placeholder="Password" class= "form-control"  value="">
-                    </div>    
- 
->>>>>>> 6eff45107694982813469976d8cfd5b299b59c7b
                 <!--Login button-->
                     <div class="form-group col-md-6">
                         <button type="submit" class="btnSubmit" style="border-radius: 20px; width: 150px;" >Login</button>
