@@ -1,25 +1,26 @@
-<?php 
-
+<?php
+ 
 //user email: britt@student.thomasmore.be --- --- --- password: Password123
-
+ 
 //klasse en database copy pasten naar hier
 include_once(__DIR__ . "/classes/User.php");
 include_once(__DIR__ . "/classes/Db.php");
-
+ 
 //connectie met de database
 function canLogin($email, $password){
  //   $conn = Db::getConnection();
  //   $statement = $conn->prepare("SELECT `email`, `password` FROM `user` WHERE email = '$email'");
  //   $statement->execute();
  //   $user = $statement->fetchAll(PDO::FETCH_ASSOC);
-
+ 
  $conn = new mysqli("localhost", "root", "root", "phpProject");
  $email = $conn->real_escape_string($email);
  $query = "SELECT `email`, `password` FROM `user` WHERE email = '$email'";
  $result = $conn->query($query);
  $user = $result->fetch_assoc();
-
+ 
  //var_dump($user);
+
 
  //Gehashte password, unhashen
  if(password_verify($password, $user['password'])){
@@ -29,37 +30,38 @@ function canLogin($email, $password){
     }
 
 
+
     if($password == $user['password']){
         return true;
     }else{
         return false;
     }
 }
-
-
+ 
+ 
 //Get de User
-
+ 
 //Error
 $errors = [];
-
+ 
 //Detecteer submit
 if(!empty($_POST)){
 
 
     try{
     $user = new User();
-
+ 
   //Velden uitlezen in variabelen
   $email = $_POST['email'];
   $password = $_POST['password'];
-    
+   
     //Validatie: velden mogen niet leeg zijn
     if(!empty($email) && !empty($password)){
-        
+       
         if(canLogin($email, $password)){
             session_start();
             $_SESSION['email'] = $email;
-
+ 
             header ("Location: index.php");
 
     }else{
@@ -76,12 +78,9 @@ if(!empty($_POST)){
 }
 }
 
-
-
-
 ?>
-
-
+ 
+ 
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -93,24 +92,24 @@ if(!empty($_POST)){
     <title>Login</title>
 </head>
 <body>
-    
-
-
+   
+ 
+ 
 <div class="container register-form">
   <div class="form"></div>
     <!--Error melding-->
     <?php if( isset($error) ): ?>
-		<div class="alert alert-danger" role="alert">
-		    <p>
-		    <?php echo $error; ?>
-		    </p>
-	    </div>
-	<?php endif;?>
+        <div class="alert alert-danger" role="alert">
+            <p>
+            <?php echo $error; ?>
+            </p>
         </div>
-
-
-
-
+    <?php endif;?>
+        </div>
+ 
+ 
+ 
+ 
         <form action="" method="POST">
             <div class="form-content">  
             <div class="col-md-6">
@@ -121,18 +120,26 @@ if(!empty($_POST)){
                     <div class="form-group col-md-6">
                         <input name="email" id="email" type="text" placeholder="Email" class= "form-control" value="<?php if(isset($_POST['email'])) echo $_POST['email']; ?>">
                     </div>
-            
+           
                 <!-- Password veld -->
+<<<<<<< HEAD
 
                     <div class="form-group col-md-6">
                         <input name="password" id="password" type="password" placeholder="Password" class= "form-control"  value="">
                     </div>     
 
+=======
+ 
+                    <div class="form-group col-md-6">
+                        <input name="password" id="password" type="password" placeholder="Password" class= "form-control"  value="">
+                    </div>    
+ 
+>>>>>>> 6eff45107694982813469976d8cfd5b299b59c7b
                 <!--Login button-->
                     <div class="form-group col-md-6">
                         <button type="submit" class="btnSubmit" style="border-radius: 20px; width: 150px;" >Login</button>
                         <br><br>
-                        <!--onthoud mij checkbox-->   
+                        <!--onthoud mij checkbox-->  
                         <input type="checkbox" id="rememberMe"><label for="rememberMe" class="">Remember me</label>
                         <br>
                         <!--Password vergeten-->
@@ -141,16 +148,16 @@ if(!empty($_POST)){
                         <!--Nog geen account?-->
                         <p>You don't have an account yet? <a href="register.php">Register.</a></p>    
                     </div>
-                </div> 
+                </div>
             </div>        
         </form>
     </div>
 </div>
    
-        
-
-
-      
+       
+ 
+ 
+     
     </div>
    
 </body>
