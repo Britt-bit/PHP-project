@@ -113,14 +113,13 @@ if(!empty($_POST)){
                 <!--Login button-->
                 <div class="form-group row col-md-4 text-center">
                     <button type="submit" class="btnSubmit">Login</button>
-                    <br>
+                </div>
+                <br>
                      <!--onthoud mij checkbox-->   
                      <input type="checkbox" id="rememberMe"><label for="rememberMe" class="">Remember me</label>
                     <br>
                      <!--Password vergeten-->
                      <a href="">Forgotten password?</a>
-                </div>
-                
 
             </div>        
         </form>
