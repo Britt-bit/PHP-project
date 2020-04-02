@@ -21,7 +21,6 @@ function canLogin($email, $password){
  
  //var_dump($user);
 
-
  //Gehashte password, unhashen
  if(password_verify($password, $user['password'])){
     return true;
