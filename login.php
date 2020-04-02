@@ -20,6 +20,7 @@ function canLogin($email, $password){
  $user = $result->fetch_assoc();
  //var_dump($user);
 
+ 
 
     if($password == $user['password']){
         return true;
@@ -81,8 +82,10 @@ if(!empty($_POST)){
 </head>
 <body>
     
-    <div class="container">
 
+
+<div class="container register-form">
+  <div class="form"></div>
     <!--Error melding-->
     <?php if( isset($error) ): ?>
 		<div class="alert alert-danger" role="alert">
@@ -94,35 +97,47 @@ if(!empty($_POST)){
         </div>
 
 
-        <div class="note">
-            <p>Login</p>
-        </div>
 
-        <form action="" method="POST" >
-            <div class="form-content">
+
+        <form action="" method="POST">
+            <div class="form-content">  
+            <div class="col-md-6">
+                    <div class="note col-md-6">
+                    <p>Login</p>
+                    </div>  
                 <!-- Email veld -->
-                <div class="form-group row col-md-4 text-center">
-                    <input name="email" id="email" type="text" placeholder="Email" value="<?php if(isset($_POST['email'])) echo $_POST['email']; ?>">
-                </div>
+                    <div class="form-group col-md-6">
+                        <input name="email" id="email" type="text" placeholder="Email" class= "form-control" value="<?php if(isset($_POST['email'])) echo $_POST['email']; ?>">
+                    </div>
             
                 <!-- Password veld -->
-                <div class="form-group row col-md-4 text-center">
-                    <input name="password" id="password" type="text" placeholder="Password" value="">
-                </div>   
+                    <div class="form-group col-md-6">
+                        <input name="password" id="password" type="password" placeholder="Password" class= "form-control"  value="">
+                    </div>   
 
                 <!--Login button-->
-                <div class="form-group row col-md-4 text-center">
-                    <button type="submit" class="btnSubmit">Login</button>
-                </div>
-                <br>
-                     <!--onthoud mij checkbox-->   
-                     <input type="checkbox" id="rememberMe"><label for="rememberMe" class="">Remember me</label>
-                    <br>
-                     <!--Password vergeten-->
-                     <a href="">Forgotten password?</a>
-
+                    <div class="form-group col-md-6">
+                        <button type="submit" class="btnSubmit" style="border-radius: 20px; width: 150px;" >Login</button>
+                        <br><br>
+                        <!--onthoud mij checkbox-->   
+                        <input type="checkbox" id="rememberMe"><label for="rememberMe" class="">Remember me</label>
+                        <br>
+                        <!--Password vergeten-->
+                        <!--<a href="">Forgot password?</a>
+                        <br> -->
+                        <!--Nog geen account?-->
+                        <p>You don't have an account yet? <a href="register.php">Register.</a></p>    
+                    </div>
+                </div> 
             </div>        
         </form>
+    </div>
+</div>
+   
+        
+
+
+      
     </div>
    
 </body>
