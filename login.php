@@ -18,7 +18,9 @@ function canLogin($email, $password){
  $query = "SELECT `email`, `password` FROM `user` WHERE email = '$email'";
  $result = $conn->query($query);
  $user = $result->fetch_assoc();
+
  //var_dump($user);
+
 
 
     if($password == $user['password']){
@@ -50,7 +52,6 @@ if(!empty($_POST)){
             session_start();
             $_SESSION['email'] = $email;
 
-            
             header ("Location: index.php");
     }else{
             //User en password matchen niet
@@ -107,7 +108,10 @@ if(!empty($_POST)){
             
                 <!-- Password veld -->
                 <div class="form-group row col-md-4 text-center">
-                    <input name="password" id="password" type="text" placeholder="Password" value="">
+
+
+                    <input name="password" id="password" type="password" placeholder="Password" value="">
+
                 </div>   
 
                 <!--Login button-->
