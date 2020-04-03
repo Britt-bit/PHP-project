@@ -1,46 +1,59 @@
-<?php 
-
+<?php
+ 
 //user email: britt@student.thomasmore.be --- --- --- password: Password123
-
+ 
 //klasse en database copy pasten naar hier
-include_once(__DIR__ . "./classes/User.php");
-include_once(__DIR__ . "./classes/Db.php");
-
+include_once(__DIR__ . "/classes/User.php");
+include_once(__DIR__ . "/classes/Db.php");
+ 
 //connectie met de database
 function canLogin($email, $password){
-    $conn = Db::getConnection();
-    $statement = $conn->prepare("select * from users where email = '$email'");
-    $statement->execute();
-    $user = $statement->fetchAll(PDO::FETCH_ASSOC);
-    
+ //   $conn = Db::getConnection();
+ //   $statement = $conn->prepare("SELECT `email`, `password` FROM `user` WHERE email = '$email'");
+ //   $statement->execute();
+ //   $user = $statement->fetchAll(PDO::FETCH_ASSOC);
+ 
+ $conn = new mysqli("localhost", "root", "root", "phpProject");
+ $email = $conn->real_escape_string($email);
+ $query = "SELECT `email`, `password` FROM `user` WHERE email = '$email'";
+ $result = $conn->query($query);
+ $user = $result->fetch_assoc();
+ 
+ //var_dump($user);
+ 
+ 
+ 
+ 
     if(password_verify($password, $user['password'])){
         return true;
     }else{
         return false;
     }
 }
-
+ 
+ 
 //Get de User
-$user = new User();
-$getUser = $user->getUserById($_GET['id']);
-
+ 
 //Error
 $errors = [];
-
+ 
 //Detecteer submit
 if(!empty($_POST)){
-
+    try{
+    $user = new User();
+ 
   //Velden uitlezen in variabelen
   $email = $_POST['email'];
   $password = $_POST['password'];
+   
     //Validatie: velden mogen niet leeg zijn
     if(!empty($email) && !empty($password)){
-        //Indien OK: login checken
-        //Onthouden dat User aangelogd is
-        //Redirect naar index.php
-
-        header ("Location: index.php");
-
+       
+        if(canLogin($email, $password)){
+            session_start();
+            $_SESSION['email'] = $email;
+ 
+            header ("Location: index.php");
     }else{
             //User en password matchen niet
             //Error
@@ -50,11 +63,14 @@ if(!empty($_POST)){
         //Indien leeg: error genereren
         $error = "Email and password are required.";
 }
-  
-
+} catch(\Throwable $th) {
+    $error = $th->getMessage();
+}
+}
+ 
 ?>
-
-
+ 
+ 
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -66,49 +82,64 @@ if(!empty($_POST)){
     <title>Login</title>
 </head>
 <body>
-    
-    <div class="container">
-
+   
+ 
+ 
+<div class="container register-form">
+  <div class="form"></div>
     <!--Error melding-->
-    <?php if(count($errors) >0):?>
-    <div class="alert alert-danger mt-5">
-        <?php foreach ($errors as $error):?>
-        <?php echo $error; ?> <br>
-        <?php endforeach?>
-    
-    </div>
-    <?php endif;?>
-
-        <div class="note">
-            <p>Login</p>
+    <?php if( isset($error) ): ?>
+        <div class="alert alert-danger" role="alert">
+            <p>
+            <?php echo $error; ?>
+            </p>
         </div>
+    <?php endif;?>
+        </div>
+ 
+ 
 
-        <form action="" method="POST" >
-            <div class="form-content">
+ 
+        <form action="" method="POST">
+            <div class="form-content">  
+            <div class="col-md-6">
+                    <div class="note col-md-6">
+                    <p>Login</p>
+                    </div>  
                 <!-- Email veld -->
-                <div class="form-group row col-md-4 text-center">
-                    <input name="email" id="email" type="text" placeholder="Email" value="<?php echo $getEmail['email']?>">
-                </div>
-            
+                    <div class="form-group col-md-6">
+                        <input name="email" id="email" type="text" placeholder="Email" class= "form-control" value="<?php if(isset($_POST['email'])) echo $_POST['email']; ?>">
+                    </div>
+           
                 <!-- Password veld -->
-                <div class="form-group row col-md-4 text-center">
-                    <input name="passwors" id="passwors" type="text" placeholder="Password" value="<?php echo $getPassword['password']?>">
-                </div>   
-
+ 
+                    <div class="form-group col-md-6">
+                        <input name="password" id="password" type="password" placeholder="Password" class= "form-control"  value="">
+                    </div>    
+ 
                 <!--Login button-->
-                <div class="form-group row col-md-4 text-center">
-                    <button type="submit" class="btnSubmit">Login</button>
-                    <br>
-                     <!--onthoud mij checkbox-->   
-                     <input type="checkbox" id="rememberMe"><label for="rememberMe" class="">Remember me</label>
-                    <br>
-                     <!--Password vergeten-->
-                     <a href="">Forgotten password?</a>
+                    <div class="form-group col-md-6">
+                        <button type="submit" class="btnSubmit" style="border-radius: 20px; width: 150px;" >Login</button>
+                        <br><br>
+                        <!--onthoud mij checkbox-->  
+                        <input type="checkbox" id="rememberMe"><label for="rememberMe" class="">Remember me</label>
+                        <br>
+                        <!--Password vergeten-->
+                        <!--<a href="">Forgot password?</a>
+                        <br> -->
+                        <!--Nog geen account?-->
+                        <p>You don't have an account yet? <a href="register.php">Register.</a></p>    
+                    </div>
                 </div>
-                
-
             </div>        
         </form>
+    </div>
+</div>
+   
+       
+ 
+ 
+     
     </div>
    
 </body>

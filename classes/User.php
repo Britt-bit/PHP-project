@@ -5,9 +5,10 @@ include_once(__DIR__ . "/Db.php");
         private $firstname;
         private $lastname;
         private $email;
+        private $avatar;
+        private $bio;
         private $password;
-        private $image;
-        private $profiletxt;
+        private $newpassword;
 
         /**
          * Get the value of firstname
@@ -71,8 +72,6 @@ include_once(__DIR__ . "/Db.php");
 
         public function setEmail($email)
         {
-
-
             if(empty($email)){
                 throw new Exception("Email cannot be empty");
             } 
@@ -108,40 +107,62 @@ include_once(__DIR__ . "/Db.php");
 
 
         /**
-         * Get the value of image
+         * Get the value of avatar
          */ 
-        public function getImage()
+        public function getAvatar()
         {
-                return $this->image;
+                return $this->avatar;
         }
-                /**
-         * Set the value of image
+
+        /**
+         * Set the value of avatar
          *
          * @return  self
          */ 
-        public function setImage($image)
+        public function setAvatar($avatar)
         {
-                $this->image = $image;
+                $this->avatar = $avatar;
 
                 return $this;
         }
 
-              /**
-         * Get the value of profiletxt
+        /**
+         * Get the value of bio
          */ 
-        public function getProfiletxt()
+        public function getBio()
         {
-                return $this->profiletxt;
+                return $this->bio;
         }
 
         /**
-         * Set the value of profiletxt
+         * Set the value of bio
          *
          * @return  self
          */ 
-        public function setProfiletxt($profiletxt)
+        public function setBio($bio)
         {
-                $this->profiletxt = $profiletxt;
+                $this->bio = $bio;
+
+                return $this;
+        }
+
+
+         /**
+         * Get the value of newpassword
+         */ 
+        public function getNewpassword()
+        {
+                return $this->newpassword;
+        }
+
+        /**
+         * Set the value of newpassword
+         *
+         * @return  self
+         */ 
+        public function setNewpassword($newpassword)
+        {
+                $this->newpassword = $newpassword;
 
                 return $this;
         }
@@ -150,21 +171,21 @@ include_once(__DIR__ . "/Db.php");
         public function saveUser(){
             $conn = Db::getConnection();
 
-            $statement = $conn->prepare("insert into user (firstname, lastname, email, password, image, profiletxt) values (:firstname, :lastname, :email, :password, :image, :profiletxt)");
+            $statement = $conn->prepare("insert into user (firstname, lastname, email, password, avatar, bio) values (:firstname, :lastname, :email, :password, :avatar, :bio)");
 
             $firstname = $this->getFirstname();
             $lastname = $this->getLastname();
             $email = $this->getEmail();
             $password = $this->getPassword();
-            $image = $this->getImage();
-            $profiletxt = $this->getProfiletxt();
+            $avatar = $this->getAvatar();
+            $bio = $this->getBio();
 
             $statement->bindValue(":firstname", $firstname);
             $statement->bindValue(":lastname", $lastname);
             $statement->bindValue(":email", $email);
             $statement->bindValue(":password", $password);
-            $statement->bindValue(":image", $image);
-            $statement->bindValue(":profiletxt", $profiletxt);
+            $statement->bindValue(":avatar", $avatar);
+            $statement->bindValue(":bio", $bio);
 
             $result = $statement->execute();
 
@@ -194,13 +215,78 @@ include_once(__DIR__ . "/Db.php");
             return $row;
         }
 
-        public function passwordHash(){
+        function getUserById($id){
+            $conn = Db::getConnection();
+            $statement = $conn->prepare('select * from user where id = :id');
+            $statement->bindParam(':id', $id);
+            $statement->execute();
+            $result = $statement->fetch();
+            return $result;
+        }
+        function updateUser()
+        {
+               if (move_uploaded_file($_FILES["avatar"]["tmp_name"], $this->avatar)) {
+                    $conn = Db::getConnection();
+                    $statement = $conn->prepare("update user set firstname= :firstname, lastname= :lastname, email= :email, avatar= :avatar, bio= :bio");
+                    $statement->bindParam(":firstname", $this->firstname);
+                    $statement->bindParam(":lastname", $this->lastname);
+                    $statement->bindParam(":email", $this->email);
+                    $statement->bindParam(":avatar", $this->avatar);
+                    $statement->bindParam(":bio", $this->bio);
+
+                    $statement->execute();
+               }else {
+                    $conn = Db::getConnection();
+                    $statement = $conn->prepare("update user set firstname= :firstname, lastname= :lastname, email= :email, bio= :bio");
+                    $statement->bindParam(":firstname", $this->firstname);
+                    $statement->bindParam(":lastname", $this->lastname);
+                    $statement->bindParam(":email", $this->email);
+                    $statement->bindParam(":bio", $this->bio);
+
+                    $statement->execute();
+               }
+            
+        }
+        function updatePassword()
+        {
+            
+            $conn = Db::getConnection();
+            $statement = $conn->prepare("UPDATE user SET password= :password");
+            $statement->bindParam(":password", $this->newpassword);
+
+            $statement->execute();
+        }
+        function passwordCheck($id, $password)
+        {
+            $user = self::getUserById($id);
+
+            if ($password == $user['password']) {
+                return true;
+            }
+            else{
+                return false;
+            }
+            
+        }
+
+     
+
+        function loggedInUsername($row) { 
+            $conn = Db::getConnection();
+            $sql = $conn->prepare("SELECT firstname, lastname FROM user WHERE user_id = :id");
+            $stmt = $conn->prepare($sql); // prepare the query
+            $stmt->bindParam(':id', $_SESSION['user_id']); // assign the parameter
+            $result = $stmt->execute(); // execute the query
+            $row = $result->fetchColumn(); // only one column produced by query
+            return $row;
+          }
+
+
+          
+
+        public function passwordHash($password){
 
             $password = password_hash($_POST['password'], PASSWORD_DEFAULT, ["cost" => 12]);
             return $password;
         }
-
-    
-
-
     }
