@@ -12,15 +12,19 @@ error_reporting(E_ALL); */
     $errors = [];
     if (!empty($_POST)) {
         /* image info */
+	/* locatie waar images opgeslagen worden + naam images */
         $target_dir = "images/uploads/";
         $target_file = $target_dir . $_FILES['avatar']['name'];
         $uploadOk = 1;
+	/* PATHINFO_EXTENSION - geeft alleen extensie terug */
         $imageFileType = strtolower(pathinfo($target_file, PATHINFO_EXTENSION));
         if (!empty($_POST['avatar'])) {
+	/* max filesize */
             if ($_FILES["avatar"]["size"] > 2000000) {
                 $errors [] = "Sorry, your file is too large.";
                 $uploadOk = 0;
             }
+	/* toegestane filetypes */
             if ($imageFileType != "jpg" && $imageFileType != "png" && $imageFileType != "jpeg") {
                 $errors []= "Sorry, only JPG, JPEG & PNG files are allowed.";
                 $uploadOk = 0;
@@ -29,6 +33,7 @@ error_reporting(E_ALL); */
                 $errors [] = "Upload has failed";
             }
         }
+	
         if (count($errors) == 0) {
             try {
                 $user = new User();
