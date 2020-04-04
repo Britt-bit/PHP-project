@@ -10,6 +10,12 @@ include_once(__DIR__ ."/classes/Match.php");
 //error_reporting(E_ALL);
 //ini_set('display_errors', 1);
 
+if(isset($_POST["chat"])){
+    var_dump($id);
+    var_dump("you clicked me");
+}
+
+
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -22,6 +28,7 @@ include_once(__DIR__ ."/classes/Match.php");
 
     <h1>My matches</h1>
 
+    <form method="post">
     <table>
         <tr>
             <!-- Alle mogelijke matches oplijsten
@@ -31,6 +38,10 @@ include_once(__DIR__ ."/classes/Match.php");
         while($yourFeature = $statement->fetch( PDO::FETCH_ASSOC )){ 
             //loopen over alle mogelijke gebruikers in de database
             for ($counter = 0; $yourFeature = $statement->fetch( PDO::FETCH_ASSOC ); ++$counter){
+                
+                
+                
+
                 $yourGame = $yourFeature['games']; 
                 $yourFilm = $yourFeature['films'];
                 $yourMusic = $yourFeature['muziek']; 
@@ -38,6 +49,13 @@ include_once(__DIR__ ."/classes/Match.php");
                 $yourHobby = $yourFeature['hobby']; 
                 $yourName = $yourFeature['firstname'];
                 $yourLastname = $yourFeature['lastname'];
+                $yourEmail = $yourFeature['email'];
+
+                $stmt = $conn->query("SELECT `user_id` FROM `user` WHERE email = '$yourEmail'");
+                $stmt->execute();
+                $id = $stmt->fetch(PDO::FETCH_COLUMN);
+
+               
       
                 //al deze features in een 2de array zetten
             $yourFeatureArray = array($yourGame, $yourFilm, $yourMusic, $yourCourse, $yourHobby);
@@ -59,7 +77,7 @@ include_once(__DIR__ ."/classes/Match.php");
                 ?>
             </tr>
             <tr>
-                <button type="submit" class="btnSubmit">Chat</button>
+                <button type="submit" name="chat" id="chat" class="btnSubmit"><?php echo "Chat " . $id ?></button>
             </tr>
             <?php
             } else if(count($result) === 4){
@@ -72,7 +90,7 @@ include_once(__DIR__ ."/classes/Match.php");
                 ?>
             </tr>
             <tr>
-                <button type="submit" class="btnSubmit">Chat</button>
+                <button type="submit" name="chat" id="chat" class="btnSubmit"><?php echo "Chat " . $id ?></button>
             </tr>
             <?php
             } else if(count($result) === 3){
@@ -85,7 +103,7 @@ include_once(__DIR__ ."/classes/Match.php");
                 ?>
             </tr>
             <tr>
-                <button type="submit" class="btnSubmit">Chat</button>
+                <button type="submit" name="chat" id="chat" class="btnSubmit"><?php echo "Chat " . $id ?></button>
             </tr>
             <?php
             }
@@ -94,10 +112,11 @@ include_once(__DIR__ ."/classes/Match.php");
         }
     }
     ?>
+   
         
     </table>
 
-
+    </form>
  
 </body>
 </html>

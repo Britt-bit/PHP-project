@@ -27,7 +27,7 @@ include_once(__DIR__ . "/Db.php");
 
 
       //features van alle andere gebruikers ophalen
-      $statement = $conn->query("SELECT `games`, `films`, `muziek`, `vak`, `hobby`, `firstname`, `lastname` FROM `features`, `user` WHERE features.user_id = user.user_id");
+      $statement = $conn->query("SELECT `games`, `films`, `muziek`, `vak`, `hobby`, `firstname`, `lastname`, `email` FROM `features`, `user` WHERE features.user_id = user.user_id");
       $statement->execute();
       //var_dump($myFeatures);
 
