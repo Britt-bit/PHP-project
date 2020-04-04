@@ -146,7 +146,6 @@ include_once(__DIR__ . "/Db.php");
                 return $this;
         }
 
-
          /**
          * Get the value of newpassword
          */ 
@@ -210,14 +209,14 @@ include_once(__DIR__ . "/Db.php");
             $check_email = ("SELECT email FROM user WHERE email='$email'");
 
             foreach ($conn->query($check_email) as $row){
-                 $row['email'];
+                print $row['email'];
             }
             return $row;
         }
-
+        /* update user */
         function getUserById($id){
             $conn = Db::getConnection();
-            $statement = $conn->prepare('select * from user where id = :id');
+            $statement = $conn->prepare('select * from user where user_id = :id');
             $statement->bindParam(':id', $id);
             $statement->execute();
             $result = $statement->fetch();

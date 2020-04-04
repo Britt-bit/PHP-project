@@ -11,17 +11,17 @@ error_reporting(E_ALL);
     /* Error */
     $errors = [];
     /* password update */
-/* als form niet leeg en niew wachtwoord = gelijk aan confirm password en passwordCheck is true => setNewpassword */
-if (!empty($_POST)) {
+
+    if (!empty($_POST)) {
         if ($_POST["newPassword"] == $_POST["confirmPassword"]) {
             try {
-                $password = $user->setPassword($user->passwordHash($_POST['password']));
-                if ($user->passwordCheck($_GET['id'], $password)) {
+                if (password_verify($_POST['password'], $getUser['password'])) {
                     $user->setNewpassword($_POST['newPassword']);
                     $user->updatePassword();
+                    header('location: profile.php?id='.$_GET['id'] );
                 }
                 else {
-                    $errors[] = 'Password not updated';
+                    $errors[] = 'Old password was incorrect';
                 }
 
                 $user->updatePassword();
@@ -45,7 +45,6 @@ if (!empty($_POST)) {
     <link rel="stylesheet" href="css/register.css">
 </head>
 <body>
-
     <div class="container">
     <?php if (count($errors) > 0): ?>
 			<div class="alert alert-danger mt-5">
@@ -85,6 +84,7 @@ if (!empty($_POST)) {
                 <!-- submit button -->
                     <div class="form-group row col-md-7 text-center">
                         <input type="submit" class="btn btn-primary" value="Update">
+                        <a class="btn btn-primary ml-2" href="profile.php?id=<?php echo $_GET['id'] ?>">Cancel</a>
                     </div>
             </div>
         </form>

@@ -1,4 +1,3 @@
-  
 $("#confirmPassword").on("keyup", function (e) {
     let password = $("#newPassword").val();
     let confirmPassword = $('#confirmPassword').val();
