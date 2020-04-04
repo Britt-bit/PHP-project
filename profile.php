@@ -8,7 +8,6 @@ error_reporting(E_ALL); */
     $user = new User();
     $getUser = $user->getUserById($_GET['id']);
 
-
     /* Error */
     $errors = [];
     if (!empty($_POST)) {

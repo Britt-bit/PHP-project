@@ -72,8 +72,6 @@ include_once(__DIR__ . "/Db.php");
 
         public function setEmail($email)
         {
-
-
             if(empty($email)){
                 throw new Exception("Email cannot be empty");
             } 
@@ -82,7 +80,32 @@ include_once(__DIR__ . "/Db.php");
                 return $this;
                
         }
-        
+
+        /**
+         * Get the value of password
+         */ 
+        public function getPassword()
+        {
+                return $this->password;
+        }
+
+        /**
+         * Set the value of password
+         *
+         * @return  self
+         */ 
+        public function setPassword($password)
+        {
+            if(empty($password)){
+                throw new Exception("Password cannot be empty");
+            }
+                $this->password = $password;
+
+                return $this;
+        }
+
+
+
         /**
          * Get the value of avatar
          */ 
@@ -123,29 +146,6 @@ include_once(__DIR__ . "/Db.php");
                 return $this;
         }
 
-        /**
-         * Get the value of password
-         */ 
-        public function getPassword()
-        {
-                return $this->password;
-        }
-
-        /**
-         * Set the value of password
-         *
-         * @return  self
-         */ 
-        public function setPassword($password)
-        {
-            if(empty($password)){
-                throw new Exception("Password cannot be empty");
-            }
-                $this->password = $password;
-
-                return $this;
-        }
-
          /**
          * Get the value of newpassword
          */ 
@@ -166,20 +166,25 @@ include_once(__DIR__ . "/Db.php");
                 return $this;
         }
 
-        public function save(){
+
+        public function saveUser(){
             $conn = Db::getConnection();
 
-            $statement = $conn->prepare("insert into user (firstname, lastname, email, password) values (:firstname, :lastname, :email, :password)");
+            $statement = $conn->prepare("insert into user (firstname, lastname, email, password, avatar, bio) values (:firstname, :lastname, :email, :password, :avatar, :bio)");
 
             $firstname = $this->getFirstname();
             $lastname = $this->getLastname();
             $email = $this->getEmail();
             $password = $this->getPassword();
+            $avatar = $this->getAvatar();
+            $bio = $this->getBio();
 
             $statement->bindValue(":firstname", $firstname);
             $statement->bindValue(":lastname", $lastname);
             $statement->bindValue(":email", $email);
             $statement->bindValue(":password", $password);
+            $statement->bindValue(":avatar", $avatar);
+            $statement->bindValue(":bio", $bio);
 
             $result = $statement->execute();
 
@@ -188,7 +193,7 @@ include_once(__DIR__ . "/Db.php");
 
         
 
-        public static function getAll(){
+        public static function getAllUsers(){
             $conn = Db::getConnection();
             
             $statement = $conn->prepare("select * from user");
@@ -197,7 +202,7 @@ include_once(__DIR__ . "/Db.php");
             return $users;
         }
 
-        public function myemail(){
+        public function emailValidation(){
             $email = $this->getEmail();
             $conn = Db::getConnection();
 
@@ -245,7 +250,7 @@ include_once(__DIR__ . "/Db.php");
         {
             
             $conn = Db::getConnection();
-            $statement = $conn->prepare("update user set password= :password");
+            $statement = $conn->prepare("UPDATE user SET password= :password");
             $statement->bindParam(":password", $this->newpassword);
 
             $statement->execute();
@@ -262,13 +267,10 @@ include_once(__DIR__ . "/Db.php");
             }
             
         }
-        function passwordHash($password)
-        {
-            $options = [
-                'cost' => 12,
-            ];
-            $hash = password_hash($password, PASSWORD_DEFAULT, $options);
 
-            return $hash;
+        public function passwordHash($password){
+
+            $password = password_hash($_POST['password'], PASSWORD_DEFAULT, ["cost" => 12]);
+            return $password;
         }
     }
