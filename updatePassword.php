@@ -16,15 +16,14 @@ error_reporting(E_ALL);
         if ($_POST["newPassword"] == $_POST["confirmPassword"]) {
             try {
                 if (password_verify($_POST['password'], $getUser['password'])) {
-                    $user->setNewpassword($_POST['newPassword']);
-                    $user->updatePassword();
+                    $user->setNewPassword($user->passwordHash($_POST['newPassword']));
+                    $user->updatePassword($_GET['id']);
                     header('location: profile.php?id='.$_GET['id'] );
                 }
                 else {
                     $errors[] = 'Old password was incorrect';
                 }
 
-                $user->updatePassword();
             } catch (\Throwable $th) {
                $errors[] = 'Password not updated';
             }

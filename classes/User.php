@@ -246,26 +246,15 @@ include_once(__DIR__ . "/Db.php");
                }
             
         }
-        function updatePassword()
+        function updatePassword($id)
         {
             
             $conn = Db::getConnection();
-            $statement = $conn->prepare("UPDATE user SET password= :password");
+            $statement = $conn->prepare("UPDATE user SET password= :password wher user_id= :id ");
             $statement->bindParam(":password", $this->newpassword);
+            $statement->bindParam(":id", $id);
 
             $statement->execute();
-        }
-        function passwordCheck($id, $password)
-        {
-            $user = self::getUserById($id);
-
-            if ($password == $user['password']) {
-                return true;
-            }
-            else{
-                return false;
-            }
-            
         }
 
         public function passwordHash($password){
