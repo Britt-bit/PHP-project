@@ -11,8 +11,8 @@ error_reporting(E_ALL);
     /* Error */
     $errors = [];
     /* password update */
-
-    if (!empty($_POST)) {
+/* als form niet leeg en niew wachtwoord = gelijk aan confirm password en passwordCheck is true => setNewpassword */
+if (!empty($_POST)) {
         if ($_POST["newPassword"] == $_POST["confirmPassword"]) {
             try {
                 $password = $user->setPassword($user->passwordHash($_POST['password']));
