@@ -9,11 +9,11 @@ error_reporting(E_ALL);
     include_once(__DIR__ ."/classes/Features.class.php");
     include_once(__DIR__ ."/classes/Db.php");
 
-    // Check connection
+    
 
-    /* get user */
+    
 
-    //insert features
+    //hobby toevoegen
     if(!empty($_POST)){
         $feature = new feature();
         $feature->setHobby($_POST['hobby']);
