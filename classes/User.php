@@ -256,6 +256,7 @@ include_once(__DIR__ . "/Db.php");
 
             $statement->execute();
         }
+        
         function passwordCheck($id, $password)
         {
             $user = self::getUserById($id);
@@ -282,7 +283,7 @@ include_once(__DIR__ . "/Db.php");
           }
 
 
-          
+
 
         public function passwordHash($password){
 

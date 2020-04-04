@@ -54,6 +54,9 @@ error_reporting(E_ALL);
                 <option value="moba">MOBA</option>
                 <option value="rpg">RPG</option>
                 <option value="mmo">MMO</option>
+                <option value="mmo">Platform</option>
+                <option value="mmo">FPS</option>
+                <option value="mmo">None</option>
             </select>
   
             <h4>Wat vind je de leukste vakken in IMD?</h4>
@@ -72,7 +75,10 @@ error_reporting(E_ALL);
                 <option value="komedie">Komedie</option>
                 <option value="horror">Horror</option>
                 <option value="romantisch">romantisch</option>
-                <option value="thriller">Thriller muziek</option>
+                <option value="thriller">Thriller</option>
+                <option value="thriller">Drama</option>
+                <option value="thriller">Musicals</option>
+                <option value="thriller">Science fiction</option>
             </select>
   
             <h4>Welke muziek luistert u graag?</h4>
@@ -84,6 +90,9 @@ error_reporting(E_ALL);
                 <option value="r&b">R&B</option>
                 <option value="hardstyle">Hardstyle</option>
                 <option value="schlager">Schlager</option>
+                <option value="pop">Jazz</option>
+                <option value="klassiek">Rock</option>
+                <option value="rap">Heavy Metal</option>
                 <option value="allesSlecht">De hierboven genoemde muziek is allemaal slecht</option>
             </select>
 

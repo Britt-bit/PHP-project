@@ -7,22 +7,8 @@ include_once(__DIR__ ."/classes/Features.class.php");
 include_once(__DIR__ ."/classes/Match.php");
 
 
-error_reporting(E_ALL);
-ini_set('display_errors', 1);
-
-
-$feature = new Match();
-$feature->getAllFeatures();
-
-$feature->compareMatch();
-
-
-
-
-$connect = mysqli_connect("localhost", "root", "root", "phpProject");
-
-$sql = "SELECT * FROM features INNER JOIN user ON features.user_id = user.user_id";
-$result = mysqli_query($connect, $sql);
+//error_reporting(E_ALL);
+//ini_set('display_errors', 1);
 
 ?>
 <!DOCTYPE html>
@@ -37,22 +23,81 @@ $result = mysqli_query($connect, $sql);
     <h1>My matches</h1>
 
     <table>
-        <?php 
-        if(mysqli_num_rows($result) > 0){
-            while ($row = mysqli_fetch_array($result)){
-        ?>
         <tr>
-            <td><?php echo $row["games"]; ?></td>
-            <td><?php echo $row["films"]; ?></td>
-            <td><?php echo $row["muziek"]; ?></td>
-            <td><?php echo $row["vak"]; ?></td>
-            <td><?php echo $row["hobby"]; ?></td>
-        </tr>    
-        <?php        
+            <!-- Alle mogelijke matches oplijsten
+            Is nog niet verdeeld in buddy of geen buddy-->
+        <?php 
+        //features van alle andere gebruikers ophalen
+        while($yourFeature = $statement->fetch( PDO::FETCH_ASSOC )){ 
+            //loopen over alle mogelijke gebruikers in de database
+            for ($counter = 0; $yourFeature = $statement->fetch( PDO::FETCH_ASSOC ); ++$counter){
+                $yourGame = $yourFeature['games']; 
+                $yourFilm = $yourFeature['films'];
+                $yourMusic = $yourFeature['muziek']; 
+                $yourCourse = $yourFeature['vak'];
+                $yourHobby = $yourFeature['hobby']; 
+                $yourName = $yourFeature['firstname'];
+                $yourLastname = $yourFeature['lastname'];
+      
+                //al deze features in een 2de array zetten
+            $yourFeatureArray = array($yourGame, $yourFilm, $yourMusic, $yourCourse, $yourHobby);
+
+            //De 2 arrays vergelijken om te zien welke features allemaal matchen.
+            $result = array_intersect($myFeatures, $yourFeatureArray);
+            
+            //als er 5 dezelfde features zijn ... 
+            if(count($result) === 5){
+                echo "<br/>";
+                print("You matched with " . $yourName . " " . $yourLastname . " on the features "); 
+                 for($tel = 0; $tel < sizeof($result); ++$tel){
+                    if($tel < sizeof($result) -1){
+                        echo($result[$tel] . ", ");
+                    } else {
+                        echo($result[$tel] . ".");
+                    }
+                }
+                ?>
+            </tr>
+            <tr>
+                <button type="submit" class="btnSubmit">Chat</button>
+            </tr>
+            <?php
+            } else if(count($result) === 4){
+                echo "<br/>";
+                print("You matched with " . $yourName . " " . $yourLastname . " on the features "); 
+                 for($tel = 0; $tel < sizeof($result) +2; ++$tel){
+                        echo($result[$tel] . "  ");
+                    
+                }
+                ?>
+            </tr>
+            <tr>
+                <button type="submit" class="btnSubmit">Chat</button>
+            </tr>
+            <?php
+            } else if(count($result) === 3){
+                echo "<br/>";
+                print("You matched with " . $yourName . " " . $yourLastname . " on the features "); 
+                 for($tel = 0; $tel < sizeof($result) +2; ++$tel){
+                        echo($result[$tel] . "  ");
+                    
+                }
+                ?>
+            </tr>
+            <tr>
+                <button type="submit" class="btnSubmit">Chat</button>
+            </tr>
+            <?php
             }
+
+
         }
-        ?>
+    }
+    ?>
+        
     </table>
+
+
  
 </body>
 </html>
