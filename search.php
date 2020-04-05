@@ -33,13 +33,13 @@ $search = Post::search(strtolower($_GET['search']));
 <?php if ($search > 0): foreach ($search as $searchResult):?>
 
     <div class="profile">
-        <img class="avatar" src="<?php echo "$searchResult[avatar]"?>" alt="">
-        <h1><?php echo "$searchResult[firstname]  $searchResult[lastname]"; ?></h1>
-        <p>Games: <?php echo "$searchResult[games]"; ?></p>
-        <p>Films:<?php echo "$searchResult[films]"; ?></p>
-        <p>Muziek:<?php echo "$searchResult[muziek]"; ?></p>
-        <p>Vak:<?php echo "$searchResult[vak]"; ?></p>
-        <p>hobby:<?php echo "$searchResult[hobby]"; ?></p>
+        <img class="avatar" src="<?php echo $searchResult['avatar']?>" alt="">
+        <h1><?php echo htmlspecialchars($searchResult['firstname']) . " " . htmlspecialchars($searchResult['lastname']); ?></h1>
+        <p>Games: <?php echo $searchResult['games']; ?></p>
+        <p>Films:<?php echo $searchResult['films']; ?></p>
+        <p>Muziek:<?php echo $searchResult['muziek']; ?></p>
+        <p>Vak:<?php echo $searchResult['vak']; ?></p>
+        <p>hobby:<?php echo htmlspecialchars($searchResult['hobby']); ?></p>
         <p><button class="">Profiel</button></p> 
     </div>     
  
