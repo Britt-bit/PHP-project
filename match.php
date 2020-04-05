@@ -10,9 +10,16 @@ include_once(__DIR__ ."/classes/Match.php");
 //error_reporting(E_ALL);
 //ini_set('display_errors', 1);
 
-if(isset($_POST["chat"])){
-    var_dump($id);
-    var_dump("you clicked me");
+
+if(isset($_GET['chat'])){
+    $id = $_GET['chat'];
+    
+    $result = $mysqli->query("SELECT * FROM user WHERE user_id=$id") or die($mysqli->error());
+    if (count($result) ==1){
+        $row = $result->fetch_array();
+        var_dump($id);
+        var_dump($result);
+    }
 }
 
 
@@ -27,8 +34,8 @@ if(isset($_POST["chat"])){
 <body>
 
     <h1>My matches</h1>
-
     <form method="post">
+  
     <table>
         <tr>
             <!-- Alle mogelijke matches oplijsten
@@ -40,7 +47,7 @@ if(isset($_POST["chat"])){
             for ($counter = 0; $yourFeature = $statement->fetch( PDO::FETCH_ASSOC ); ++$counter){
                 
                 
-                
+         
 
                 $yourGame = $yourFeature['games']; 
                 $yourFilm = $yourFeature['films'];
@@ -74,11 +81,10 @@ if(isset($_POST["chat"])){
                         echo($result[$tel] . ".");
                     }
                 }
+                echo '<a href="chat.php?chat=' . $id . '">Chat</a>'
                 ?>
             </tr>
-            <tr>
-                <button type="submit" name="chat" id="chat" class="btnSubmit"><?php echo "Chat " . $id ?></button>
-            </tr>
+           
             <?php
             } else if(count($result) === 4){
                 echo "<br/>";
@@ -87,36 +93,35 @@ if(isset($_POST["chat"])){
                         echo($result[$tel] . "  ");
                     
                 }
+                echo '<a href="chat.php?chat=' . $id . '">Chat</a>'
                 ?>
             </tr>
-            <tr>
-                <button type="submit" name="chat" id="chat" class="btnSubmit"><?php echo "Chat " . $id ?></button>
-            </tr>
+           
             <?php
             } else if(count($result) === 3){
                 echo "<br/>";
                 print("You matched with " . $yourName . " " . $yourLastname . " on the features "); 
                  for($tel = 0; $tel < sizeof($result) +2; ++$tel){
                         echo($result[$tel] . "  ");
-                    
+                        
                 }
+                //echo '<input type="submit" id="chat" name="chat[]" value="'. $row['chat'] .'">';
+                echo '<a href="chat.php?chat=' . $id . '">Chat</a>'
                 ?>
             </tr>
-            <tr>
-                <button type="submit" name="chat" id="chat" class="btnSubmit"><?php echo "Chat " . $id ?></button>
-            </tr>
+      
             <?php
             }
 
-
+    
         }
     }
     ?>
    
         
     </table>
-
     </form>
+   
  
 </body>
 </html>
