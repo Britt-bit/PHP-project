@@ -18,7 +18,7 @@ if(isset($_GET['chat'])){
     if (count($result) ==1){
         $row = $result->fetch_array();
         var_dump($id);
-        var_dump($result);
+        //var_dump($result);
     }
 }
 
