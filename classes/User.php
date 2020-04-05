@@ -171,7 +171,7 @@ include_once(__DIR__ . "/Db.php");
         public function saveUser(){
             $conn = Db::getConnection();
 
-            $statement = $conn->prepare("insert into user (firstname, lastname, email, password, avatar, bio) values (:firstname, :lastname, :email, :password, :avatar, :bio)");
+            $statement = $conn->prepare("INSERT INTO user (firstname, lastname, email, password, avatar, bio) VALUES (:firstname, :lastname, :email, :password, :avatar, :bio)");
 
             $firstname = $this->getFirstname();
             $lastname = $this->getLastname();
@@ -197,7 +197,7 @@ include_once(__DIR__ . "/Db.php");
         public static function getAllUsers(){
             $conn = Db::getConnection();
             
-            $statement = $conn->prepare("select * from user");
+            $statement = $conn->prepare("SELECT * FROM user");
             $statement->execute();
             $users = $statement->fetchAll(PDO::FETCH_ASSOC);
             return $users;
@@ -217,49 +217,49 @@ include_once(__DIR__ . "/Db.php");
 
         function getUserById($id){
             $conn = Db::getConnection();
-            $statement = $conn->prepare('select * from user where id = :id');
+            $statement = $conn->prepare('SELECT * FROM user WHERE id = :id');
             $statement->bindParam(':id', $id);
             $statement->execute();
             $result = $statement->fetch();
             return $result;
         }
+
         function updateUser()
         {
-               if (move_uploaded_file($_FILES["avatar"]["tmp_name"], $this->avatar)) {
-                    $conn = Db::getConnection();
-                    $statement = $conn->prepare("update user set firstname= :firstname, lastname= :lastname, email= :email, avatar= :avatar, bio= :bio");
-                    $statement->bindParam(":firstname", $this->firstname);
-                    $statement->bindParam(":lastname", $this->lastname);
-                    $statement->bindParam(":email", $this->email);
-                    $statement->bindParam(":avatar", $this->avatar);
-                    $statement->bindParam(":bio", $this->bio);
+            if (move_uploaded_file($_FILES["avatar"]["tmp_name"], $this->avatar)) {
+                $conn = Db::getConnection();
+                $statement = $conn->prepare("update user set firstname= :firstname, lastname= :lastname, email= :email, avatar= :avatar, bio= :bio");
+                $statement->bindParam(":firstname", $this->firstname);
+                $statement->bindParam(":lastname", $this->lastname);
+                $statement->bindParam(":email", $this->email);
+                $statement->bindParam(":avatar", $this->avatar);
+                $statement->bindParam(":bio", $this->bio);
 
-                    $statement->execute();
-               }else {
-                    $conn = Db::getConnection();
-                    $statement = $conn->prepare("update user set firstname= :firstname, lastname= :lastname, email= :email, bio= :bio");
-                    $statement->bindParam(":firstname", $this->firstname);
-                    $statement->bindParam(":lastname", $this->lastname);
-                    $statement->bindParam(":email", $this->email);
-                    $statement->bindParam(":bio", $this->bio);
+                $statement->execute();
+            }else {
+                $conn = Db::getConnection();
+                $statement = $conn->prepare("update user set firstname= :firstname, lastname= :lastname, email= :email, bio= :bio");
+                $statement->bindParam(":firstname", $this->firstname);
+                $statement->bindParam(":lastname", $this->lastname);
+                $statement->bindParam(":email", $this->email);
+                $statement->bindParam(":bio", $this->bio);
 
-                    $statement->execute();
-               }
-            
+                $statement->execute();
+            }  
         }
+
         function updatePassword()
-        {
-            
+        { 
             $conn = Db::getConnection();
             $statement = $conn->prepare("UPDATE user SET password= :password");
             $statement->bindParam(":password", $this->newpassword);
 
             $statement->execute();
         }
+
         function passwordCheck($id, $password)
         {
             $user = self::getUserById($id);
-
             if ($password == $user['password']) {
                 return true;
             }
@@ -270,7 +270,6 @@ include_once(__DIR__ . "/Db.php");
         }
 
         public function passwordHash($password){
-
             $password = password_hash($_POST['password'], PASSWORD_DEFAULT, ["cost" => 12]);
             return $password;
         }

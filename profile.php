@@ -2,7 +2,6 @@
 /* ini_set('display_errors', 1);
 ini_set('display_startup_errors',1);
 error_reporting(E_ALL); */
-
     include_once(__DIR__ ."/classes/User.php");
     /* get user */
     $user = new User();
@@ -48,16 +47,14 @@ error_reporting(E_ALL); */
         else{
             //var_dump($errors);
         }
-
     }
-
 ?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Profiel</title>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
     <link href="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
     <link rel="stylesheet" href="css/register.css">
@@ -70,14 +67,12 @@ error_reporting(E_ALL); */
 				<p>
 					<?php foreach ($errors as $error):?>
                      <?php echo $error; ?> <br>
-                   <?php endforeach?>
-							
+                   <?php endforeach?>		
 				</p>
 			</div>
         <?php endif; ?>
         <div class="note">
-            <p>Profile</p>
-                
+            <p>Profiel</p> 
         </div>
 
         <form action="" method="POST" enctype="multipart/form-data">
@@ -89,12 +84,12 @@ error_reporting(E_ALL); */
                     </div>
                 <!-- Firstname field -->
                     <div class="form-group row col-md-4 text-center">
-                        <label for="firstname">Firstname:</label>
+                        <label for="firstname">Voornaam:</label>
                         <input type="text" name="firstname" id="firstname" value="<?php echo $getUser['firstname'] ?>">
                     </div>
                 <!-- Lastname field -->
                     <div class="form-group row col-md-4 text-center">
-                        <label for="lastname">Lastname:</label>
+                        <label for="lastname">Achternaam:</label>
                         <input type="text" name="lastname" id="lastname" value="<?php echo $getUser['lastname'] ?>">
                     </div>
                 <!-- email field -->

@@ -1,29 +1,17 @@
 <?php
- 
 //user email: britt@student.thomasmore.be --- --- --- password: Password123
- 
 //klasse en database copy pasten naar hier
 include_once(__DIR__ . "/classes/User.php");
 include_once(__DIR__ . "/classes/Db.php");
  
 //connectie met de database
 function canLogin($email, $password){
- //   $conn = Db::getConnection();
- //   $statement = $conn->prepare("SELECT `email`, `password` FROM `user` WHERE email = '$email'");
- //   $statement->execute();
- //   $user = $statement->fetchAll(PDO::FETCH_ASSOC);
- 
- $conn = new mysqli("localhost", "root", "root", "phpProject");
- $email = $conn->real_escape_string($email);
- $query = "SELECT `email`, `password` FROM `user` WHERE email = '$email'";
- $result = $conn->query($query);
- $user = $result->fetch_assoc();
- 
- //var_dump($user);
- 
- 
- 
- 
+    $conn = new mysqli("localhost", "root", "root", "phpProject");
+    $email = $conn->real_escape_string($email);
+    $query = "SELECT `email`, `password` FROM `user` WHERE email = '$email'";
+    $result = $conn->query($query);
+    $user = $result->fetch_assoc();
+
     if(password_verify($password, $user['password'])){
         return true;
     }else{
@@ -31,9 +19,7 @@ function canLogin($email, $password){
     }
 }
  
- 
 //Get de User
- 
 //Error
 $errors = [];
  
@@ -42,35 +28,30 @@ if(!empty($_POST)){
     try{
     $user = new User();
  
-  //Velden uitlezen in variabelen
-  $email = $_POST['email'];
-  $password = $_POST['password'];
+    //Velden uitlezen in variabelen
+    $email = $_POST['email'];
+    $password = $_POST['password'];
    
     //Validatie: velden mogen niet leeg zijn
     if(!empty($email) && !empty($password)){
-       
         if(canLogin($email, $password)){
             session_start();
             $_SESSION['email'] = $email;
- 
             header ("Location: index.php");
-    }else{
+        }else{
             //User en password matchen niet
             //Error
             $error="Cannot log you in.";
-    }
+        }
     }else{
         //Indien leeg: error genereren
         $error = "Email and password are required.";
-}
+    }
 } catch(\Throwable $th) {
     $error = $th->getMessage();
 }
 }
- 
 ?>
- 
- 
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -82,23 +63,16 @@ if(!empty($_POST)){
     <title>Login</title>
 </head>
 <body>
-   
- 
- 
+
 <div class="container register-form">
   <div class="form"></div>
     <!--Error melding-->
     <?php if( isset($error) ): ?>
         <div class="alert alert-danger" role="alert">
-            <p>
-            <?php echo $error; ?>
-            </p>
+            <p> <?php echo $error; ?> </p>
         </div>
-    <?php endif;?>
-        </div>
- 
- 
- 
+        <?php endif;?>
+    </div>
  
         <form action="" method="POST">
             <div class="form-content">  
@@ -112,7 +86,6 @@ if(!empty($_POST)){
                     </div>
            
                 <!-- Password veld -->
- 
                     <div class="form-group col-md-6">
                         <input name="password" id="password" type="password" placeholder="Password" class= "form-control"  value="">
                     </div>    
@@ -124,11 +97,9 @@ if(!empty($_POST)){
                         <!--onthoud mij checkbox-->  
                         <input type="checkbox" id="rememberMe"><label for="rememberMe" class="">Remember me</label>
                         <br>
-                        <!--Password vergeten-->
-                        <!--<a href="">Forgot password?</a>
-                        <br> -->
+
                         <!--Nog geen account?-->
-                        <p>You don't have an account yet? <a href="register.php">Register.</a></p>    
+                        <p>Nog geen account? <a href="register.php">Register</a></p>    
                     </div>
                 </div>
             </div>        
