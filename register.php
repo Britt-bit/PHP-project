@@ -1,5 +1,6 @@
 <?php
 include_once(__DIR__ ."/classes/User.php");
+/* Als post niet leeg is, spreek setters aan */
     if(!empty($_POST)){
         try {
         $user = new User();
@@ -12,7 +13,6 @@ include_once(__DIR__ ."/classes/User.php");
 
         $email = $_POST['email'];
         $passwordConfirmation = $_POST['passwordConfirmation'];
-
             function endFunc($str, $lastString) {
                 $count = strlen($lastString);
                 if($count == 0){
@@ -27,11 +27,12 @@ include_once(__DIR__ ."/classes/User.php");
                         if($_POST['password'] === $passwordConfirmation) {
                             //email eindigd op @student.thomasmore.be
                             //passwords match
+			                //password hashen met functie
                             $user->setPassword($user->passwordHash($password));
                             $user->saveUser();
                             $succes = "User saved";
                 
-                            header("Location: index.php");
+                            header("Location: login.php");
                         } else {
                             throw new Exception("Passwords matchen niet");
                         }
@@ -40,22 +41,17 @@ include_once(__DIR__ ."/classes/User.php");
                     }
                 } else {
                     throw new Exception("Email moet eindigen op @student.thomasmore.be");
-                    
                 } 
             } else {
                 $error = $th->getMessage();
-        } 
-            
-    } catch (\Throwable $th){
-        $error = $th->getMessage();
-    }
+            } 
+        } catch (\Throwable $th){
+            $error = $th->getMessage();
+        }
     } 
-
     $users = User::getAllUsers();
-
-
-
-?><!DOCTYPE html>
+?>
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">

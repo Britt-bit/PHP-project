@@ -19,6 +19,7 @@ include_once(__DIR__ ."/classes/Features.class.php");
     <h1>Je bent ingelogd</h1>
     <a href="logout.php" class="nav-link">Logout</a>
     <a class="nav-link" href="profile.php?id=<?php $_SESSION['user'][0] ?>">Profiel</a>
+    <a class="nav-link" href="match.php?id=<?php $_SESSION['email'] ?>">Mijn matches</a>
 
     <?php 
     //check of user features al ingevuld heeft. zoniet->redirect naar invulformulier
