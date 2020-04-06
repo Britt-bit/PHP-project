@@ -13,7 +13,6 @@ include_once(__DIR__ ."/classes/User.php");
 
         $email = $_POST['email'];
         $passwordConfirmation = $_POST['passwordConfirmation'];
-	/*  */
             function endFunc($str, $lastString) {
                 $count = strlen($lastString);
                 if($count == 0){
@@ -28,12 +27,12 @@ include_once(__DIR__ ."/classes/User.php");
                         if($_POST['password'] === $passwordConfirmation) {
                             //email eindigd op @student.thomasmore.be
                             //passwords match
-			    //password hashen met functie
+			                //password hashen met functie
                             $user->setPassword($user->passwordHash($password));
                             $user->saveUser();
                             $succes = "User saved";
                 
-                            header("Location: index.php");
+                            header("Location: login.php");
                         } else {
                             throw new Exception("Passwords matchen niet");
                         }
@@ -42,27 +41,22 @@ include_once(__DIR__ ."/classes/User.php");
                     }
                 } else {
                     throw new Exception("Email moet eindigen op @student.thomasmore.be");
-                    
                 } 
             } else {
                 $error = $th->getMessage();
-        } 
-            
-    } catch (\Throwable $th){
-        $error = $th->getMessage();
-    }
+            } 
+        } catch (\Throwable $th){
+            $error = $th->getMessage();
+        }
     } 
-
     $users = User::getAllUsers();
-
-
-
-?><!DOCTYPE html>
+?>
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Registreer</title>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
     <link href="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
     <link rel="stylesheet" href="css/style.css">
@@ -73,7 +67,6 @@ include_once(__DIR__ ."/classes/User.php");
         <div class="form">
             <div class="note">
                 <p>Sign up voor de IMD buddy app.</p>
-                
             </div>
 
             <form action="" method="POST">
@@ -81,25 +74,25 @@ include_once(__DIR__ ."/classes/User.php");
                     <div class="row">
                         <div class="col-md-6">
                             <div class="form-group">
-                                <input name="firstname" id="firstname" type="text" class="form-control" placeholder="Your Name *" value="<?php if(isset($_POST['firstname'])) echo $_POST['firstname']; ?>"/>
+                                <input name="firstname" id="firstname" type="text" class="form-control" placeholder="Jouw naam *" value="<?php if(isset($_POST['firstname'])) echo $_POST['firstname']; ?>"/>
                             </div>
                             <div class="form-group">
-                                <input name="lastname" id="lastname" type="text" class="form-control" placeholder="Your lastname *" value="<?php if(isset($_POST['lastname'])) echo $_POST['lastname']; ?>"/>
+                                <input name="lastname" id="lastname" type="text" class="form-control" placeholder="Jouw achternaam *" value="<?php if(isset($_POST['lastname'])) echo $_POST['lastname']; ?>"/>
                             </div>
                         </div>
                         <div class="col-md-6">
                             <div class="form-group">
-                                <input name="email" id="email" type="text" class="form-control" placeholder="Your email *" value="<?php if(isset($_POST['email'])) echo $_POST['email']; ?>"/>
+                                <input name="email" id="email" type="text" class="form-control" placeholder="Jouw email *" value="<?php if(isset($_POST['email'])) echo $_POST['email']; ?>"/>
                             </div>
                             <div class="form-group">
-                                <input name="password" id="password" type="password" class="form-control" placeholder="Your Password *" value=""/>
+                                <input name="password" id="password" type="password" class="form-control" placeholder="Jouw Password *" value=""/>
                             </div>
                             <div class="form-group">
-                                <input name="passwordConfirmation" id="passwordConfirmation" type="password" class="form-control" placeholder="Confirm your password *" value=""/>
+                                <input name="passwordConfirmation" id="passwordConfirmation" type="password" class="form-control" placeholder="Bevestig je password *" value=""/>
                             </div>
                         </div>
                     </div>
-                    <button type="submit" class="btnSubmit">Sign me up</button>
+                    <button type="submit" class="btnSubmit">Registreer</button>
                     <br> <br>
                     <?php if( isset($error) ): ?>
 				    <div class="alert alert-danger" role="alert">
@@ -107,11 +100,11 @@ include_once(__DIR__ ."/classes/User.php");
 						    <?php echo $error; ?>
 					    </p>
 				    </div>
-				<?php endif; ?>
+				    <?php endif; ?>
                 </div>
-                </form>
-            </div>
+            </form>
         </div>
+    </div>
 
 <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
 <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>

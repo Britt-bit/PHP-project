@@ -1,5 +1,4 @@
 <?php
-
     const SETTINGS = [
         "db" => [
             "user"      => "root",
