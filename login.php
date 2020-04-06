@@ -8,7 +8,7 @@ include_once(__DIR__ . "/classes/Db.php");
 function canLogin($email, $password){
     $conn = new mysqli("localhost", "root", "root", "phpProject");
     $email = $conn->real_escape_string($email);
-    $query = "SELECT `email`, `password` FROM `user` WHERE email = '$email'";
+    $query = "SELECT `user_id`,`email`, `password` FROM `user` WHERE email = '$email'";
     $result = $conn->query($query);
     $user = $result->fetch_assoc();
 
@@ -34,9 +34,11 @@ if(!empty($_POST)){
    
     //Validatie: velden mogen niet leeg zijn
     if(!empty($email) && !empty($password)){
-        if(canLogin($email, $password)){
+        if(canLogin($email, $password,$user_id)){
             session_start();
-            $_SESSION['email'] = $email;
+            $_SESSION['email']['user_id'] = $email;
+            
+           
             header ("Location: index.php");
         }else{
             //User en password matchen niet
