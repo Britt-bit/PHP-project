@@ -13,7 +13,6 @@ include_once(__DIR__ . "/User.php");
         private $muziek;
         private $vak;
 
-
         /**
          * Get features
          */ 

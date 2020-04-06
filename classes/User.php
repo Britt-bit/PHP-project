@@ -268,7 +268,19 @@ include_once(__DIR__ . "/Db.php");
             
         }
 
+        function loggedInUsername($row) { 
+            $conn = Db::getConnection();
+            $sql = $conn->prepare("SELECT firstname, lastname FROM user WHERE user_id = :id");
+            $stmt = $conn->prepare($sql); // prepare the query
+            $stmt->bindParam(':id', $_SESSION['user_id']); // assign the parameter
+            $result = $stmt->execute(); // execute the query
+            $row = $result->fetchColumn(); // only one column produced by query
+            return $row;
+          }
+
+
         public function passwordHash($password){
+
             $password = password_hash($_POST['password'], PASSWORD_DEFAULT, ["cost" => 12]);
             return $password;
         }

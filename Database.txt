@@ -2,8 +2,8 @@
 -- version 4.8.5
 -- https://www.phpmyadmin.net/
 --
--- Host: localhost:3306
--- Generation Time: Mar 29, 2020 at 06:34 PM
+-- Host: localhost:8889
+-- Generation Time: Apr 05, 2020 at 08:39 PM
 -- Server version: 5.7.25
 -- PHP Version: 7.3.1
 
@@ -38,7 +38,9 @@ CREATE TABLE `buddy` (
 CREATE TABLE `buddyChat` (
   `buddyChat_id` int(11) NOT NULL,
   `buddy_id` int(11) NOT NULL,
-  `txt` text NOT NULL
+  `user_id` int(11) NOT NULL,
+  `message` text NOT NULL,
+  `time` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------
@@ -67,6 +69,15 @@ CREATE TABLE `features` (
   `vak` varchar(300) NOT NULL,
   `hobby` varchar(300) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Dumping data for table `features`
+--
+
+INSERT INTO `features` (`user_id`, `games`, `films`, `muziek`, `vak`, `hobby`) VALUES
+(78, 'moba', 'romantisch', 'r&amp;b', 'design', 'tekenen'),
+(79, 'mmo', 'thriller', 'pop', 'design', 'Lopen'),
+(80, 'mmo', 'romantisch', 'r&amp;b', 'design', 'Tekenen');
 
 -- --------------------------------------------------------
 
@@ -141,7 +152,9 @@ CREATE TABLE `user` (
 --
 
 INSERT INTO `user` (`user_id`, `firstname`, `lastname`, `email`, `password`, `bio`, `features`, `buddy`, `avatar`) VALUES
-(61, 'Britt', 'Van der Linden', 'britt@student.thomasmore.be', '$2y$12$0Jzq76eJDhva1mVftFwb/Oi4rySCZusvr0Ata55Luyr4sH.SN7fWi', 'I dont know what to write', NULL, NULL, 'images/uploads/default.png');
+(61, 'Britt', 'Van der Linden', 'britt@student.thomasmore.be', '$2y$12$0Jzq76eJDhva1mVftFwb/Oi4rySCZusvr0Ata55Luyr4sH.SN7fWi', 'I dont know what to write', NULL, NULL, 'images/uploads/default.png'),
+(79, 'Yasmina', 'Tazi', 'yasmina@student.thomasmore.be', '$2y$12$Fk0EWxJAcQLIiW3V6EOSkev5sydT4Q78oM5NZAUHWhVvw9Lz9sRMy', 'Hey, welkom op mijn profiel.', NULL, NULL, 'href=\'images/default.png\''),
+(80, 'Maryam', 'Tazi', 'tazi.maryam@student.thomasmore.be', '$2y$12$HfqCP0m2UYeoG2y1zw8RuuvrR8S9MhlxdjoVazmsuZ2JR3XdtQ0hi', 'Hey, welkom op mijn profiel.', NULL, NULL, 'href=\'images/default.png\'');
 
 --
 -- Indexes for dumped tables
@@ -191,7 +204,7 @@ ALTER TABLE `buddy`
 -- AUTO_INCREMENT for table `features`
 --
 ALTER TABLE `features`
-  MODIFY `user_id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `user_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=81;
 
 --
 -- AUTO_INCREMENT for table `post`
@@ -209,4 +222,4 @@ ALTER TABLE `replies`
 -- AUTO_INCREMENT for table `user`
 --
 ALTER TABLE `user`
-  MODIFY `user_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=74;
+  MODIFY `user_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=81;
