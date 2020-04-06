@@ -248,13 +248,17 @@ include_once(__DIR__ . "/Db.php");
         }
         function updatePassword($id)
         {
-            
-            $conn = Db::getConnection();
-            $statement = $conn->prepare("UPDATE user SET password= :password wher user_id= :id ");
+           try {
+                  $conn = Db::getConnection();
+            $statement = $conn->prepare("UPDATE user SET password= :password where user_id= :id ");
             $statement->bindParam(":password", $this->newpassword);
             $statement->bindParam(":id", $id);
 
             $statement->execute();
+           } catch (\Throwable $th) {
+                   //throw $th;
+           } 
+            
         }
 
         public function passwordHash($password){
