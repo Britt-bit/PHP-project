@@ -14,7 +14,8 @@ if(isset($_GET['chat'])){
     $result = $mysqli->query("SELECT * FROM user WHERE user_id=$id") or die($mysqli->error());
     if (count($result) ==1){
         $row = $result->fetch_array();
-        //var_dump($id);
+
+        //var_dump($yourID);
     }
 }
 ?>
@@ -28,7 +29,7 @@ if(isset($_GET['chat'])){
 <body>
 
     <h1>My matches</h1>
-    <form method="post">
+    <form method="POST">
     <table>
         <tr>
             <!-- Alle mogelijke matches oplijsten
@@ -49,14 +50,16 @@ if(isset($_GET['chat'])){
 
                 $stmt = $conn->query("SELECT `user_id` FROM `user` WHERE email = '$yourEmail'");
                 $stmt->execute();
-                $id = $stmt->fetch(PDO::FETCH_COLUMN);
+                $yourID = $stmt->fetch(PDO::FETCH_COLUMN);
 
+                
                 //al deze features in een 2de array zetten
                 $yourFeatureArray = array($yourGame, $yourFilm, $yourMusic, $yourCourse, $yourHobby);
 
                 //De 2 arrays vergelijken om te zien welke features allemaal matchen.
                 $result = array_intersect($myFeatures, $yourFeatureArray);
             
+                
                 //als er 5 dezelfde features zijn ... 
                 if(count($result) === 5){
                     echo "<br/>";
@@ -67,8 +70,9 @@ if(isset($_GET['chat'])){
                             } else {
                                 echo($result[$tel] . ".");
                             }
+
                         }
-                    echo '<a href="chat.php?chat=' . $id . '">Chat</a>'
+                    echo '<a href="chat.php?id=' . $yourID . '">Chat</a>'
                 ?>
             </tr>
             <?php
@@ -78,7 +82,7 @@ if(isset($_GET['chat'])){
                     for($tel = 0; $tel < sizeof($result) +2; ++$tel){
                         echo($result[$tel] . "  ");
                     }
-                echo '<a href="chat.php?chat=' . $id . '">Chat</a>'
+                echo '<a href="chat.php?id=' . $yourID . '">Chat</a>'
             ?>
             </tr>
             <?php
@@ -88,7 +92,10 @@ if(isset($_GET['chat'])){
                     for($tel = 0; $tel < sizeof($result) +2; ++$tel){
                         echo($result[$tel] . "  ");   
                     }
-                echo '<a href="chat.php?chat=' . $id . '">Chat</a>'
+
+                echo '<a href="chat.php?id=' . $yourID . '">Chat</a>'
+                
+  
             ?>
             </tr>
             <?php

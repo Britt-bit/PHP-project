@@ -5,9 +5,17 @@ ini_set('display_errors', 1);
     //klasse en database copy pasten naar hier
     include_once(__DIR__ . "/classes/User.php");
     include_once(__DIR__ . "/classes/Db.php");
-   
+    $conn = Db::getConnection(); 
     session_start();
 
+
+    //var_dump($_SESSION['email']);
+    $myID = $_SESSION['yourID'];
+    //var_dump($myID);
+
+
+    $yourID = $_GET['id'];
+    $checkName = ("SELECT `firstname`, `lastname` FROM user WHERE user_id= '$yourID'");
 ?>
 
 <!DOCTYPE html>
@@ -32,14 +40,13 @@ ini_set('display_errors', 1);
 
     <!--Buddy-->
     <div class="chattingWith" style=" width:600px; height:50px; background: linear-gradient(90deg, #FC466B 0%, #3F5EFB 100%); margin: 0 auto; border-radius: 20px; padding-top:0.5px;">
-        <h4 style="color:white; text-align:center;"><?php echo $_SESSION['email']  ?></h4>
+        <h4 style="color:white; text-align:center;"><?php foreach ($conn->query($checkName) as $row){
+        echo $row['firstname'] . " " . $row['lastname'];} ?></h4>
     </div>
 
     <!--Gesprek-->
     <div class="chatConversation" style=" background-color: gray;width:500px; height:460px; margin: 0 auto; margin-bottom:20px;">
     <?php 
-            $conn = Db::getConnection();
-
             $statement = $conn->query("SELECT * FROM buddyChat");
             $statement->execute();
 
