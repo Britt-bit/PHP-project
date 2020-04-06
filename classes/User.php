@@ -206,8 +206,9 @@ include_once(__DIR__ . "/Db.php");
             $email = $this->getEmail();
             $conn = Db::getConnection();
 
-            $check_email = ("SELECT email FROM user WHERE email='$email'");
-
+            $check_email = $conn->prepare("SELECT email FROM user WHERE email=':email'");
+            $check_email->bindParam(':email', $email);
+            
             foreach ($conn->query($check_email) as $row){
                 print $row['email'];
             }
