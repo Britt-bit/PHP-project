@@ -9,6 +9,8 @@ include_once(__DIR__ . "/Db.php");
         private $bio;
         private $password;
         private $newpassword;
+        private $buddy;
+        private $year;
 
         /**
          * Get the value of firstname
@@ -146,6 +148,47 @@ include_once(__DIR__ . "/Db.php");
                 return $this;
         }
 
+        
+        /**
+         * Get the value of buddy
+         */ 
+        public function getBuddy()
+        {
+                return $this->buddy;
+        }
+
+        /**
+         * Set the value of buddy
+         *
+         * @return  self
+         */ 
+        public function setBuddy($buddy)
+        {
+                $this->buddy = $buddy;
+
+                return $this;
+        }
+
+        /**
+         * Get the value of year
+         */ 
+        public function getYear()
+        {
+                return $this->year;
+        }
+
+        /**
+         * Set the value of year
+         *
+         * @return  self
+         */ 
+        public function setYear($year)
+        {
+                $this->year = $year;
+
+                return $this;
+        }
+
          /**
          * Get the value of newpassword
          */ 
@@ -218,32 +261,39 @@ include_once(__DIR__ . "/Db.php");
         /* update user */
         function getUserById($id){
             $conn = Db::getConnection();
-            $statement = $conn->prepare('SELECT * FROM user WHERE id = :id');
+            $statement = $conn->prepare('SELECT * FROM user WHERE user_id = :id');
             $statement->bindParam(':id', $id);
             $statement->execute();
             $result = $statement->fetch();
             return $result;
         }
 
-        function updateUser()
+        function updateUser($id)
         {
             if (move_uploaded_file($_FILES["avatar"]["tmp_name"], $this->avatar)) {
                 $conn = Db::getConnection();
-                $statement = $conn->prepare("UPDATE user SET firstname= :firstname, lastname= :lastname, email= :email, avatar= :avatar, bio= :bio");
+                $statement = $conn->prepare("UPDATE user SET firstname= :firstname, lastname= :lastname, email= :email, school_year= :schoolyear, buddy= :buddy, avatar= :avatar, bio= :bio WHERE user_id= :id");
                 $statement->bindParam(":firstname", $this->firstname);
                 $statement->bindParam(":lastname", $this->lastname);
                 $statement->bindParam(":email", $this->email);
                 $statement->bindParam(":avatar", $this->avatar);
                 $statement->bindParam(":bio", $this->bio);
+                $statement->bindParam(":schoolyear", $this->year);
+                $statement->bindParam(":buddy", $this->buddy);
+                $statement->bindParam(":id", $id);
+
 
                 $statement->execute();
             }else {
                 $conn = Db::getConnection();
-                $statement = $conn->prepare("UPDATE user SET firstname= :firstname, lastname= :lastname, email= :email, bio= :bio");
+                $statement = $conn->prepare("UPDATE user SET firstname= :firstname, lastname= :lastname, email= :email, school_year= :schoolyear, buddy= :buddy, bio= :bio WHERE user_id= :id");
                 $statement->bindParam(":firstname", $this->firstname);
                 $statement->bindParam(":lastname", $this->lastname);
                 $statement->bindParam(":email", $this->email);
                 $statement->bindParam(":bio", $this->bio);
+                $statement->bindParam(":schoolyear", $this->year);
+                $statement->bindParam(":buddy", $this->buddy);
+                $statement->bindParam(":id", $id);
 
                 $statement->execute();
             }  
@@ -291,4 +341,5 @@ include_once(__DIR__ . "/Db.php");
             $password = password_hash($_POST['password'], PASSWORD_DEFAULT, ["cost" => 12]);
             return $password;
         }
+
     }

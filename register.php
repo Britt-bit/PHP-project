@@ -9,7 +9,7 @@ include_once(__DIR__ ."/classes/User.php");
         $user->setEmail($_POST['email']);
         $user->setPassword($_POST['password']);
         $user->setBio("Hey, welkom op mijn profiel.");
-        $user->setAvatar("href='images/default.png'");
+        $user->setAvatar("images/default.png");
 
         $email = $_POST['email'];
         $passwordConfirmation = $_POST['passwordConfirmation'];
