@@ -13,7 +13,8 @@ class Post{
         
         $statement = $conn->prepare("SELECT firstname, lastname, avatar, email, games, films, muziek, vak, hobby FROM user
         INNER JOIN features on user.user_id=features.user_id WHERE 
-        (firstname like :search 
+        (CONCAT(firstname, ' ', lastname) LIKE :search
+        OR firstname like :search 
         OR lastname like :search 
         OR games like :search  
         OR films like :search
@@ -23,7 +24,7 @@ class Post{
         AND user.user_id != :id 
         ");
         $statement->bindValue(":id", $id);
-        $statement->bindValue(":search", $search);
+        $statement->bindValue(":search",'%'.$search.'%');
         $statement->execute();
         $search = $statement->fetchAll();
 
