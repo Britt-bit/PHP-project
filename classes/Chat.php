@@ -4,7 +4,7 @@ include_once(__DIR__ . "/Db.php");
 include_once(__DIR__ . "/User.php");
 
 class chat{
-    private $user;
+    private $user; 
     private $buddy;
     private $message;
     private $time;
