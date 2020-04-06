@@ -49,7 +49,7 @@ if(isset($_GET['chat'])){
 
                 $stmt = $conn->query("SELECT `user_id` FROM `user` WHERE email = '$yourEmail'");
                 $stmt->execute();
-                $id = $stmt->fetch(PDO::FETCH_COLUMN);
+                $yourID = $stmt->fetch(PDO::FETCH_COLUMN);
 
                 //al deze features in een 2de array zetten
                 $yourFeatureArray = array($yourGame, $yourFilm, $yourMusic, $yourCourse, $yourHobby);
@@ -68,7 +68,7 @@ if(isset($_GET['chat'])){
                                 echo($result[$tel] . ".");
                             }
                         }
-                    echo '<a href="chat.php?chat=' . $id . '">Chat</a>'
+                    echo '<a href="chat.php?chat=' . $yourID . '">Chat</a>'
                 ?>
             </tr>
             <?php
@@ -78,7 +78,7 @@ if(isset($_GET['chat'])){
                     for($tel = 0; $tel < sizeof($result) +2; ++$tel){
                         echo($result[$tel] . "  ");
                     }
-                echo '<a href="chat.php?chat=' . $id . '">Chat</a>'
+                echo '<a href="chat.php?chat=' . $yourID . '">Chat</a>'
             ?>
             </tr>
             <?php
@@ -88,7 +88,7 @@ if(isset($_GET['chat'])){
                     for($tel = 0; $tel < sizeof($result) +2; ++$tel){
                         echo($result[$tel] . "  ");   
                     }
-                echo '<a href="chat.php?chat=' . $id . '">Chat</a>'
+                echo '<a href="chat.php?chat=' . $yourID . '">Chat</a>'
             ?>
             </tr>
             <?php
