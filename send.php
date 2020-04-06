@@ -4,7 +4,11 @@ include_once(__DIR__ . "/classes/Db.php");
 
 session_start();
 
-    $conn = Db::getConnection();
+    $conn = Db::getConnection(); 
+
+    //werkt nog niet
+    session_start();
+    $yourID = $_GET['id'];
 
     //De huidige user ophalen
     $statement = $conn->query("SELECT `user_id` FROM user WHERE email = '".$_SESSION['email']."'");
@@ -16,9 +20,18 @@ session_start();
     $message=$_POST['msg'];
 
     //message in database zetten
-    $stmt = $conn->query("INSERT INTO `buddyChat`(`user_id`, `message`) VALUES ('$id', '$message')");
 
     //puts the data a second time in database so don't use it here
     //$stmt->execute();
-    header("Location:chat.php");
+    
+
+
+    $stmt = $conn->prepare("INSERT INTO buddyChat (`user_id`, `message`) VALUES (:user_id, :message)");
+
+    $stmt->bindValue(":user_id", $id);
+    $stmt->bindValue(":message", $message);
+
+    $result = $stmt->execute();
+
+    header("Location:chat.php?id=$yourID");
 ?>

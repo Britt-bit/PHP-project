@@ -7,13 +7,16 @@ include_once(__DIR__ . "/classes/User.php");
 include_once(__DIR__ . "/classes/Db.php");
 include_once(__DIR__ ."/classes/Features.class.php");
 include_once(__DIR__ ."/classes/Match.php");
+$conn = Db::getConnection();
 
 if(isset($_GET['chat'])){
     $id = $_GET['chat'];
     
-    $result = $mysqli->query("SELECT * FROM user WHERE user_id=$id") or die($mysqli->error());
+    $result = $conn->prepare("SELECT * FROM user WHERE user_id=:id");
+    $result->bindParam(':id', $id);
+    $result->execute();
     if (count($result) ==1){
-        $row = $result->fetch_array();
+        $row = $result->fetchAll();
 
         //var_dump($yourID);
     }
@@ -48,7 +51,8 @@ if(isset($_GET['chat'])){
                 $yourLastname = $yourFeature['lastname'];
                 $yourEmail = $yourFeature['email'];
 
-                $stmt = $conn->query("SELECT `user_id` FROM `user` WHERE email = '$yourEmail'");
+                $stmt = $conn->prepare("SELECT `user_id` FROM `user` WHERE email = :yourEmail");
+                $stmt->bindParam(':yourEmail', $yourEmail);
                 $stmt->execute();
                 $yourID = $stmt->fetch(PDO::FETCH_COLUMN);
 
@@ -63,12 +67,12 @@ if(isset($_GET['chat'])){
                 //als er 5 dezelfde features zijn ... 
                 if(count($result) === 5){
                     echo "<br/>";
-                    print("You matched with " . $yourName . " " . $yourLastname . " on the features "); 
+                    print("You matched with " . htmlspecialchars($yourName) . " " . htmlspecialchars($yourLastname) . " on the features "); 
                         for($tel = 0; $tel < sizeof($result); ++$tel){
                             if($tel < sizeof($result) -1){
-                                echo($result[$tel] . ", ");
+                                echo(htmlspecialchars($result[$tel]) . ", ");
                             } else {
-                                echo($result[$tel] . ".");
+                                echo(htmlspecialchars($result[$tel]) . ".");
                             }
 
                         }
@@ -78,9 +82,9 @@ if(isset($_GET['chat'])){
             <?php
                 }else if(count($result) === 4){
                     echo "<br/>";
-                    print("You matched with " . $yourName . " " . $yourLastname . " on the features "); 
+                    print("You matched with " . htmlspecialchars($yourName) . " " . htmlspecialchars($yourLastname) . " on the features "); 
                     for($tel = 0; $tel < sizeof($result) +2; ++$tel){
-                        echo($result[$tel] . "  ");
+                        echo(htmlspecialchars($result[$tel]) . "  ");
                     }
                 echo '<a href="chat.php?id=' . $yourID . '">Chat</a>'
             ?>
@@ -88,9 +92,9 @@ if(isset($_GET['chat'])){
             <?php
                 } else if(count($result) === 3){
                     echo "<br/>";
-                    print("You matched with " . $yourName . " " . $yourLastname . " on the features "); 
+                    print("You matched with " . htmlspecialchars($yourName) . " " . htmlspecialchars($yourLastname) . " on the features "); 
                     for($tel = 0; $tel < sizeof($result) +2; ++$tel){
-                        echo($result[$tel] . "  ");   
+                        echo(htmlspecialchars($result[$tel]) . "  ");   
                     }
 
                 echo '<a href="chat.php?id=' . $yourID . '">Chat</a>'

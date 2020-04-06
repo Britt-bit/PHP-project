@@ -206,13 +206,15 @@ include_once(__DIR__ . "/Db.php");
             $email = $this->getEmail();
             $conn = Db::getConnection();
 
-            $check_email = ("SELECT email FROM user WHERE email='$email'");
-
+            $check_email = $conn->prepare("SELECT email FROM user WHERE email=':email'");
+            $check_email->bindParam(':email', $email);
+            
             foreach ($conn->query($check_email) as $row){
                 print $row['email'];
             }
             return $row;
         }
+        
         /* update user */
         function getUserById($id){
             $conn = Db::getConnection();
@@ -227,7 +229,7 @@ include_once(__DIR__ . "/Db.php");
         {
             if (move_uploaded_file($_FILES["avatar"]["tmp_name"], $this->avatar)) {
                 $conn = Db::getConnection();
-                $statement = $conn->prepare("update user set firstname= :firstname, lastname= :lastname, email= :email, avatar= :avatar, bio= :bio");
+                $statement = $conn->prepare("UPDATE user SET firstname= :firstname, lastname= :lastname, email= :email, avatar= :avatar, bio= :bio");
                 $statement->bindParam(":firstname", $this->firstname);
                 $statement->bindParam(":lastname", $this->lastname);
                 $statement->bindParam(":email", $this->email);
@@ -237,7 +239,7 @@ include_once(__DIR__ . "/Db.php");
                 $statement->execute();
             }else {
                 $conn = Db::getConnection();
-                $statement = $conn->prepare("update user set firstname= :firstname, lastname= :lastname, email= :email, bio= :bio");
+                $statement = $conn->prepare("UPDATE user SET firstname= :firstname, lastname= :lastname, email= :email, bio= :bio");
                 $statement->bindParam(":firstname", $this->firstname);
                 $statement->bindParam(":lastname", $this->lastname);
                 $statement->bindParam(":email", $this->email);

@@ -10,7 +10,8 @@ include_once(__DIR__ . "/Db.php");
     $statement->execute();
 
     //Features van de huidige user ophalen
-    $getFeatures = $conn->prepare("SELECT * FROM features WHERE user_id = '$id'");
+    $getFeatures = $conn->prepare("SELECT * FROM features WHERE user_id = :id");
+    $getFeatures->bindParam(':id', $id);
     $getFeatures->execute();
 
     while($myFeature = $getFeatures->fetch( PDO::FETCH_ASSOC )){ 

@@ -15,7 +15,15 @@ ini_set('display_errors', 1);
 
 
     $yourID = $_GET['id'];
-    $checkName = ("SELECT `firstname`, `lastname` FROM user WHERE user_id= '$yourID'");
+    //var_dump($yourID);
+    $checkName = $conn->prepare('SELECT `firstname`, `lastname` FROM user WHERE user_id= :id');
+    $checkName->bindParam(':id', $yourID);
+    $checkName->setFetchMode(PDO::FETCH_ASSOC);
+    $checkName->execute();
+    $checkedName = $checkName->fetchAll();
+    //var_dump($checkedName);
+    
+    
 ?>
 
 <!DOCTYPE html>
@@ -40,8 +48,8 @@ ini_set('display_errors', 1);
 
     <!--Buddy-->
     <div class="chattingWith" style=" width:600px; height:50px; background: linear-gradient(90deg, #FC466B 0%, #3F5EFB 100%); margin: 0 auto; border-radius: 20px; padding-top:0.5px;">
-        <h4 style="color:white; text-align:center;"><?php foreach ($conn->query($checkName) as $row){
-        echo $row['firstname'] . " " . $row['lastname'];} ?></h4>
+        <h4 style="color:white; text-align:center;"><?php foreach ($checkedName as $row){
+        echo  htmlspecialchars($row['firstname']) . " " .  htmlspecialchars($row['lastname']);} ?></h4>
     </div>
 
     <!--Gesprek-->
@@ -52,7 +60,7 @@ ini_set('display_errors', 1);
 
             if($statement->fetchColumn() > 0){
                 while($row = $statement->fetch( PDO::FETCH_ASSOC )){
-                    echo "" . $row["user_id"] . " " . ":: " . $row["message"] . " -- " . $row["time"] . "<br/>";
+                    echo "" . htmlspecialchars($row["user_id"]) . " " . ":: " . htmlspecialchars($row["message"]) . " -- " . htmlspecialchars($row["time"]) . "<br/>";
                     echo "<br/>";
                 }
             } else {
