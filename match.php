@@ -57,13 +57,16 @@ if(isset($_GET['chat'])){
                 $yourID = $stmt->fetch(PDO::FETCH_COLUMN);
 
                 
+                    
+                
+                
                 //al deze features in een 2de array zetten
                 $yourFeatureArray = array($yourGame, $yourFilm, $yourMusic, $yourCourse, $yourHobby);
 
                 //De 2 arrays vergelijken om te zien welke features allemaal matchen.
                 $result = array_intersect($myFeatures, $yourFeatureArray);
-            
-                
+
+                if($yourID != $id){
                 //als er 5 dezelfde features zijn ... 
                 if(count($result) === 5){
                     echo "<br/>";
@@ -105,6 +108,7 @@ if(isset($_GET['chat'])){
             <?php
             }
         }
+    }
     }
 ?>
 </table>
