@@ -27,7 +27,7 @@ document.querySelector("#send").addEventListener("click", function(){
         .catch(error=>{
             console.error("Error:", error);
         });
- 
+  
 
     //antwoord ok? Toon bovenaan?
 });
