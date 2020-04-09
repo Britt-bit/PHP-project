@@ -9,6 +9,8 @@ include_once(__DIR__ . "/Db.php");
         private $bio;
         private $password;
         private $newpassword;
+        private $buddy;
+        private $year;
 
         /**
          * Get the value of firstname
@@ -104,6 +106,49 @@ include_once(__DIR__ . "/Db.php");
                 return $this;
         }
 
+        /**
+         * Get the value of buddy
+         */ 
+        public function getBuddy()
+        {
+                return $this->buddy;
+        }
+
+        /**
+         * Set the value of buddy
+         *
+         * @return  self
+         */ 
+        public function setBuddy($buddy)
+        {
+                $this->buddy = $buddy;
+
+                return $this;
+        }
+
+        /**
+         * Get the value of password
+         */ 
+        public function getYear()
+        {
+                return $this->year;
+        }
+
+        /**
+         * Set the value of password
+         *
+         * @return  self
+         */ 
+        public function setYear($year)
+        {
+            if(empty($year)){
+                throw new Exception("Year cannot be empty");
+            }
+                $this->year = $year;
+
+                return $this;
+        }
+
 
 
         /**
@@ -170,7 +215,7 @@ include_once(__DIR__ . "/Db.php");
         public function saveUser(){
             $conn = Db::getConnection();
 
-            $statement = $conn->prepare("INSERT INTO user (firstname, lastname, email, password, avatar, bio) VALUES (:firstname, :lastname, :email, :password, :avatar, :bio)");
+            $statement = $conn->prepare("INSERT INTO user (firstname, lastname, email, password, avatar, bio, school_year, buddy) VALUES (:firstname, :lastname, :email, :password, :avatar, :bio, :schoolyear, :buddy)");
 
             $firstname = $this->getFirstname();
             $lastname = $this->getLastname();
@@ -178,6 +223,8 @@ include_once(__DIR__ . "/Db.php");
             $password = $this->getPassword();
             $avatar = $this->getAvatar();
             $bio = $this->getBio();
+            $year = $this->getYear();
+            $buddy = $this->getBuddy();
 
             $statement->bindValue(":firstname", $firstname);
             $statement->bindValue(":lastname", $lastname);
@@ -185,6 +232,8 @@ include_once(__DIR__ . "/Db.php");
             $statement->bindValue(":password", $password);
             $statement->bindValue(":avatar", $avatar);
             $statement->bindValue(":bio", $bio);
+            $statement->bindValue(":schoolyear", $year);
+            $statement->bindValue(":buddy", $buddy);
 
             $result = $statement->execute();
 
@@ -229,21 +278,27 @@ include_once(__DIR__ . "/Db.php");
         {
             if (move_uploaded_file($_FILES["avatar"]["tmp_name"], $this->avatar)) {
                 $conn = Db::getConnection();
-                $statement = $conn->prepare("UPDATE user SET firstname= :firstname, lastname= :lastname, email= :email, avatar= :avatar, bio= :bio");
+                $statement = $conn->prepare("UPDATE user SET firstname= :firstname, lastname= :lastname, email= :email, school_year= :schoolyear, buddy= :buddy, avatar= :avatar, bio= :bio WHERE user_id= :id");
                 $statement->bindParam(":firstname", $this->firstname);
                 $statement->bindParam(":lastname", $this->lastname);
                 $statement->bindParam(":email", $this->email);
                 $statement->bindParam(":avatar", $this->avatar);
                 $statement->bindParam(":bio", $this->bio);
+                $statement->bindParam(":schoolyear", $this->year);
+                $statement->bindParam(":buddy", $this->buddy);
+                $statement->bindParam(":id", $id);
 
                 $statement->execute();
             }else {
                 $conn = Db::getConnection();
-                $statement = $conn->prepare("UPDATE user SET firstname= :firstname, lastname= :lastname, email= :email, bio= :bio");
+                $statement = $conn->prepare("UPDATE user SET firstname= :firstname, lastname= :lastname, email= :email, school_year= :schoolyear, buddy= :buddy, bio= :bio WHERE user_id= :id");
                 $statement->bindParam(":firstname", $this->firstname);
                 $statement->bindParam(":lastname", $this->lastname);
                 $statement->bindParam(":email", $this->email);
                 $statement->bindParam(":bio", $this->bio);
+                $statement->bindParam(":schoolyear", $this->year);
+                $statement->bindParam(":buddy", $this->buddy);
+                $statement->bindParam(":id", $id);
 
                 $statement->execute();
             }  

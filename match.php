@@ -6,7 +6,7 @@ session_start();
 include_once(__DIR__ . "/classes/User.php");
 include_once(__DIR__ . "/classes/Db.php");
 include_once(__DIR__ ."/classes/Features.class.php");
-include_once(__DIR__ ."/classes/Match.php");
+include_once(__DIR__ ."/classes/Match.php"); 
 $conn = Db::getConnection();
 
 if(isset($_GET['chat'])){
@@ -50,6 +50,7 @@ if(isset($_GET['chat'])){
                 $yourName = $yourFeature['firstname'];
                 $yourLastname = $yourFeature['lastname'];
                 $yourEmail = $yourFeature['email'];
+                $yourBuddy = $yourFeature['buddy'];
 
                 $stmt = $conn->prepare("SELECT `user_id` FROM `user` WHERE email = :yourEmail");
                 $stmt->bindParam(':yourEmail', $yourEmail);
@@ -57,15 +58,13 @@ if(isset($_GET['chat'])){
                 $yourID = $stmt->fetch(PDO::FETCH_COLUMN);
 
                 
-                    
-                
-                
                 //al deze features in een 2de array zetten
                 $yourFeatureArray = array($yourGame, $yourFilm, $yourMusic, $yourCourse, $yourHobby);
 
                 //De 2 arrays vergelijken om te zien welke features allemaal matchen.
                 $result = array_intersect($myFeatures, $yourFeatureArray);
 
+            if($yourBuddy != $buddy){
                 if($yourID != $id){
                 //als er 5 dezelfde features zijn ... 
                 if(count($result) === 5){
@@ -108,6 +107,7 @@ if(isset($_GET['chat'])){
             <?php
             }
         }
+    }
     }
     }
 ?>
