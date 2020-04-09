@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost:3306
--- Generation Time: Mar 29, 2020 at 06:34 PM
+-- Generation Time: Apr 09, 2020 at 10:55 AM
 -- Server version: 5.7.25
 -- PHP Version: 7.3.1
 
@@ -37,9 +37,21 @@ CREATE TABLE `buddy` (
 
 CREATE TABLE `buddyChat` (
   `buddyChat_id` int(11) NOT NULL,
-  `buddy_id` int(11) NOT NULL,
-  `txt` text NOT NULL
+  `buddy_id` int(11) DEFAULT NULL,
+  `user_id` int(11) NOT NULL,
+  `message` text NOT NULL,
+  `time` timestamp NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Dumping data for table `buddyChat`
+--
+
+INSERT INTO `buddyChat` (`buddyChat_id`, `buddy_id`, `user_id`, `message`, `time`) VALUES
+(163, NULL, 90, 'hey', '2020-04-06 14:32:39'),
+(164, NULL, 90, 'hey', '2020-04-06 14:32:49'),
+(165, NULL, 90, 'hey', '2020-04-06 14:33:21'),
+(166, NULL, 90, 'hey hey', '2020-04-06 14:33:44');
 
 -- --------------------------------------------------------
 
@@ -60,13 +72,34 @@ CREATE TABLE `faq` (
 --
 
 CREATE TABLE `features` (
-  `user_id` int(11) NOT NULL,
   `games` varchar(300) NOT NULL,
   `films` varchar(300) NOT NULL,
   `muziek` varchar(300) NOT NULL,
   `vak` varchar(300) NOT NULL,
-  `hobby` varchar(300) NOT NULL
+  `hobby` varchar(300) NOT NULL,
+  `user_id` int(11) NOT NULL,
+  `feature_id` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Dumping data for table `features`
+--
+
+INSERT INTO `features` (`games`, `films`, `muziek`, `vak`, `hobby`, `user_id`, `feature_id`) VALUES
+('rpg', 'actie', 'hardstyle', 'development', 'muziek', 76, 3),
+('rpg', 'actie', 'hardstyle', 'development', 'fsdq', 77, 4),
+('rpg', 'komedie', 'rap', 'communicatie', 'fsd', 78, 5),
+('shooter', 'actie', 'rap', 'development', 'fqs', 80, 6),
+('shooter', 'actie', 'hardstyle', 'development', 'fsd', 81, 7),
+('shooter', 'actie', 'hardstyle', 'development', 'fs', 82, 8),
+('shooter', 'actie', 'r&amp;b', 'development', 'dsfq', 83, 9),
+('shooter', 'actie', 'hardstyle', 'development', 'fdsq', 84, 10),
+('shooter', 'actie', 'r&amp;b', 'development', 'g', 85, 11),
+('shooter', 'horror', 'r&amp;b', 'development', 'fd', 86, 12),
+('shooter', 'horror', 'klassiek', 'development', 'fdsq', 87, 13),
+('shooter', 'actie', 'schlager', 'development', 'fqsf', 88, 14),
+('mmo', 'actie', 'hardstyle', 'development', 'Muziek', 90, 15),
+('mmo', 'actie', 'pop', 'development', 'Muziek', 91, 16);
 
 -- --------------------------------------------------------
 
@@ -131,7 +164,8 @@ CREATE TABLE `user` (
   `email` varchar(300) NOT NULL,
   `password` varchar(300) NOT NULL,
   `bio` tinytext,
-  `features` varchar(300) DEFAULT NULL,
+  `year` varchar(5) NOT NULL,
+  `feature_id` int(11) DEFAULT NULL,
   `buddy` tinyint(1) DEFAULT NULL,
   `avatar` text
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
@@ -140,8 +174,8 @@ CREATE TABLE `user` (
 -- Dumping data for table `user`
 --
 
-INSERT INTO `user` (`user_id`, `firstname`, `lastname`, `email`, `password`, `bio`, `features`, `buddy`, `avatar`) VALUES
-(61, 'Britt', 'Van der Linden', 'britt@student.thomasmore.be', '$2y$12$0Jzq76eJDhva1mVftFwb/Oi4rySCZusvr0Ata55Luyr4sH.SN7fWi', 'I dont know what to write', NULL, NULL, 'images/uploads/default.png');
+INSERT INTO `user` (`user_id`, `firstname`, `lastname`, `email`, `password`, `bio`, `year`, `feature_id`, `buddy`, `avatar`) VALUES
+(92, 'Britt', 'Van der Linden', 'britt@student.thomasmore.be', '$2y$12$2tGl5ZAU/Wpo9COmlNjt5.bKD/nXW077gPxhNIvvA0sGtYXTJxG1C', 'Hey, welkom op mijn profiel.', '2IMD', NULL, NULL, 'href=\"images/default.png\"');
 
 --
 -- Indexes for dumped tables
@@ -154,10 +188,16 @@ ALTER TABLE `buddy`
   ADD PRIMARY KEY (`buddy_id`);
 
 --
+-- Indexes for table `buddyChat`
+--
+ALTER TABLE `buddyChat`
+  ADD PRIMARY KEY (`buddyChat_id`);
+
+--
 -- Indexes for table `features`
 --
 ALTER TABLE `features`
-  ADD PRIMARY KEY (`user_id`);
+  ADD PRIMARY KEY (`feature_id`);
 
 --
 -- Indexes for table `post`
@@ -188,10 +228,16 @@ ALTER TABLE `buddy`
   MODIFY `buddy_id` int(11) NOT NULL AUTO_INCREMENT;
 
 --
+-- AUTO_INCREMENT for table `buddyChat`
+--
+ALTER TABLE `buddyChat`
+  MODIFY `buddyChat_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=167;
+
+--
 -- AUTO_INCREMENT for table `features`
 --
 ALTER TABLE `features`
-  MODIFY `user_id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `feature_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=17;
 
 --
 -- AUTO_INCREMENT for table `post`
@@ -209,4 +255,4 @@ ALTER TABLE `replies`
 -- AUTO_INCREMENT for table `user`
 --
 ALTER TABLE `user`
-  MODIFY `user_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=74;
+  MODIFY `user_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=93;
