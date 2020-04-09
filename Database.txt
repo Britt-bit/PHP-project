@@ -164,7 +164,7 @@ CREATE TABLE `user` (
   `email` varchar(300) NOT NULL,
   `password` varchar(300) NOT NULL,
   `bio` tinytext,
-  `year` varchar(5) NOT NULL,
+  `school_year` varchar(5) NOT NULL,
   `feature_id` int(11) DEFAULT NULL,
   `buddy` tinyint(1) DEFAULT NULL,
   `avatar` text
@@ -174,7 +174,7 @@ CREATE TABLE `user` (
 -- Dumping data for table `user`
 --
 
-INSERT INTO `user` (`user_id`, `firstname`, `lastname`, `email`, `password`, `bio`, `year`, `feature_id`, `buddy`, `avatar`) VALUES
+INSERT INTO `user` (`user_id`, `firstname`, `lastname`, `email`, `password`, `bio`, `school_year`, `feature_id`, `buddy`, `avatar`) VALUES
 (92, 'Britt', 'Van der Linden', 'britt@student.thomasmore.be', '$2y$12$2tGl5ZAU/Wpo9COmlNjt5.bKD/nXW077gPxhNIvvA0sGtYXTJxG1C', 'Hey, welkom op mijn profiel.', '2IMD', NULL, NULL, 'href=\"images/default.png\"');
 
 --
