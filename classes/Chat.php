@@ -42,8 +42,6 @@ $emoji = $qry->fetch(PDO::FETCH_COLUMN);
 
 
 
-
-
 function fetch_user_chat_history($from_user_id, $to_user_id, $conn){
  $query = "SELECT * FROM buddyChat WHERE (from_user_id = '".$from_user_id."' 
  AND to_user_id = '".$to_user_id."') OR (from_user_id = '".$to_user_id."' 

@@ -79,6 +79,15 @@ $emoji = $qry->fetch(PDO::FETCH_COLUMN);
   .like-btn:hover {
     text-decoration: underline;
   }
+
+  .status{
+    font-weight: bold;
+    color: white;
+    background-color: #0781d3;
+    position: absolute;
+    width: 20px;
+    text-align: center;
+  }
   
 
 </style>
@@ -110,17 +119,23 @@ $emoji = $qry->fetch(PDO::FETCH_COLUMN);
                 $stmt->execute();
                 $yourID = $stmt->fetch(PDO::FETCH_COLUMN);
 
-                
                 //al deze features in een 2de array zetten
                 $yourFeatureArray = array($yourGame, $yourFilm, $yourMusic, $yourCourse, $yourHobby);
-
                 //De 2 arrays vergelijken om te zien welke features allemaal matchen.
                 $result = array_intersect($myFeatures, $yourFeatureArray);
+
+
+                $stmtStatus = $conn->prepare("SELECT `status` FROM `buddyChat`, `user` WHERE buddyChat.from_user_id = user.user_id AND buddyChat.from_user_id = $yourID AND `status` = 1");
+                $stmtStatus->execute();
+                $status = $stmtStatus->fetch(PDO::FETCH_COLUMN);
+                //var_dump($status);
+
 
             if($yourBuddy != $buddy){
                 if($yourID != $id){
                 //als er 5 dezelfde features zijn ... 
                 if(count($result) === 5){
+                    echo "<br/>";
                     echo "<br/>";
                     print("You matched with " . htmlspecialchars($yourName) . " " . htmlspecialchars($yourLastname) . " on the features "); 
                         for($tel = 0; $tel < sizeof($result); ++$tel){
@@ -131,21 +146,35 @@ $emoji = $qry->fetch(PDO::FETCH_COLUMN);
                             }
 
                         }
-                    echo '<button type="button" class="btn btn-info btn-xs start_chat" data-touserid="'. $yourID . '" data-tousername="'. $yourName . '">Start Chat</button>';
+                        if($status == 1){
+                            $statusReturn = '<p>New message</p>';
+                         } else {
+                             $statusReturn = "";
+                         }
+                    echo '<button type="button" class="btn btn-info btn-xs start_chat" data-touserid="'. $yourID . '" data-tousername="'. $yourName . '">Start Chat '.$statusReturn.'</button>';
+                    
                 ?>
             </tr>
             <?php
                 }else if(count($result) === 4){
                     echo "<br/>";
+                    echo "<br/>";
                     print("You matched with " . htmlspecialchars($yourName) . " " . htmlspecialchars($yourLastname) . " on the features "); 
                     for($tel = 0; $tel < sizeof($result) +2; ++$tel){
                         echo(htmlspecialchars($result[$tel]) . "  ");
                     }
-                echo '<button type="button" class="btn btn-info btn-xs start_chat" data-touserid="'. $yourID . '" data-tousername="'. $yourName . '">Start Chat</button>';
+                    if($status == 1){
+                        $statusReturn = '<p>New message</p>';
+                     } else {
+                         $statusReturn = "";
+                     }
+                    echo '<button type="button" class="btn btn-info btn-xs start_chat" data-touserid="'. $yourID . '" data-tousername="'. $yourName . '">Start Chat'.$statusReturn.'</button>';
+                   
             ?>
             </tr>
             <?php
                 } else if(count($result) === 3){
+                    echo "<br/>";
                     echo "<br/>";
                     //<p style='margin-left:20px';> 
                     echo("You matched with " . htmlspecialchars($yourName) . " " . htmlspecialchars($yourLastname) . " on the features "); 
@@ -153,7 +182,12 @@ $emoji = $qry->fetch(PDO::FETCH_COLUMN);
                         echo(htmlspecialchars($result[$tel]) . " ");   
                     }
                     //echo("</p>");
-                echo '<button type="button" class="btn btn-info btn-xs start_chat" data-touserid="'. $yourID . '" data-tousername="'. $yourName . '">Start Chat</button>';
+                    if($status == 1){
+                        $statusReturn = '<p>New message</p>';
+                     } else {
+                         $statusReturn = "";
+                     }
+                echo '<button type="button" class="btn btn-info btn-xs start_chat" data-touserid="'. $yourID . '" data-tousername="'. $yourName . '">Start Chat'.$statusReturn.'</button>';
                 
   
             ?>
@@ -170,6 +204,7 @@ $emoji = $qry->fetch(PDO::FETCH_COLUMN);
 
 <div class="table-responsive">
     <div id="user_model_details"></div>
+    <div id="status_content"></div>
 </div>
 
 <!--<script src="js/reaction.js"></script>-->
@@ -181,9 +216,13 @@ $emoji = $qry->fetch(PDO::FETCH_COLUMN);
             update_chat_history_data();
         }, 5000);
 
+function show_status_content(to_user_id){
+    var modal_content = modal_content += '<p>You have a new message</p>';
+    $('#status_content').html(modal_content);
+}
 
 function make_chat_dialog_box(to_user_id, to_user_name){
-    var modal_content = '<div id="user_dialog_'+to_user_id+'" class="user_dialog" title="You have chat with '+to_user_name+'">';
+    var modal_content = '<div id="user_dialog_'+to_user_id+'" class="user_dialog" title="Je chat met '+to_user_name+'">';
     modal_content += '<div style="height:400px; border:1px solid #ccc; overflow-y: scroll; margin-bottom:24px; padding:16px;" class="chat_history" data-touserid="'+to_user_id+'" id="chat_history_'+to_user_id+'">';
     modal_content += fetch_user_chat_history(to_user_id);
     modal_content += '</div>';
