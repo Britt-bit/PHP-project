@@ -9,18 +9,32 @@ include_once(__DIR__ ."/classes/Features.class.php");
 include_once(__DIR__ ."/classes/Match.php"); 
 $conn = Db::getConnection();
 
-if(isset($_GET['chat'])){
-    $id = $_GET['chat'];
+//if(isset($_GET['chat'])){
+//    $id = $_GET['chat'];
     
-    $result = $conn->prepare("SELECT * FROM user WHERE user_id=:id");
-    $result->bindParam(':id', $id);
-    $result->execute();
-    if (count($result) ==1){
-        $row = $result->fetchAll();
+//    $result = $conn->prepare("SELECT * FROM user WHERE user_id=:id");
+//    $result->bindParam(':id', $id);
+//    $result->execute();
+//    if (count($result) ==1){
+//        $row = $result->fetchAll();
 
         //var_dump($yourID);
-    }
-}
+//    }
+//}
+
+$qry = $conn->prepare("SELECT `name` FROM `buddyChat`, `reaction` WHERE buddyChat.reaction_id = reaction.reaction_id AND buddyChat.reaction_id = :name");
+$qry->bindParam(':name', $reactionID);
+$qry->execute();
+$emoji = $qry->fetch(PDO::FETCH_COLUMN);
+
+
+//$statementChat = $conn->prepare("INSERT INTO buddyChat (reaction_id) 
+//VALUES (:reaction_id)");
+
+//$statementChat->bindValue(":reaction_id", '+data_reaction');
+//$statementChat->execute();
+
+
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -28,7 +42,46 @@ if(isset($_GET['chat'])){
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Matches</title>
+    <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdn.rawgit.com/mervick/emojionearea/master/dist/emojionearea.min.css">
+
+
+<link rel="stylesheet" href="css/reaction.css">
+
+    <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+
+    <script src="js/jquery.min.js"></script>
+<script src="js/jquery.livequery.js"></script>
+<script src="js/jquery.tooltipsterReaction.js"></script>
+<script src="js/jquery.tipsy.js"></script>
+
 </head>
+<style>
+.reaction-container{
+    max-width:40%;
+    margin:10px auto;
+    margin-left: -0px;
+    margin-bottom: -20px;
+    padding: 0px 0px;
+    position: relative;
+  }
+  
+  .like-btn {
+    font-weight: bold;
+    color: #0781d3;
+    position: relative;
+    cursor: pointer;
+    
+  }
+  
+  .like-btn:hover {
+    text-decoration: underline;
+  }
+  
+
+</style>
 <body>
 
     <h1>My matches</h1>
@@ -78,7 +131,7 @@ if(isset($_GET['chat'])){
                             }
 
                         }
-                    echo '<a href="chat.php?id=' . $yourID . '">Chat</a>'
+                    echo '<button type="button" class="btn btn-info btn-xs start_chat" data-touserid="'. $yourID . '" data-tousername="'. $yourName . '">Start Chat</button>';
                 ?>
             </tr>
             <?php
@@ -88,18 +141,19 @@ if(isset($_GET['chat'])){
                     for($tel = 0; $tel < sizeof($result) +2; ++$tel){
                         echo(htmlspecialchars($result[$tel]) . "  ");
                     }
-                echo '<a href="chat.php?id=' . $yourID . '">Chat</a>'
+                echo '<button type="button" class="btn btn-info btn-xs start_chat" data-touserid="'. $yourID . '" data-tousername="'. $yourName . '">Start Chat</button>';
             ?>
             </tr>
             <?php
                 } else if(count($result) === 3){
                     echo "<br/>";
-                    print("You matched with " . htmlspecialchars($yourName) . " " . htmlspecialchars($yourLastname) . " on the features "); 
+                    //<p style='margin-left:20px';> 
+                    echo("You matched with " . htmlspecialchars($yourName) . " " . htmlspecialchars($yourLastname) . " on the features "); 
                     for($tel = 0; $tel < sizeof($result) +2; ++$tel){
-                        echo(htmlspecialchars($result[$tel]) . "  ");   
+                        echo(htmlspecialchars($result[$tel]) . " ");   
                     }
-
-                echo '<a href="chat.php?id=' . $yourID . '">Chat</a>'
+                    //echo("</p>");
+                echo '<button type="button" class="btn btn-info btn-xs start_chat" data-touserid="'. $yourID . '" data-tousername="'. $yourName . '">Start Chat</button>';
                 
   
             ?>
@@ -114,5 +168,112 @@ if(isset($_GET['chat'])){
 </table>
 </form>
 
+<div class="table-responsive">
+    <div id="user_model_details"></div>
+</div>
+
+<!--<script src="js/reaction.js"></script>-->
+
+<script>
+    $(document).ready(function(){
+        event.preventDefault()
+        setInterval(function(){
+            update_chat_history_data();
+        }, 5000);
+
+
+function make_chat_dialog_box(to_user_id, to_user_name){
+    var modal_content = '<div id="user_dialog_'+to_user_id+'" class="user_dialog" title="You have chat with '+to_user_name+'">';
+    modal_content += '<div style="height:400px; border:1px solid #ccc; overflow-y: scroll; margin-bottom:24px; padding:16px;" class="chat_history" data-touserid="'+to_user_id+'" id="chat_history_'+to_user_id+'">';
+    modal_content += fetch_user_chat_history(to_user_id);
+    modal_content += '</div>';
+    modal_content += '<div class="form-group">';
+    modal_content += '<textarea  name="chat_message_'+to_user_id+'" id="chat_message_'+to_user_id+'" class="form-control"></textarea>';
+    modal_content += '</div><div class="form-group" align="right">';
+    
+    modal_content+= '<button type="button" name="send_chat" id="'+to_user_id+'" class="btn btn-info send_chat">Send</button></div></div>';
+    $('#user_model_details').html(modal_content);
+}
+
+var buttonclicked
+$(document).on('click', '.reaction', function(e) {   // like click
+    console.log(e);
+    var data_reaction = $(this).attr('data_reaction');
+    var message_id = $(this).attr('message_id');
+
+        //alert("Button is clicked for first time "+data_reaction + " " + message_id);
+        $.ajax({
+        url: "php/like.php",
+        type: "POST",
+        data:{
+            data_reaction: data_reaction,
+            message_id: message_id
+        },
+        success: function (response) {
+            var data_reaction = $(this).attr("data_reaction");
+            var message_id = $(this).attr("message_id");
+        }
+    })
+
+    //
+});
+
+
+
+$(document).on('click', '.start_chat', function(){
+    var to_user_id = $(this).data('touserid');
+    var to_user_name = $(this).data('tousername');
+    make_chat_dialog_box(to_user_id, to_user_name);
+    $("#user_dialog_"+to_user_id).dialog({
+        autoOpen:false,
+        width:400
+    });
+$('#user_dialog_'+to_user_id).dialog('open');
+});
+
+$(document).on('click', '.send_chat', function(){
+    event.preventDefault()
+    //alert("hi");
+    var to_user_id = $(this).attr('id');
+    var chat_message = $('#chat_message_'+to_user_id).val();
+    
+    $.ajax({
+     url:"php/insert_chat.php",
+     method:"POST",
+     data:{to_user_id:to_user_id, chat_message:chat_message},
+     success:function(data)
+     {
+      $('#chat_message_'+to_user_id).val('');
+      $('#chat_history_'+to_user_id).html(data);
+     }
+    })
+   });
+
+   function fetch_user_chat_history(to_user_id){
+            $.ajax({
+            url:"php/Fetch_chat_history.php",
+            method:"POST",
+            data:{to_user_id:to_user_id},
+            success:function(data){
+                $('#chat_history_'+to_user_id).html(data);
+            }
+        })
+    }
+
+    function update_chat_history_data(){
+            $('.chat_history').each(function(){
+                var to_user_id = $(this).data('touserid');
+                fetch_user_chat_history(to_user_id);
+            });
+        }
+
+        $(document).on('click', '.ui-button-icon', function(){
+            $('.user_dialog').dialog('destroy').remove();
+        });
+
+
+
+});
+</script>
 </body>
 </html>

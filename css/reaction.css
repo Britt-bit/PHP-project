@@ -1,93 +1,15 @@
-.note
-{
-    margin-top: 2em;
-    text-align: center;
-    height: 80px;
-    background: -webkit-linear-gradient(left, #0072ff, #8811c5);
-    color: #fff;
-    font-size: 1.5em;
-    font-weight: bold;
-    line-height: 80px;
-}
-.form-content
-{
-    padding: 5%;
-    border: 1px solid #ced4da;
-    margin-bottom: 2%;
-}
-.form-control{
-    border-radius:1.5rem;
-}
-.btnSubmit
-{
-    border:none;
-    border-radius:1.5rem;
-    padding: 1%;
-    width: 20%;
-    cursor: pointer;
-    background: #0062cc;
-    color: #fff;
-}
-
-.form__error
-{
-  color: red;
-  font-weight: lighter;
-  padding: 0.5em 1em;
-  margin-bottom: 1em;
-  font-size: 0.9em;
-}
-#watchOut{
-    display: none;
-}
-
-
-
-
-
-.facebook-reaction{
-    max-width:100%;
-    margin:150px auto;
-    padding:0 60px;
-    position: relative;
-  }
-  
-  .like-btn {
-    font-weight: bold;
-    color: #0781d3;
-    position: relative;
-    cursor: pointer;
-    padding: 20px 20px 0 0;
-  }
-  
-  .like-btn:hover {
-    text-decoration: underline;
-  }
-  
-  .like-btn-default {
-    background-image: url('../images/reaction/reaction0.png');
-    background-repeat: no-repeat;
-    background-size: auto;
-    background-position: -277px -446px;
-  }
-  
-  .like-btn-emo {
-    display: inline-block;
-    margin: 0 6px -3px 0;
-    width: 16px;
-    height: 16px;
-  }
-  
   .reactions-box {
+    background-color: gray;
     height: 44px;
     width: 340px;
     padding: 10px;
     position: absolute;
-    top: -63px;
+    top: -23px;
     left: -14px;
-    box-shadow: 1px 1px 2px #cccccc, -1px 0px 2px #eeeeee;
+    box-shadow: 1px 1px 2px #cccccc, -1px 0px 2px gray;
     border-radius: 44px 44px;
     display: none;
+    
   }
   
   .reaction {
@@ -100,7 +22,7 @@
     top: 8px;
     opacity: 0;
     transform: scale(1, 1);
-    transition: opacity .5s ease-in-out 1s, transform .07s ease-in-out 0s, top .07s ease-in-out 0s;
+    transition: opacity .5s ease-in-out .5s, transform .03s ease-in-out 0s, top .03s ease-in-out 0s;
     background-repeat: no-repeat;
     background-size: cover;
     background-position: center center
@@ -110,37 +32,49 @@
     display: block;
   }
   
-  .reaction-like {
+  .reaction-1 {
+    width: 28px;
+      height: 28px;
     left: 10px;
     transition-delay: 0s;
     background-image: url('../images/reaction/reaction1.png');
   }
   
-  .reaction-love {
+  .reaction-2 {
+    width: 28px;
+      height: 28px;
     left: 68px;
     transition-delay: .05s;
     background-image: url('../images/reaction/reaction2.png');
   }
   
-  .reaction-haha {
+  .reaction-3 {
+    width: 28px;
+      height: 28px;
     left: 126px;
     transition-delay: .1s;
     background-image: url('../images/reaction/reaction3.png');
   }
   
-  .reaction-wow {
+  .reaction-4 {
+    width: 28px;
+      height: 28px;
     left: 184px;
     transition-delay: .15s;
     background-image: url('../images/reaction/reaction4.png');
   }
   
-  .reaction-sad {
+  .reaction-5 {
+    width: 28px;
+      height: 28px;
     left: 242px;
     transition-delay: .2s;
     background-image: url('../images/reaction/reaction5.png');
   }
   
-  .reaction-angry {
+  .reaction-6 {
+    width: 28px;
+      height: 28px;
     left: 300px;
     transition-delay: .25s;
     background-image: url('../images/reaction/reaction6.png');
@@ -156,54 +90,58 @@
   
   @keyframes reaction_delay {
     0% {
-      width: 48px;
-      height: 48px;
+      width: 28px;
+      height: 28px;
       top: 60px;
     }
     48% {
-      width: 56px;
-      height: 56px;
+      width: 36px;
+      height: 36px;
       top: 5px;
     }	
     100% {
-      width: 48px;
-      height: 48px;
+      width: 28px;
+      height: 28px;
       top: 8px;
     }
   }
   
   
-  .like-btn:hover .reaction-like {
+  .like-btn:hover .reaction-1 {
     animation-delay: 0s
   }
   
-  .like-btn:hover .reaction-love {
+  .like-btn:hover .reaction-2 {
     animation-delay: .05s
   }
   
-  .like-btn:hover .reaction-haha {
+  .like-btn:hover .reaction-3 {
     animation-delay: .1s
   }
   
-  .like-btn:hover .reaction-wow {
+  .like-btn:hover .reaction-4 {
     animation-delay: .15s
   }
   
-  .like-btn:hover .reaction-sad {
+  .like-btn:hover .reaction-5 {
     animation-delay: .2s
   }
   
-  .like-btn:hover .reaction-angry {
+  .like-btn:hover .reaction-6 {
     animation-delay: .25s
   }
   
   .reaction:hover {
-    transform: scale(1.3, 1.3);
+    transform: scale(1, 1);
     top: 2px
   }
   
 
 
+
+
+
+  
   
   
   .reaction::before {
@@ -227,28 +165,28 @@
     opacity: 1
   }
   
-  .reaction-like::before {
+  .reaction-1::before {
     content: 'Like'
   }
   
-  .reaction-love::before {
+  .reaction-2::before {
     content: 'Love'
   }
   
-  .reaction-haha::before {
+  .reaction-3::before {
     content: 'Haha'
   }
   
-  .reaction-wow::before {
+  .reaction-4::before {
     content: 'Wow'
   }
   
   
-  .reaction-sad::before {
+  .reaction-5::before {
     content: 'Sad'
   }
   
-  .reaction-angry::before {
+  .reaction-6::before {
     content: 'Angry'
   }
   
@@ -257,58 +195,58 @@
   }
   
   
-  .like-btn-like{
+  .like-btn-1{
     background-image: url('../images/reaction/reaction1-small.png');
     background-repeat: no-repeat;
     background-size: auto;
     background-position: -17px -151px;
   }
   
-  .like-btn-love{
+  .like-btn-2{
     background-image: url('../images/reaction/reaction2-small.png');
     background-repeat: no-repeat;
     background-size: auto;
     background-position: 0 -168px;
   }
   
-  .like-btn-haha{
+  .like-btn-3{
     background-image: url('../images/reaction/reaction3-small.png');
     background-repeat: no-repeat;
     background-size: auto;
     background-position: 0 -151px;
   }
   
-  .like-btn-wow{
+  .like-btn-4{
     background-image: url('../images/reaction/reaction4-small.png');
     background-repeat: no-repeat;
     background-size: auto;
     background-position: -17px -185px;
   }
   
-  .like-btn-sad{
+  .like-btn-5{
     background-image: url('../images/reaction/reaction5-small.png');
     background-repeat: no-repeat;
     background-size: auto;
     background-position: -17px -168px;
   }
   
-  .like-btn-angry{
+  .like-btn-6{
     background-image: url('../images/reaction/reaction6-small.png');
     background-repeat: no-repeat;
     background-size: auto;
     background-position: -17px -117px;
   }
   
-  .like-btn-text-like {
+  .like-btn-text-1 {
     color:rgb(88, 144, 255);
   }
-  .like-btn-text-wow,.like-btn-text-haha,.like-btn-text-sad {
+  .like-btn-text-3,.like-btn-text-4,.like-btn-text-5 {
     color:rgb(240, 186, 21)
   }
-  .like-btn-text-love{
+  .like-btn-text-2{
     color:rgb(242, 82, 104)
   }
-  .like-btn-text-angry{
+  .like-btn-text-6{
     color:rgb(247, 113, 75);
   }
   
