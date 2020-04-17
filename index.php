@@ -46,10 +46,10 @@ include_once(__DIR__ ."/classes/Features.class.php");
         echo "Buddiez heeft $count gerigistreerde gebruikers";
     }
     
-    $countBuddyAgreements = User::countBuddyAgreements();
+    /*$countBuddyAgreements = User::countBuddyAgreements();
     foreach($countBuddyAgreements as $count) {
         echo "Bij Buddiez zijn er al $count buddie overeenkomsten gevonden";
-    }
+    }*/
 
     
 
