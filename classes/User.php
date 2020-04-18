@@ -325,6 +325,20 @@ include_once(__DIR__ . "/Db.php");
             
         }
 
+        function usernameCheck($email)
+        {
+            $conn = Db::getConnection();
+            $statement = $conn->prepare("select * from user where email = :email limit 1");
+            $statement->bindValue(":email", $email);
+            $statement->execute();
+            $result = $statement->fetch(PDO::FETCH_ASSOC);
+            if(empty($result)){
+                    return true;
+            }else{
+                    return false;
+            }
+        }
+
         function loggedInUsername($row) { 
             $conn = Db::getConnection();
             $sql = $conn->prepare("SELECT firstname, lastname FROM user WHERE user_id = :id");
