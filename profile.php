@@ -115,6 +115,9 @@ if (!empty($_POST)) {
                 <div id="watchOut" class="alert alert-warning">
                     <p>Kijk uit! Je zit in je eerste jaar. Best een buddy zoeken.</p>
                 </div>
+                <div id="watchOutBuddy" class="alert alert-warning">
+                    <p>Kijk uit! Je zit niet in je eerste jaar. Best een buddy zijn.</p>
+                </div>
                 <div class="form-group row col-md-4">
                     <label for="year">Schooljaar</label>
                     <select class="form-control" name="school_year" id="year">
