@@ -267,7 +267,7 @@ include_once(__DIR__ . "/Db.php");
         /* update user */
         function getUserById($id){
             $conn = Db::getConnection();
-            $statement = $conn->prepare('SELECT * FROM user WHERE id = :id');
+            $statement = $conn->prepare('SELECT * FROM user WHERE user_id = :id');
             $statement->bindParam(':id', $id);
             $statement->execute();
             $result = $statement->fetch();
