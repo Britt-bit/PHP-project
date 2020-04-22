@@ -27,7 +27,7 @@ if (!empty($_POST)) {
             return (substr($str, -$count) === $lastString);
         }
 
-        if (!empty($_POST['firstname']) || !empty($_POST['lastname'])  || !empty($email) || !empty($_POST['password'])) {
+        if (!empty($_POST['firstname']) || !empty($_POST['lastname'])  || !empty($email) || !empty($_POST['password']) || !empty($_POST['year'])) {
             if (endFunc($email, "@student.thomasmore.be")) {
                 if ($user->emailValidation() < 1) {
                     if ($_POST['password'] === $passwordConfirmation) {
@@ -38,32 +38,18 @@ if (!empty($_POST)) {
                         $user->saveUser();
                         $succes = "User saved";
 
-            if(!empty($_POST['firstname']) || !empty($_POST['lastname'])  || !empty($email) || !empty($_POST['password']) || !empty($_POST['year'])){
-                if(endFunc($email, "@student.thomasmore.be")){
-                    if($user->emailValidation() < 1){
-                        if($_POST['password'] === $passwordConfirmation) {
-                            //email eindigd op @student.thomasmore.be
-                            //passwords match
-			                //password hashen met functie
-                            $user->setPassword($user->passwordHash($password));
-                            $user->saveUser();
-                            $succes = "User saved";
-                
-                            header("Location: login.php");
-                        } else {
-                            throw new Exception("Passwords matchen niet");
-                        }
+                        header("Location: login.php");
                     } else {
                         throw new Exception("Passwords matchen niet");
                     }
                 } else {
-                    throw new Exception("Email bestaat al");
+                    throw new Exception("Passwords matchen niet");
                 }
             } else {
-                throw new Exception("Email moet eindigen op @student.thomasmore.be");
+                throw new Exception("Email bestaat al");
             }
         } else {
-            $error = $th->getMessage();
+            throw new Exception("Email moet eindigen op @student.thomasmore.be");
         }
     } catch (\Throwable $th) {
         $error = $th->getMessage();
@@ -114,7 +100,7 @@ $users = User::getAllUsers();
 
                             <div class="form-group row col-md-4">
                                 <label for="buddy">Buddy</label>
-                                <select  name="buddy" id="buddy">
+                                <select name="buddy" id="buddy">
                                     <option value="">Ik zoek/ben een buddy ...</option>
                                     <option value="0">Ik zoek een buddy</option>
                                     <option value="1">Ik ben een buddy</option>
