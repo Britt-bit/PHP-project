@@ -191,47 +191,6 @@ include_once(__DIR__ . "/Db.php");
                 return $this;
         }
 
-        
-        /**
-         * Get the value of buddy
-         */ 
-        public function getBuddy()
-        {
-                return $this->buddy;
-        }
-
-        /**
-         * Set the value of buddy
-         *
-         * @return  self
-         */ 
-        public function setBuddy($buddy)
-        {
-                $this->buddy = $buddy;
-
-                return $this;
-        }
-
-        /**
-         * Get the value of year
-         */ 
-        public function getYear()
-        {
-                return $this->year;
-        }
-
-        /**
-         * Set the value of year
-         *
-         * @return  self
-         */ 
-        public function setYear($year)
-        {
-                $this->year = $year;
-
-                return $this;
-        }
-
          /**
          * Get the value of newpassword
          */ 
