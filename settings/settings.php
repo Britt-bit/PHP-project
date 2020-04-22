@@ -1,10 +1,9 @@
 <?php
-
-const SETTINGS = [
-    "db" => [
-        "user"      => "root",
-        "password"  => "root",
-        "host"      => "localhost",
-        "db"        => "phpProject"
-    ]
-];
+    const SETTINGS = [
+        "db" => [
+            "user"      => "root",
+            "password"  => "root",
+            "host"      => "localhost",
+            "db"        => "phpProject"
+        ]
+    ];

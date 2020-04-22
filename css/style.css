@@ -1,0 +1,56 @@
+.note
+{
+    margin-top: 2em;
+    text-align: center;
+    height: 80px;
+    background: -webkit-linear-gradient(left, #0072ff, #8811c5);
+    color: #fff;
+    font-size: 1.5em;
+    font-weight: bold;
+    line-height: 80px;
+}
+.form-content
+{
+    padding: 5%;
+    border: 1px solid #ced4da;
+    margin-bottom: 2%;
+}
+.form-control{
+    border-radius:1.5rem;
+}
+.btnSubmit
+{
+    border:none;
+    border-radius:1.5rem;
+    padding: 1%;
+    width: 20%;
+    cursor: pointer;
+    background: #0062cc;
+    color: #fff;
+}
+
+.form__error
+{
+  color: red;
+  font-weight: lighter;
+  padding: 0.5em 1em;
+  margin-bottom: 1em;
+  font-size: 0.9em;
+}
+#watchOut{
+    display: none;
+}
+
+/*search resultaat*/
+.profile{
+    width: 150px;
+    text-align: center;
+    margin-left: 100px;
+    display: inline-block;
+    
+}
+
+.avatar{
+    text-align: center;
+}
+
