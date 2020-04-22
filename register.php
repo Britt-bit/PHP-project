@@ -9,7 +9,9 @@ if (!empty($_POST)) {
         $user->setEmail($_POST['email']);
         $user->setPassword($_POST['password']);
         $user->setBio("Hey, welkom op mijn profiel.");
-        $user->setAvatar("images/default.png");
+        $user->setAvatar('images/default.png');
+        $user->setYear($_POST['year']);
+        $user->setBuddy($_POST['buddy']);
 
         $email = $_POST['email'];
         $passwordConfirmation = $_POST['passwordConfirmation'];
@@ -33,7 +35,21 @@ if (!empty($_POST)) {
                         $user->saveUser();
                         $succes = "User saved";
 
-                        header("Location: login.php");
+            if(!empty($_POST['firstname']) || !empty($_POST['lastname'])  || !empty($email) || !empty($_POST['password']) || !empty($_POST['year'])){
+                if(endFunc($email, "@student.thomasmore.be")){
+                    if($user->emailValidation() < 1){
+                        if($_POST['password'] === $passwordConfirmation) {
+                            //email eindigd op @student.thomasmore.be
+                            //passwords match
+			                //password hashen met functie
+                            $user->setPassword($user->passwordHash($password));
+                            $user->saveUser();
+                            $succes = "User saved";
+                
+                            header("Location: login.php");
+                        } else {
+                            throw new Exception("Passwords matchen niet");
+                        }
                     } else {
                         throw new Exception("Passwords matchen niet");
                     }
@@ -81,6 +97,25 @@ $users = User::getAllUsers();
                             </div>
                             <div class="form-group">
                                 <input name="lastname" id="lastname" type="text" class="form-control" placeholder="Jouw achternaam *" value="<?php if (isset($_POST['lastname'])) echo $_POST['lastname']; ?>" />
+                            </div>
+
+                            <div class="form-group">
+                                <label for="year">Jaar</label>
+                                <select name="year" id="year">
+                                    <option value="1IMD">1IMD</option>
+                                    <option value="2IMD">2IMD</option>
+                                    <option value="3IMD">3IMD</option>
+                                    <option value="mix">Een mix</option>
+                                </select>
+                            </div>
+
+                            <div class="form-group row col-md-4">
+                                <label for="buddy">Buddy</label>
+                                <select  name="buddy" id="buddy">
+                                    <option value="">Ik zoek/ben een buddy ...</option>
+                                    <option value="0">Ik zoek een buddy</option>
+                                    <option value="1">Ik ben een buddy</option>
+                                </select>
                             </div>
                         </div>
                         <div class="col-md-6">

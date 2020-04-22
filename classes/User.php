@@ -106,6 +106,49 @@ include_once(__DIR__ . "/Db.php");
                 return $this;
         }
 
+        /**
+         * Get the value of buddy
+         */ 
+        public function getBuddy()
+        {
+                return $this->buddy;
+        }
+
+        /**
+         * Set the value of buddy
+         *
+         * @return  self
+         */ 
+        public function setBuddy($buddy)
+        {
+                $this->buddy = $buddy;
+
+                return $this;
+        }
+
+        /**
+         * Get the value of password
+         */ 
+        public function getYear()
+        {
+                return $this->year;
+        }
+
+        /**
+         * Set the value of password
+         *
+         * @return  self
+         */ 
+        public function setYear($year)
+        {
+            if(empty($year)){
+                throw new Exception("Year cannot be empty");
+            }
+                $this->year = $year;
+
+                return $this;
+        }
+
 
 
         /**
@@ -213,7 +256,7 @@ include_once(__DIR__ . "/Db.php");
         public function saveUser(){
             $conn = Db::getConnection();
 
-            $statement = $conn->prepare("INSERT INTO user (firstname, lastname, email, password, avatar, bio) VALUES (:firstname, :lastname, :email, :password, :avatar, :bio)");
+            $statement = $conn->prepare("INSERT INTO user (firstname, lastname, email, password, avatar, bio, school_year, buddy) VALUES (:firstname, :lastname, :email, :password, :avatar, :bio, :schoolyear, :buddy)");
 
             $firstname = $this->getFirstname();
             $lastname = $this->getLastname();
@@ -221,6 +264,8 @@ include_once(__DIR__ . "/Db.php");
             $password = $this->getPassword();
             $avatar = $this->getAvatar();
             $bio = $this->getBio();
+            $year = $this->getYear();
+            $buddy = $this->getBuddy();
 
             $statement->bindValue(":firstname", $firstname);
             $statement->bindValue(":lastname", $lastname);
@@ -228,6 +273,8 @@ include_once(__DIR__ . "/Db.php");
             $statement->bindValue(":password", $password);
             $statement->bindValue(":avatar", $avatar);
             $statement->bindValue(":bio", $bio);
+            $statement->bindValue(":schoolyear", $year);
+            $statement->bindValue(":buddy", $buddy);
 
             $result = $statement->execute();
 
@@ -281,8 +328,7 @@ include_once(__DIR__ . "/Db.php");
                 $statement->bindParam(":schoolyear", $this->year);
                 $statement->bindParam(":buddy", $this->buddy);
                 $statement->bindParam(":id", $id);
-
-
+                
                 $statement->execute();
             }else {
                 $conn = Db::getConnection();
