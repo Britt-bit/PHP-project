@@ -54,3 +54,18 @@
     text-align: center;
 }
 
+/*vervolledig features warning*/
+.warning{
+    border: 1px solid orangered;
+    background-color: papayawhip;
+    width: 25%;
+    margin: 0 auto;
+    top: 0;
+}
+/*vervolledig hobby warning*/
+.vervolledigHobby{
+    border: 1px solid orangered;
+    background-color: papayawhip;
+    width: 50%;
+    margin: 0 auto;
+}
