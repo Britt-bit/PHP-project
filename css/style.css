@@ -37,3 +37,20 @@
   margin-bottom: 1em;
   font-size: 0.9em;
 }
+#watchOut{
+    display: none;
+}
+
+/*search resultaat*/
+.profile{
+    width: 150px;
+    text-align: center;
+    margin-left: 100px;
+    display: inline-block;
+    
+}
+
+.avatar{
+    text-align: center;
+}
+
