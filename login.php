@@ -11,7 +11,6 @@ function canLogin($email, $password){
     $query = "SELECT `user_id`,`email`, `password` FROM `user` WHERE email = '$email'";
     $result = $conn->query($query);
     $user = $result->fetch_assoc();
-
     if(password_verify($password, $user['password'])){
         return true;
     }else{
@@ -22,7 +21,6 @@ function canLogin($email, $password){
 //Get de User
 //Error
 $errors = [];
- 
 //Detecteer submit
 if(!empty($_POST)){
     try{
@@ -34,10 +32,9 @@ if(!empty($_POST)){
    
     //Validatie: velden mogen niet leeg zijn
     if(!empty($email) && !empty($password)){
-        if(canLogin($email, $password,$user_id)){
+        if(canLogin($email, $password)){
             session_start();
             $_SESSION['email'] = $email;
-            $_SESSION['user_id'] = $user_id;
             
            
             header ("Location: index.php");
