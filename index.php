@@ -130,6 +130,7 @@ $conn = Db::getConnection();
                              $statusReturn = "";
                          }
                     echo '<button type="button" class="btn btn-info btn-xs start_chat" data-touserid="'. $yourID . '" data-tousername="'. $yourName . '">Buddy request</button>';
+                    echo '<a class="btn btn-info btn-xs ml-3" href="profile.php?id='. $yourID . '>watch profile</a>';
                     
                 ?>
             </tr>
@@ -138,7 +139,7 @@ $conn = Db::getConnection();
                     echo "<br/>";
                     echo "<br/>";
                     print("You matched with " . htmlspecialchars($yourName) . " " . htmlspecialchars($yourLastname) . " on the features "); 
-                    for($tel = 0; $tel < sizeof($result) +2; ++$tel){
+                    for($tel = 0; $tel < count($result) +2; ++$tel){
                         echo(htmlspecialchars($result[$tel]) . "  ");
                     }
                     if($status == 1){
@@ -147,7 +148,7 @@ $conn = Db::getConnection();
                          $statusReturn = "";
                      }
                     echo '<button type="button" class="btn btn-info btn-xs start_chat" data-touserid="'. $yourID . '" data-tousername="'. $yourName . '">Buddy request</button>';
-                   
+                    echo '<a class="btn btn-info btn-xs ml-3" href="profile.php?id='. $yourID . '">watch profile</a>';
             ?>
             </tr>
             <?php
@@ -156,7 +157,7 @@ $conn = Db::getConnection();
                     echo "<br/>";
                     //<p style='margin-left:20px';> 
                     echo("You matched with " . htmlspecialchars($yourName) . " " . htmlspecialchars($yourLastname) . " on the features "); 
-                    for($tel = 0; $tel < sizeof($result) +2; ++$tel){
+                    for($tel = 0; $tel < count($result) +2; ++$tel){
                         echo(htmlspecialchars($result[$tel]) . " ");   
                     }
                     //echo("</p>");
@@ -166,7 +167,7 @@ $conn = Db::getConnection();
                          $statusReturn = "";
                      }
                 echo '<button type="button" class="btn btn-info btn-xs start_chat" data-touserid="'. $yourID . '" data-tousername="'. $yourName . '">Buddy request</button>';
-                
+                echo '<a class="btn btn-info btn-xs ml-3" href="profile.php?id='. $yourID . '">watch profile</a>';
   
             ?>
             </tr>
