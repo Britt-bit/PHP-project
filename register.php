@@ -115,6 +115,7 @@ include_once(__DIR__ ."/classes/User.php");
                     </div>
                     <button type="submit" class="btnSubmit">Registreer</button>
                     <br> <br>
+                    <p>Al een account? <a href="login.php">Login</a></p>
                     <?php if( isset($error) ): ?>
 				    <div class="alert alert-danger" role="alert">
 					    <p>
