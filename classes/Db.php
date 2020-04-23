@@ -1,5 +1,4 @@
 <?php
-
     class Db {
         //static: maar 1 bestaande vorm van de databank classe
         private static $conn;
@@ -14,6 +13,4 @@
             }
         }
     }
-
-
 ?>
