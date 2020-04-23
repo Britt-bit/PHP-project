@@ -20,6 +20,30 @@ $conn = Db::getConnection();
     <title>PHP project</title>
 </head>
 <body>
+    <?php 
+
+        //check of user features al ingevuld heeft. zoniet-> toon warning
+        $checkFeatures = feature::checkFeatures();
+        $hobby = feature::hobby();
+            if ($checkFeatures == false){
+            //echo"features nog niet ingevuld";
+            //header("Location: features.php");
+            //exit();
+
+                include_once("includes/completeFeatures.inc.php");
+    
+            }
+
+            // laten zien wanneer hobby nog niet is ingevuld 
+            if(empty($hobby) && $checkFeatures == true ){
+                include_once(__DIR__ ."/completeFeatures.php");
+
+            }  
+
+
+         include_once(__DIR__ ."../includes/nav.inc.php");
+
+?>
     <h1>Je bent ingelogd</h1>
     <a href="logout.php" class="nav-link">Logout</a>
     <a class="nav-link" href="profile.php?id=<?php $_SESSION['user_id'][0] ?>">Profiel</a>

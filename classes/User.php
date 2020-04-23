@@ -267,14 +267,14 @@ include_once(__DIR__ . "/Db.php");
         /* update user */
         function getUserById($id){
             $conn = Db::getConnection();
-            $statement = $conn->prepare('SELECT * FROM user WHERE id = :id');
+            $statement = $conn->prepare('SELECT * FROM user WHERE user_id = :id');
             $statement->bindParam(':id', $id);
             $statement->execute();
             $result = $statement->fetch();
             return $result;
         }
 
-        function updateUser()
+        function updateUser($id)
         {
             if (move_uploaded_file($_FILES["avatar"]["tmp_name"], $this->avatar)) {
                 $conn = Db::getConnection();
@@ -287,7 +287,7 @@ include_once(__DIR__ . "/Db.php");
                 $statement->bindParam(":schoolyear", $this->year);
                 $statement->bindParam(":buddy", $this->buddy);
                 $statement->bindParam(":id", $id);
-
+                
                 $statement->execute();
             }else {
                 $conn = Db::getConnection();
@@ -305,12 +305,17 @@ include_once(__DIR__ . "/Db.php");
         }
         function updatePassword($id)
         {
-            $conn = Db::getConnection();
-            $statement = $conn->prepare("UPDATE user SET password= :password wher user_id= :id ");
+           try {
+                  $conn = Db::getConnection();
+            $statement = $conn->prepare("UPDATE user SET password= :password where user_id= :id ");
             $statement->bindParam(":password", $this->newpassword);
             $statement->bindParam(":id", $id);
 
             $statement->execute();
+           } catch (\Throwable $th) {
+                   //throw $th;
+           } 
+            
         }
 
         function passwordCheck($id, $password)
@@ -323,6 +328,20 @@ include_once(__DIR__ . "/Db.php");
                 return false;
             }
             
+        }
+
+        function usernameCheck($email)
+        {
+            $conn = Db::getConnection();
+            $statement = $conn->prepare("select * from user where email = :email limit 1");
+            $statement->bindValue(":email", $email);
+            $statement->execute();
+            $result = $statement->fetch(PDO::FETCH_ASSOC);
+            if(empty($result)){
+                    return true;
+            }else{
+                    return false;
+            }
         }
 
         function loggedInUsername($row) { 
@@ -341,4 +360,5 @@ include_once(__DIR__ . "/Db.php");
             $password = password_hash($_POST['password'], PASSWORD_DEFAULT, ["cost" => 12]);
             return $password;
         }
+
     }

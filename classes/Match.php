@@ -1,7 +1,7 @@
 <?php 
 include_once(__DIR__ . "/Db.php");
 
-    $conn = Db::getConnection();
+    $conn = db::getConnection();
 
     //De huidige user ophalen
     $statement = $conn->query("SELECT `user_id` FROM user WHERE email = '".$_SESSION['email']."'");

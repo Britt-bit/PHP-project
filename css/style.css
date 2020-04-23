@@ -41,3 +41,31 @@
     display: none;
 }
 
+/*search resultaat*/
+.profile{
+    width: 150px;
+    text-align: center;
+    margin-left: 100px;
+    display: inline-block;
+    
+}
+
+.avatar{
+    text-align: center;
+}
+
+/*vervolledig features warning*/
+.warning{
+    border: 1px solid orangered;
+    background-color: papayawhip;
+    width: 25%;
+    margin: 0 auto;
+    top: 0;
+}
+/*vervolledig hobby warning*/
+.vervolledigHobby{
+    border: 1px solid orangered;
+    background-color: papayawhip;
+    width: 50%;
+    margin: 0 auto;
+}

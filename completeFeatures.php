@@ -30,17 +30,12 @@ error_reporting(E_ALL);
 </head>
 <body>
 
-    <div class="container register-form">
-        <div class="note">
-            <p>Kenmerken</p>
-        </div>
+    <div class="vervolledigHobby">
 
         <form action="" method="post">
-            <h4>Wat is je hobby?</h4>
-            <label for="hobby"></label><br>
-            <input type="text" id="hobby" name="hobby" value=""><br><br>
+            <label for="hobby">Je hebt je hobby not niet ingevuld. Doe dit hier om je profiel te vervolledigen.</label><br>
+            <input type="text" id="hobby" name="hobby" value=""><input type="submit" value="vervolledig profiel">
 
-            <input type="submit">
         </form>
     </div>
 
