@@ -1,7 +1,7 @@
 settings
 settings.php
 
-Db.php
+classes/Db.php
 
 Database.txt
 
