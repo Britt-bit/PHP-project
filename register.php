@@ -121,7 +121,6 @@ $users = User::getAllUsers();
                     </div>
                     <button type="submit" class="btnSubmit">Registreer</button>
                     <br> <br>
-<<<<<<< HEAD
                     <p>Al een account? <a href="login.php">Login</a></p>
                     <?php if( isset($error) ): ?>
 				    <div class="alert alert-danger" role="alert">
@@ -130,7 +129,6 @@ $users = User::getAllUsers();
 					    </p>
 				    </div>
 				    <?php endif; ?>
-=======
                     <div id="errorMessage">
                         <?php if (isset($error)) : ?>
                             <div class="alert alert-danger" role="alert">
@@ -140,7 +138,6 @@ $users = User::getAllUsers();
                             </div>
                         <?php endif; ?>
                     </div>
->>>>>>> 4e94186d8485866c73782c47c3fd0b06a77d4900
                 </div>
             </form>
         </div>

@@ -17,4 +17,7 @@ include_once(__DIR__ ."/classes/Match.php");
 
 //Buddies uit databank halen
 
+//Buddy request
+
+
 ?>
