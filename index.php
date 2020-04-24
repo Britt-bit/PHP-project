@@ -187,6 +187,16 @@ $conn = Db::getConnection();
 
 <!--<script src="js/buddy.js"></script>-->
 
+<?php
+// aantal users + matches tonen
+        $countBuddyAgreements = User::countBuddyAgreements();
+        $countUsers = User::countUsers();
+        foreach($countUsers as $count) {
+            foreach($countBuddyAgreements as $countBuddy){
+        echo "Buddiez heeft $count gerigistreerde gebruikers en er zijn al $countBuddy buddyovereenkomsten";
+            }
+        }
+?>
 </body>
 </html>
 
