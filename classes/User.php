@@ -358,11 +358,12 @@ include_once(__DIR__ . "/Db.php");
         public static function countBuddyAgreements(){
 
             $conn = Db::getConnection();
-            $statement = $conn->prepare("SELECT count(*) FROM user WHERE buddy='2'");
+            $statement = $conn->prepare("SELECT count(*) FROM buddy WHERE accepted = 1 ");
             $statement->execute() ;
             $countBuddyAgreements = $statement->fetch(PDO::FETCH_ASSOC);
 
             return $countBuddyAgreements;
 
         }
+        
     }
