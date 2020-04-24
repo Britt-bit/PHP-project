@@ -15,7 +15,6 @@ $getFeatures = $features->getFeaturesFromUser($_GET['id']);
 
 $request = new Request();
 $getRequest = $request->getRequest($_GET['id'], $_SESSION['user_id']);
-
 /* Error */
 $errors = [];
 if (!empty($_POST)) {
@@ -155,9 +154,14 @@ if (!empty($_POST)) {
             <div class="form-group row col-md-12">
                 <img class="img-thumbnail" src="<?php echo $getUser['avatar'] ?>" alt="User Avatar">
             </div>
+            <?php if ($getRequest['accepted'] == 1 && $getRequest['seeker_id'] == $_GET['id']) : ?>
+                <div class="form-group row col-md-12">
+                    <p>You are buddies with <?php echo $getUser['firstname']; ?></p>
+                </div>
+            <?php endif ?>
             <div class="form-group row col-md-12">
                 <label for="firstname">Naam: </label>
-                <p class="ml-1"><?php echo $getUser['firstname'];
+                <p id="person" class="ml-1"><?php echo $getUser['firstname'];
                                 echo ' ';
                                 echo $getUser['lastname'] ?>
                 </p>
@@ -178,34 +182,29 @@ if (!empty($_POST)) {
             <div class="hidden">
                 <input id="id" type="hidden" name="id" value="<?php echo $_GET['id'] ?>">
                 <input id="uid" type="hidden" name="uid" value="<?php echo $_SESSION['user_id']; ?>">
+                <input id="email" type="hidden" value="<?php echo $getUser['email']; ?>">
+                <input id="uri" type="hidden" value="<?php echo $_SERVER["REQUEST_URI"]; ?>">
             </div>
             <div id="watchOut" class="alert alert-success">
-                <p>Kijk uit! Je zit in je eerste jaar. Best een buddy zoeken.</p>
+                <p>Something went wrong try again later.</p>
             </div>
-            <?php if ($getRequest['request'] == null && $getRequest['accepted'] == null) : ?>
-                <div class="form-group row col-md-12">
+            <div id="requestBtn" class="form-group row col-md-12">
+                <?php if ($getRequest['request'] == null && $getRequest['accepted'] == null) : ?>
                     <a href="#" id="sendRequest" class="btn btn-primary btn-lg" role="button">Buddy Request</a>
-                </div>
-            <?php elseif ($getRequest['request'] == 1 && $getRequest['buddy_id'] == $_GET['id']) : ?>
-                <div class="form-group row col-md-12">
+                <?php elseif ($getRequest['request'] == 1 && $getRequest['buddy_id'] == $_GET['id']) : ?>
                     <a href="#" class="btn btn-secondary btn-lg disabled" role="button">Requested</a>
-                </div>
-            <?php elseif ($getRequest['seeker_id'] == $_GET['id'] && $getRequest['request'] == 1) : ?>
-                <div class="form-group row col-md-12">
+                <?php elseif ($getRequest['seeker_id'] == $_GET['id'] && $getRequest['request'] == 1) : ?>
                     <a href="#" id="AcceptRequest" class="btn btn-success btn-lg" role="button">Accept</a>
                     <a href="#" id="DeleteRequest" class="btn btn-danger btn-lg ml-3" role="button">Decline</a>
-                </div>
-                <script type="text/javascript" src="js/AcceptBuddyRequest.js"></script>
-                <script type="text/javascript" src="js/DeleteBuddyRequest.js"></script>
-            <?php elseif ($getRequest['accepted'] == 1) : ?>
-                <div class="form-group row col-md-12">
-                    <a href="#" id="deleteBuddy" class="btn btn-danger btn-lg" role="button">Delete Buddy</a>
-                </div>
-            <?php elseif ($getRequest['accepted'] == 0 && $getRequest['accepted'] != null) : ?>
-                <div class="form-group row col-md-12">
+                    <script type="text/javascript" src="js/AcceptBuddyRequest.js"></script>
+                    <script type="text/javascript" src="js/DeleteBuddyRequest.js"></script>
+                <?php elseif ($getRequest['accepted'] == 1 && $getRequest['seeker_id'] == $_GET['id'] || $getRequest['seeker_id'] == $_SESSION['user_id']) : ?>
+                    <a href="#" id="DeleteRequest" class="btn btn-danger btn-lg" role="button">Delete Buddy</a>
+                    <script type="text/javascript" src="js/DeleteBuddyRequest.js"></script>
+                <?php elseif ($getRequest['accepted'] == 0 && $getRequest['accepted'] != null) : ?>
                     <a href="#" class="btn btn-danger btn-lg disabled" role="button">Declined</a>
-                </div>
-            <?php endif ?>
+                <?php endif ?>
+            </div>
             <script type="text/javascript" src="js/sendBuddyRequest.js"></script>
         <?php endif ?>
     </div>

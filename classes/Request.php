@@ -38,9 +38,7 @@ class Request
         try {
             $conn = Db::getConnection();
 
-            $statement = $conn->prepare("UPDATE `buddy` SET `accepted`= 1 WHERE `buddy_id`= :uid AND`seeker_id`= :id");
-            $statement->bindValue(':buddy_id', $id);
-            $statement->bindValue(':seeker_id', $uid);
+            $statement = $conn->prepare("UPDATE buddy SET `accepted`= 1, `request`= 0 WHERE `buddy_id`= $uid AND`seeker_id`= $id OR `buddy_id`= $id AND`seeker_id`= $uid");
             $statement->execute();
 
             return true;
@@ -54,9 +52,7 @@ class Request
         try {
             $conn = Db::getConnection();
 
-            $statement = $conn->prepare("UPDATE `buddy` SET `accepted`= 1 WHERE `buddy_id`= :uid AND`seeker_id`= :id");
-            $statement->bindValue(':buddy_id', $id);
-            $statement->bindValue(':seeker_id', $uid);
+            $statement = $conn->prepare("UPDATE buddy SET `accepted`= 0, `request`= 0  WHERE `buddy_id`= $uid AND`seeker_id`= $id OR `buddy_id`= $id AND`seeker_id`= $uid");
             $statement->execute();
 
             return true;
