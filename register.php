@@ -16,6 +16,9 @@ if (!empty($_POST)) {
         $user->setYear($_POST['year']);
         $user->setBuddy($_POST['buddy']);
 
+        $vkey = md5(time().$_POST['lastname']);
+        $user->setVkey($vkey);
+
         $email = $_POST['email'];
         $passwordConfirmation = $_POST['passwordConfirmation'];
         function endFunc($str, $lastString)
@@ -28,16 +31,20 @@ if (!empty($_POST)) {
         }
 
         if (!empty($_POST['firstname']) || !empty($_POST['lastname'])  || !empty($email) || !empty($_POST['password']) || !empty($_POST['year'])) {
-            if (endFunc($email, "@student.thomasmore.be")) {
-                if ($user->emailValidation() < 1) {
+            //if (endFunc($email, "@student.thomasmore.be")) {
+                //if ($user->emailValidation() < 1) {
                     if ($_POST['password'] === $passwordConfirmation) {
+
                         //email eindigd op @student.thomasmore.be
                         //passwords match
                         //password hashen met functie
+                        
                         $user->setPassword($user->passwordHash($password));
                         $user->saveUser();
-                        $succes = "User saved";
+                        $succes = "User saved";   
+                            
 
+                        
                         header("Location: login.php");
                     } else {
                         throw new Exception("Passwords matchen niet");
@@ -45,12 +52,12 @@ if (!empty($_POST)) {
                 } else {
                     throw new Exception("Passwords matchen niet");
                 }
-            } else {
-                throw new Exception("Email bestaat al");
-            }
-        } else {
-            throw new Exception("Email moet eindigen op @student.thomasmore.be");
-        }
+            //} else {
+            //    throw new Exception("Email bestaat al");
+            //}
+        //} else {
+        //    throw new Exception("Email moet eindigen op @student.thomasmore.be");
+        //}
     } catch (\Throwable $th) {
         $error = $th->getMessage();
     }
@@ -119,9 +126,8 @@ $users = User::getAllUsers();
                             </div>
                         </div>
                     </div>
-                    <button type="submit" class="btnSubmit">Registreer</button>
+                    <button type="submit" name="submit" class="btnSubmit">Registreer</button>
                     <br> <br>
-<<<<<<< HEAD
                     <p>Al een account? <a href="login.php">Login</a></p>
                     <?php if( isset($error) ): ?>
 				    <div class="alert alert-danger" role="alert">
@@ -130,17 +136,6 @@ $users = User::getAllUsers();
 					    </p>
 				    </div>
 				    <?php endif; ?>
-=======
-                    <div id="errorMessage">
-                        <?php if (isset($error)) : ?>
-                            <div class="alert alert-danger" role="alert">
-                                <p>
-                                    <?php echo $error; ?>
-                                </p>
-                            </div>
-                        <?php endif; ?>
-                    </div>
->>>>>>> 4e94186d8485866c73782c47c3fd0b06a77d4900
                 </div>
             </form>
         </div>

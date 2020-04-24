@@ -38,9 +38,14 @@ if(!empty($_POST)){
             session_start();
             $_SESSION['email'] = $email;
             $_SESSION['user_id'] = $user_id;
+
+
+            if ($verified == 1){
+                header ("Location: index.php");
+            } else {
+                $error="Dit account is nog niet geverifieerd";
+            }
             
-           
-            header ("Location: index.php");
         }else{
             //User en password matchen niet
             //Error

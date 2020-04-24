@@ -11,6 +11,8 @@ include_once(__DIR__ . "/Db.php");
         private $newpassword;
         private $buddy;
         private $year;
+        private $verified;
+        private $vkey;
 
         /**
          * Get the value of firstname
@@ -212,10 +214,35 @@ include_once(__DIR__ . "/Db.php");
         }
 
 
+        /**
+         * Get the value of verified
+         */ 
+        public function getVerified()
+        {
+                return $this->verified;
+        }
+
+        /**
+         * Set the value of verified
+         *
+         * @return  self
+         */ 
+        public function setVerified($verified)
+        {
+            if(empty($verified)){
+                throw new Exception("You must be verified");
+            }
+                $this->verified = $verified;
+
+                return $this;
+        }
+
+
+
         public function saveUser(){
             $conn = Db::getConnection();
 
-            $statement = $conn->prepare("INSERT INTO user (firstname, lastname, email, password, avatar, bio, school_year, buddy) VALUES (:firstname, :lastname, :email, :password, :avatar, :bio, :schoolyear, :buddy)");
+            $statement = $conn->prepare("INSERT INTO user (firstname, lastname, email, password, avatar, bio, school_year, buddy, vkey) VALUES (:firstname, :lastname, :email, :password, :avatar, :bio, :schoolyear, :buddy, :vkey)");
 
             $firstname = $this->getFirstname();
             $lastname = $this->getLastname();
@@ -225,6 +252,7 @@ include_once(__DIR__ . "/Db.php");
             $bio = $this->getBio();
             $year = $this->getYear();
             $buddy = $this->getBuddy();
+            $vkey = $this->getVkey();
 
             $statement->bindValue(":firstname", $firstname);
             $statement->bindValue(":lastname", $lastname);
@@ -234,6 +262,7 @@ include_once(__DIR__ . "/Db.php");
             $statement->bindValue(":bio", $bio);
             $statement->bindValue(":schoolyear", $year);
             $statement->bindValue(":buddy", $buddy);
+            $statement->bindValue(":vkey", $vkey);
 
             $result = $statement->execute();
 
@@ -361,4 +390,24 @@ include_once(__DIR__ . "/Db.php");
             return $password;
         }
 
+
+        /**
+         * Get the value of vkey
+         */ 
+        public function getVkey()
+        {
+                return $this->vkey;
+        }
+
+        /**
+         * Set the value of vkey
+         *
+         * @return  self
+         */ 
+        public function setVkey($vkey)
+        {
+                $this->vkey = $vkey;
+
+                return $this;
+        }
     }
