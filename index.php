@@ -57,22 +57,7 @@ $conn = Db::getConnection();
     <a class="nav-link" href="buddy.php?id=<?php $_SESSION['user_id'] ?>">My buddy</a>
     <a class="nav-link" href="match.php?id=<?php $_SESSION['email'] ?>">Mijn matches</a>
 
-    <?php 
-    //check of user features al ingevuld heeft. zoniet->redirect naar invulformulier
-    $checkFeatures = feature::checkFeatures();
-    if ($checkFeatures == false){
-        //echo"features nog niet ingevuld";
-        header("Location: features.php");
-        exit();
-    }
 
-    // laten zien wanneer hobby nog niet is ingevuld 
-    $hobby = feature::hobby();
-    if(empty($hobby)){
-        echo"hobby nog niet ingevuld";
-        include_once(__DIR__ ."/completeFeatures.php");
-    }  
-    ?>
 
 
 
