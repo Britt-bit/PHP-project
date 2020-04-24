@@ -10,7 +10,6 @@ include_once(__DIR__ ."/classes/Features.class.php");
 include_once(__DIR__ ."/classes/Match.php"); 
 $conn = Db::getConnection();
 
-
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -18,8 +17,18 @@ $conn = Db::getConnection();
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>PHP project</title>
+
+
+
+
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.5.0.js"></script>
 </head>
 <body>
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.5.0.js"></script>
     <?php 
 
         //check of user features al ingevuld heeft. zoniet-> toon warning
@@ -33,21 +42,20 @@ $conn = Db::getConnection();
                 include_once("includes/completeFeatures.inc.php");
     
             }
-
             // laten zien wanneer hobby nog niet is ingevuld 
             if(empty($hobby) && $checkFeatures == true ){
                 include_once(__DIR__ ."/completeFeatures.php");
 
             }  
 
-
-         include_once(__DIR__ ."../includes/nav.inc.php");
+         include_once(__DIR__ ."/includes/nav.inc.php");
 
 ?>
     <h1>Je bent ingelogd</h1>
     <a href="logout.php" class="nav-link">Logout</a>
     <a class="nav-link" href="profile.php?id=<?php $_SESSION['user_id'][0] ?>">Profiel</a>
-    <!--<a class="nav-link" href="match.php?id=<?php $_SESSION['email'] ?>">Mijn matches</a>-->
+    <a class="nav-link" href="buddy.php?id=<?php $_SESSION['user_id'] ?>">My buddy</a>
+    <a class="nav-link" href="match.php?id=<?php $_SESSION['email'] ?>">Mijn matches</a>
 
     <?php 
     //check of user features al ingevuld heeft. zoniet->redirect naar invulformulier
@@ -126,7 +134,7 @@ $conn = Db::getConnection();
                          } else {
                              $statusReturn = "";
                          }
-                    echo '<button type="button" class="btn btn-info btn-xs start_chat" data-touserid="'. $yourID . '" data-tousername="'. $yourName . '">Buddy request</button>';
+                    echo '<button name="btn" type="button" class="btn btn-info btn-xs" data-touserid="'. $yourID . '" data-userid="'. $id . '" data-tousername="'. $yourName . '">Buddy request</button>';
                     
                 ?>
             </tr>
@@ -143,7 +151,7 @@ $conn = Db::getConnection();
                      } else {
                          $statusReturn = "";
                      }
-                    echo '<button type="button" class="btn btn-info btn-xs start_chat" data-touserid="'. $yourID . '" data-tousername="'. $yourName . '">Buddy request</button>';
+                echo '<button name="btn" type="button" class="btn btn-info btn-xs" data-touserid="'. $yourID . '" data-userid="'. $id . '" data-tousername="'. $yourName . '">Buddy request</button>';
                    
             ?>
             </tr>
@@ -162,7 +170,7 @@ $conn = Db::getConnection();
                      } else {
                          $statusReturn = "";
                      }
-                echo '<button type="button" class="btn btn-info btn-xs start_chat" data-touserid="'. $yourID . '" data-tousername="'. $yourName . '">Buddy request</button>';
+                echo '<button name="btn" type="button" class="btn btn-info btn-xs" data-touserid="'. $yourID . '"  data-userid="'. $id . '" data-tousername="'. $yourName . '">Buddy request</button>';
                 
   
             ?>
@@ -177,5 +185,9 @@ $conn = Db::getConnection();
 </table>
 </form>
 
+<!--<script src="js/buddy.js"></script>-->
+
 </body>
 </html>
+
+

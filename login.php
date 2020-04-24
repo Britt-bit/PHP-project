@@ -40,11 +40,11 @@ if(!empty($_POST)){
             $_SESSION['user_id'] = $user_id;
 
 
-            if ($verified == 1){
-                header ("Location: index.php");
-            } else {
-                $error="Dit account is nog niet geverifieerd";
-            }
+            //if ($verified == 1){
+               header ("Location: index.php");
+            //} else {
+            //    $error="Dit account is nog niet geverifieerd";
+            //}
             
         }else{
             //User en password matchen niet

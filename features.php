@@ -47,8 +47,8 @@ error_reporting(E_ALL);
                 <option value="moba">MOBA</option>
                 <option value="rpg">RPG</option>
                 <option value="mmo">MMO</option>
-                <option value="mmo">RTS</option>
-                <option value="mmo">Gezelschapspelletjes</option>
+                <option value="RTS">RTS</option>
+                <option value="gezelchapspelletjes">Gezelschapspelletjes</option>
             </select>
   
             <h4>Wat vind je de leukste vakken in IMD?</h4>

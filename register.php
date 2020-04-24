@@ -31,8 +31,8 @@ if (!empty($_POST)) {
         }
 
         if (!empty($_POST['firstname']) || !empty($_POST['lastname'])  || !empty($email) || !empty($_POST['password']) || !empty($_POST['year'])) {
-            //if (endFunc($email, "@student.thomasmore.be")) {
-                //if ($user->emailValidation() < 1) {
+            if (endFunc($email, "@student.thomasmore.be")) {
+                if ($user->emailValidation() < 1) {
                     if ($_POST['password'] === $passwordConfirmation) {
 
                         //email eindigd op @student.thomasmore.be
@@ -52,12 +52,12 @@ if (!empty($_POST)) {
                 } else {
                     throw new Exception("Passwords matchen niet");
                 }
-            //} else {
-            //    throw new Exception("Email bestaat al");
-            //}
-        //} else {
-        //    throw new Exception("Email moet eindigen op @student.thomasmore.be");
-        //}
+            } else {
+                throw new Exception("Email bestaat al");
+            }
+        } else {
+            throw new Exception("Email moet eindigen op @student.thomasmore.be");
+        }
     } catch (\Throwable $th) {
         $error = $th->getMessage();
     }
