@@ -303,6 +303,16 @@ include_once(__DIR__ . "/Db.php");
             return $result;
         }
 
+        /* update user */
+        function getUserByEmail($email){
+            $conn = Db::getConnection();
+            $statement = $conn->prepare('SELECT * FROM user WHERE email = :email');
+            $statement->bindParam(':email', $email);
+            $statement->execute();
+            $result = $statement->fetch();
+            return $result;
+        }
+
         function updateUser($id)
         {
             if (move_uploaded_file($_FILES["avatar"]["tmp_name"], $this->avatar)) {

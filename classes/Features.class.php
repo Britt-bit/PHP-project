@@ -173,4 +173,16 @@ include_once(__DIR__ . "/User.php");
                     
                 $statement->execute();
         }
+
+        public function getFeaturesFromUser($id)
+        {
+                $conn = Db::getConnection();
+
+                $statement = $conn->prepare("SELECT games, films, muziek, vak, hobby FROM features where user_id = :id");
+                $statement->bindValue(":id", $id);
+
+                $statement->execute();
+                $result = $statement->fetch();
+                return $result;
+        }
     }

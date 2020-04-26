@@ -2,10 +2,19 @@
 ini_set('display_errors', 1);
 ini_set('display_startup_errors', 1);
 error_reporting(E_ALL);
+session_start();
 include_once(__DIR__ . "/classes/User.php");
+include_once(__DIR__ . "/classes/Features.class.php");
+include_once(__DIR__ . "/classes/Request.php");
 /* get user */
 $user = new User();
 $getUser = $user->getUserById($_GET['id']);
+
+$features = new Feature();
+$getFeatures = $features->getFeaturesFromUser($_GET['id']);
+
+$request = new Request();
+$getRequest = $request->getRequest($_GET['id'], $_SESSION['user_id']);
 
 /* Error */
 $errors = [];
@@ -60,6 +69,8 @@ if (!empty($_POST)) {
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
     <link href="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
     <link rel="stylesheet" href="css/style.css">
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js" type="text/javascript"></script>
 </head>
 
 <body>
@@ -78,73 +89,129 @@ if (!empty($_POST)) {
         <div class="note">
             <p>Profiel</p>
         </div>
-
-        <form action="" method="POST" enctype="multipart/form-data">
-            <div class="form-content">
-                <!-- Avatar field -->
-                <div class="form-group row col-md-4">
-                    <img class="img-thumbnail" src="<?php echo $getUser['avatar'] ?>" alt="User Avatar">
-                    <input type="file" name="avatar" id="avatar" class="form-control">
+        <?php if ($getUser['user_id'] == $_SESSION['user_id']) : ?>
+            <form action="" method="POST" enctype="multipart/form-data">
+                <div class="form-content">
+                    <!-- Avatar field -->
+                    <div class="form-group row col-md-4">
+                        <img class="img-thumbnail" src="<?php echo $getUser['avatar'] ?>" alt="User Avatar">
+                        <input type="file" name="avatar" id="avatar" class="form-control">
+                    </div>
+                    <!-- Firstname field -->
+                    <div class="form-group row col-md-4">
+                        <label for="firstname">Voornaam:</label>
+                        <input type="text" name="firstname" id="firstname" value="<?php echo $getUser['firstname'] ?>">
+                    </div>
+                    <!-- Lastname field -->
+                    <div class="form-group row col-md-4">
+                        <label for="lastname">Achternaam:</label>
+                        <input type="text" name="lastname" id="lastname" value="<?php echo $getUser['lastname'] ?>">
+                    </div>
+                    <!-- email field -->
+                    <div class="form-group row col-md-4">
+                        <label for="email">Email:</label>
+                        <input type="text" name="email" id="email" value="<?php echo $getUser['email'] ?>">
+                    </div>
+                    <!-- password field -->
+                    <div class="form-group row col-md-4">
+                        <label for="password">Password:</label>
+                        <a class="nav-link" href="updatePassword.php?id=<?php echo $_GET['id'] ?>">Change password</a>
+                    </div>
+                    <!-- Biography field -->
+                    <div class="form-group row col-md-4">
+                        <label for="bio">Biography:</label>
+                        <textarea name="bio" id="bio" cols="30" rows="5"><?php echo $getUser['bio'] ?></textarea>
+                    </div>
+                    <!-- Year field -->
+                    <div id="watchOut" class="alert alert-warning">
+                        <p>Kijk uit! Je zit in je eerste jaar. Best een buddy zoeken.</p>
+                    </div>
+                    <div class="form-group row col-md-4">
+                        <label for="year">Schooljaar</label>
+                        <select class="form-control" name="school_year" id="year">
+                            <option value="">Kies uw jaar ...</option>
+                            <option value="1">1IMD</option>
+                            <option value="2">2IMD</option>
+                            <option value="3">3IMD</option>
+                        </select>
+                    </div>
+                    <!-- Year field -->
+                    <div class="form-group row col-md-4">
+                        <label for="buddy">Buddy</label>
+                        <select class="form-control" name="buddy" id="buddy">
+                            <option value="">Ik zoek/ben een buddy ...</option>
+                            <option value="0">Ik zoek een buddy</option>
+                            <option value="1">Ik ben een buddy</option>
+                        </select>
+                    </div>
+                    <!-- submit button -->
+                    <div class="form-group row col-md-4 text-center">
+                        <input type="submit" class="btn btn-primary" value="Update">
+                    </div>
                 </div>
-                <!-- Firstname field -->
-                <div class="form-group row col-md-4">
-                    <label for="firstname">Voornaam:</label>
-                    <input type="text" name="firstname" id="firstname" value="<?php echo $getUser['firstname'] ?>">
-                </div>
-                <!-- Lastname field -->
-                <div class="form-group row col-md-4">
-                    <label for="lastname">Achternaam:</label>
-                    <input type="text" name="lastname" id="lastname" value="<?php echo $getUser['lastname'] ?>">
-                </div>
-                <!-- email field -->
-                <div class="form-group row col-md-4">
-                    <label for="email">Email:</label>
-                    <input type="text" name="email" id="email" value="<?php echo $getUser['email'] ?>">
-                </div>
-                <!-- password field -->
-                <div class="form-group row col-md-4">
-                    <label for="password">Password:</label>
-                    <a class="nav-link" href="updatePassword.php?id=<?php echo $_GET['id'] ?>">Change password</a>
-                </div>
-                <!-- Biography field -->
-                <div class="form-group row col-md-4">
-                    <label for="bio">Biography:</label>
-                    <textarea name="bio" id="bio" cols="30" rows="5"><?php echo $getUser['bio'] ?></textarea>
-                </div>
-                <!-- Year field -->
-                <div id="watchOut" class="alert alert-warning">
-                    <p>Kijk uit! Je zit in je eerste jaar. Best een buddy zoeken.</p>
-                </div>
-                <div class="form-group row col-md-4">
-                    <label for="year">Schooljaar</label>
-                    <select class="form-control" name="school_year" id="year">
-                        <option value="">Kies uw jaar ...</option>
-                        <option value="1">1IMD</option>
-                        <option value="2">2IMD</option>
-                        <option value="3">3IMD</option>
-                    </select>
-                </div>
-                <!-- Year field -->
-                <div class="form-group row col-md-4">
-                    <label for="buddy">Buddy</label>
-                    <select class="form-control" name="buddy" id="buddy">
-                        <option value="">Ik zoek/ben een buddy ...</option>
-                        <option value="0">Ik zoek een buddy</option>
-                        <option value="1">Ik ben een buddy</option>
-                    </select>
-                </div>
-                <!-- submit button -->
-                <div class="form-group row col-md-4 text-center">
-                    <input type="submit" class="btn btn-primary" value="Update">
-                </div>
+            </form>
+            <script src="js/updateBuddy.js"></script>
+        <?php elseif ($getUser['user_id'] != $_SESSION['user_id']) : ?>
+            <div class="form-group row col-md-12">
+                <img class="img-thumbnail" src="<?php echo $getUser['avatar'] ?>" alt="User Avatar">
             </div>
-        </form>
+            <div class="form-group row col-md-12">
+                <label for="firstname">Naam: </label>
+                <p class="ml-1"><?php echo $getUser['firstname'];
+                                echo ' ';
+                                echo $getUser['lastname'] ?>
+                </p>
+            </div>
+            <div class="form-group row col-md-12">
+                <label for="firstname">Biography: </label>
+                <p class="ml-1"><?php echo $getUser['bio']; ?></p>
+            </div>
+            <div class="form-group row col-md-12">
+                <label for="">Features: </label>
+                <?php
+                for ($i = 0; $i < count($getFeatures) / 2; $i++) {
+                    echo "<span class='ml-1'>" . $getFeatures[$i] . ",</span>";
+                }
+                echo "...";
+                ?>
+            </div>
+            <div class="hidden">
+                <input id="id" type="hidden" name="id" value="<?php echo $_GET['id'] ?>">
+                <input id="uid" type="hidden" name="uid" value="<?php echo $_SESSION['user_id']; ?>">
+            </div>
+            <div id="watchOut" class="alert alert-success">
+                <p>Kijk uit! Je zit in je eerste jaar. Best een buddy zoeken.</p>
+            </div>
+            <?php if ($getRequest['request'] == null && $getRequest['accepted'] == null) : ?>
+                <div class="form-group row col-md-12">
+                    <a href="#" id="sendRequest" class="btn btn-primary btn-lg" role="button">Buddy Request</a>
+                </div>
+            <?php elseif ($getRequest['request'] == 1 && $getRequest['buddy_id'] == $_GET['id']) : ?>
+                <div class="form-group row col-md-12">
+                    <a href="#" class="btn btn-secondary btn-lg disabled" role="button">Requested</a>
+                </div>
+            <?php elseif ($getRequest['seeker_id'] == $_GET['id'] && $getRequest['request'] == 1) : ?>
+                <div class="form-group row col-md-12">
+                    <a href="#" id="AcceptRequest" class="btn btn-success btn-lg" role="button">Accept</a>
+                    <a href="#" id="DeleteRequest" class="btn btn-danger btn-lg ml-3" role="button">Decline</a>
+                </div>
+                <script type="text/javascript" src="js/AcceptBuddyRequest.js"></script>
+                <script type="text/javascript" src="js/DeleteBuddyRequest.js"></script>
+            <?php elseif ($getRequest['accepted'] == 1) : ?>
+                <div class="form-group row col-md-12">
+                    <a href="#" id="deleteBuddy" class="btn btn-danger btn-lg" role="button">Delete Buddy</a>
+                </div>
+            <?php elseif ($getRequest['accepted'] == 0 && $getRequest['accepted'] != null) : ?>
+                <div class="form-group row col-md-12">
+                    <a href="#" class="btn btn-danger btn-lg disabled" role="button">Declined</a>
+                </div>
+            <?php endif ?>
+            <script type="text/javascript" src="js/sendBuddyRequest.js"></script>
+        <?php endif ?>
     </div>
 
-    <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
-    <script src="js/updateBuddy.js"></script>
 </body>
 
 </html>
