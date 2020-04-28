@@ -52,22 +52,7 @@ $conn = Db::getConnection();
     <a class="nav-link" href="profile.php?id=<?php echo $_SESSION['user_id'] ?>">Profiel</a>
     <a class="nav-link" href="match.php?id=<?php echo $_SESSION['user_id']  ?>">Mijn matches</a>
 
-    <?php 
-    //check of user features al ingevuld heeft. zoniet->redirect naar invulformulier
-    $checkFeatures = feature::checkFeatures();
-    if ($checkFeatures == false){
-        //echo"features nog niet ingevuld";
-        header("Location: features.php");
-        exit();
-    }
 
-    // laten zien wanneer hobby nog niet is ingevuld 
-    $hobby = feature::hobby();
-    if(empty($hobby)){
-        echo"hobby nog niet ingevuld";
-        include_once(__DIR__ ."/completeFeatures.php");
-    }  
-    ?>
 
 
 
@@ -181,5 +166,17 @@ $conn = Db::getConnection();
 </table>
 </form>
 
+<!--<script src="js/buddy.js"></script>-->
+
+<?php
+// aantal users + matches tonen
+        $countBuddyAgreements = User::countBuddyAgreements();
+        $countUsers = User::countUsers();
+        foreach($countUsers as $count) {
+            foreach($countBuddyAgreements as $countBuddy){
+        echo "Buddiez heeft $count gerigistreerde gebruikers en er zijn al $countBuddy buddyovereenkomsten";
+            }
+        }
+?>
 </body>
 </html>

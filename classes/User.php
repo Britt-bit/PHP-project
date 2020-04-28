@@ -420,4 +420,28 @@ include_once(__DIR__ . "/Db.php");
 
                 return $this;
         }
+        
+        /* Aantal gebruikers weergeven */
+        public static function countUsers(){
+
+            $conn = Db::getConnection();
+            $statement = $conn->prepare("SELECT count(*) FROM user");
+            $statement->execute() ;
+            $countUsers = $statement->fetch(PDO::FETCH_ASSOC);
+
+            return $countUsers;
+
+        }
+
+        /* Aantal buddy overeenkomsten weergeven */
+        public static function countBuddyAgreements(){
+
+            $conn = Db::getConnection();
+            $statement = $conn->prepare("SELECT count(*) FROM buddy WHERE accepted = 1 ");
+            $statement->execute() ;
+            $countBuddyAgreements = $statement->fetch(PDO::FETCH_ASSOC);
+
+            return $countBuddyAgreements;
+
+        }
     }
