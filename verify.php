@@ -1,35 +1,53 @@
 <?php
 
+use PHPMailer\PHPMailer\PHPMailer;
+use PHPMailer\PHPMailer\SMTP;
+use PHPMailer\PHPMailer\Exception;
+
+require 'vendor/autoload.php';
+
+
 $api = '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'; 
 
+$mail = new PHPMailer(true);
 
-//require 'vendor/autoload.php'; // If you're using Composer (recommended)
-// Comment out the above line if not using Composer
- require("sendgrid-php/sendgrid-php.php");
- require("./sendgrid-php/sendgrid-php.php");
-// If not using Composer, uncomment the above line and
-// download sendgrid-php.zip from the latest release here,
-// replacing  with the path to the sendgrid-php.php file,
-// which is included in the download:
-// https://github.com/sendgrid/sendgrid-php/releases
-
-$email = new \SendGrid\Mail\Mail(); 
-$email->setFrom("test@example.com", "Example User");
-$email->setSubject("Sending with SendGrid is Fun");
-$email->addTo("britt110100@gmail.com", "you");
-$email->addContent("text/plain", "and easy to do anywhere, even with PHP");
-$email->addContent(
-    "text/html", "<strong>and easy to do anywhere, even with PHP</strong>"
-);
-$sendgrid = new \SendGrid(getenv($api));
 try {
-    $response = $sendgrid->send($email);
-    print $response->statusCode() . "\n";
-    print_r($response->headers());
-    print $response->body() . "\n";
+    //Server settings
+    $mail->SMTPDebug = SMTP::DEBUG_SERVER;                      // Enable verbose debug output
+    $mail->isSMTP();                                            // Send using SMTP
+    $mail->Host       = 'smtp.gmail.com';                    // Set the SMTP server to send through
+    $mail->SMTPAuth   = true;                                   // Enable SMTP authentication
+    $mail->Username   = 'Buddiez.PHP@gmail.com';                     // SMTP username
+    $mail->Password   = '4@1dgbo(w@93G8B';                               // SMTP password
+    //$mail->SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS;         // Enable TLS encryption; `PHPMailer::ENCRYPTION_SMTPS` encouraged
+    //$mail->Port       = 587;                                    // TCP port to connect to, use 465 for `PHPMailer::ENCRYPTION_SMTPS` above
+    $mail->Port       = 465; 
+    $mail->SMTPSecure = "ssl"; 
+
+    //Recipients
+    $mail->setFrom('Buddiez.PHP@gmail.com', 'Buddiez team');
+    $mail->addAddress('britt110100@gmail.com');     // Add a recipient
+    //$mail->addAddress('ellen@example.com');               // Name is optional
+    //$mail->addReplyTo('info@example.com', 'Information');
+    //$mail->addCC('cc@example.com');
+    //$mail->addBCC('bcc@example.com');
+
+    // Attachments
+   // $mail->addAttachment('/var/tmp/file.tar.gz');         // Add attachments
+   // $mail->addAttachment('/tmp/image.jpg', 'new.jpg');    // Optional name
+
+    // Content
+    $mail->isHTML(true);                                  // Set email format to HTML
+    $mail->Subject = 'Verification for Registration buddy app';
+    $mail->Body    = $api;
+    //$mail->AltBody = 'This is the body in plain text for non-HTML mail clients';
+
+    $mail->send();
+    echo 'Message has been sent';
+    header("Location: login.php");
 } catch (Exception $e) {
-    echo 'Caught exception: '. $e->getMessage() ."\n";
-}                   
+    echo "Message could not be sent. Mailer Error: {$mail->ErrorInfo}";
+}
 
 ?>
 <!DOCTYPE html>

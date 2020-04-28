@@ -45,7 +45,7 @@ if (!empty($_POST)) {
                             
 
                         
-                        header("Location: login.php");
+                        header("Location: verify.php");
                     } else {
                         throw new Exception("Passwords matchen niet");
                     }
