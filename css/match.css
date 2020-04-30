@@ -1,0 +1,31 @@
+.reaction-container{
+    max-width:40%;
+    margin:10px auto;
+    margin-left: -0px;
+    margin-bottom: -20px;
+    padding: 0px 0px;
+    position: relative;
+  }
+  
+  .like-btn {
+    font-weight: bold;
+    color: #0781d3;
+    position: relative;
+    cursor: pointer;
+    
+  }
+  
+  .like-btn:hover {
+    text-decoration: underline;
+  }
+
+  .status{
+    font-weight: bold;
+    color: white;
+    background-color: #0781d3;
+    position: absolute;
+    width: 20px;
+    text-align: center;
+  }
+  
+

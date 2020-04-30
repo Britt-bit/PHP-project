@@ -43,7 +43,6 @@ $emoji = $qry->fetch(PDO::FETCH_COLUMN);
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Matches</title>
     <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
     <link rel="stylesheet" href="https://cdn.rawgit.com/mervick/emojionearea/master/dist/emojionearea.min.css">
 
 
@@ -58,39 +57,7 @@ $emoji = $qry->fetch(PDO::FETCH_COLUMN);
 <script src="js/jquery.tipsy.js"></script>
 
 </head>
-<style>
-.reaction-container{
-    max-width:40%;
-    margin:10px auto;
-    margin-left: -0px;
-    margin-bottom: -20px;
-    padding: 0px 0px;
-    position: relative;
-  }
-  
-  .like-btn {
-    font-weight: bold;
-    color: #0781d3;
-    position: relative;
-    cursor: pointer;
-    
-  }
-  
-  .like-btn:hover {
-    text-decoration: underline;
-  }
 
-  .status{
-    font-weight: bold;
-    color: white;
-    background-color: #0781d3;
-    position: absolute;
-    width: 20px;
-    text-align: center;
-  }
-  
-
-</style>
 <body>
 
     <h1>My matches</h1>

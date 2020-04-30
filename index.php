@@ -16,9 +16,12 @@ $conn = Db::getConnection();
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>PHP project</title>
+    <link href="https://fonts.googleapis.com/css2?family=Raleway:wght@800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="./css/style.css">
+    <link rel="stylesheet" href="./css/home.css">
 
 
+    <title>Home</title>
     <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
     <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
     <script src="https://code.jquery.com/jquery-3.5.0.js"></script>
@@ -27,6 +30,10 @@ $conn = Db::getConnection();
 <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
     <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
     <script src="https://code.jquery.com/jquery-3.5.0.js"></script>
+
+    <img class="logo" src="./images/logo.png" alt="Buddiez logo">
+
+
     <?php 
 
         //check of user features al ingevuld heeft. zoniet-> toon warning
@@ -49,18 +56,27 @@ $conn = Db::getConnection();
          include_once(__DIR__ ."/includes/nav.inc.php");
 
 ?>
-    <h1>Je bent ingelogd</h1>
-    <a href="logout.php" class="nav-link">Logout</a>
-    <a class="nav-link" href="profile.php?id=<?php $_SESSION['user_id'][0] ?>">Profiel</a>
-    <a class="nav-link" href="buddy.php?id=<?php $_SESSION['user_id'] ?>">My buddy</a>
-    <a class="nav-link" href="match.php?id=<?php $_SESSION['email'] ?>">Mijn matches</a>
+
+    <!--navigatie-->        
+    <nav>
+    <a class="nav-link" href="profile.php?id=<?php $_SESSION['user_id'][0] ?>">Profile</a>
+    <a class="nav-link" href="buddy.php?id=<?php $_SESSION['user_id'] ?>">My buddies</a>
+    <a class="nav-link" href="match.php?id=<?php $_SESSION['email'] ?>">My matches</a>
+    <a href="logout.php" class="logout">Logout</a>
+    </nav>
 
 
+    <!--Intro-->        
+    <div class="intro">
+    <h1>Welcome, Buddy!</h1>
+    <p>Do you need some help to find your way in school? Don't worry! <br> You can make a lot of buddies!
+    <br>Less is more. <span>#ThomasMore</span>
+    </p>
+    </div>
 
 
-
-<h1>My matches</h1>
-    <form method="POST">
+    <form class="matches" method="POST">
+    <h3>My matches</h3>
     <table>
         <tr>
             <!-- Alle mogelijke matches oplijsten
@@ -117,7 +133,7 @@ $conn = Db::getConnection();
                          } else {
                              $statusReturn = "";
                          }
-                    echo '<button name="btn" type="button" class="btn btn-info btn-xs" data-touserid="'. $yourID . '" data-userid="'. $id . '" data-tousername="'. $yourName . '">Buddy request</button>';
+                    echo '<button name="btn" type="button" class="btnSubmit" data-touserid="'. $yourID . '" data-userid="'. $id . '" data-tousername="'. $yourName . '">Buddy request</button>';
                     
                 ?>
             </tr>
@@ -134,7 +150,7 @@ $conn = Db::getConnection();
                      } else {
                          $statusReturn = "";
                      }
-                echo '<button name="btn" type="button" class="btn btn-info btn-xs" data-touserid="'. $yourID . '" data-userid="'. $id . '" data-tousername="'. $yourName . '">Buddy request</button>';
+                echo '<button name="btn" type="button" class="btnSubmit" data-touserid="'. $yourID . '" data-userid="'. $id . '" data-tousername="'. $yourName . '">Buddy request</button>';
                    
             ?>
             </tr>
@@ -153,7 +169,7 @@ $conn = Db::getConnection();
                      } else {
                          $statusReturn = "";
                      }
-                echo '<button name="btn" type="button" class="btn btn-info btn-xs" data-touserid="'. $yourID . '"  data-userid="'. $id . '" data-tousername="'. $yourName . '">Buddy request</button>';
+                echo '<button name="btn" type="button" class="btnSubmit" data-touserid="'. $yourID . '"  data-userid="'. $id . '" data-tousername="'. $yourName . '">Buddy request</button>';
                 
   
             ?>
@@ -165,21 +181,28 @@ $conn = Db::getConnection();
     }
     }
 ?>
+
+
 </table>
 </form>
 
-<!--<script src="js/buddy.js"></script>-->
-
-<?php
-// aantal users + matches tonen
+<footer>
+    <!--<script src="js/buddy.js"></script>-->
+<div class="signedIn">
+    <?php
+    // aantal users + matches tonen
         $countBuddyAgreements = User::countBuddyAgreements();
         $countUsers = User::countUsers();
         foreach($countUsers as $count) {
             foreach($countBuddyAgreements as $countBuddy){
-        echo "Buddiez heeft $count gerigistreerde gebruikers en er zijn al $countBuddy buddyovereenkomsten";
+        echo "Buddiez heeft <span>$count</span> gerigistreerde gebruikers en er zijn al <span>$countBuddy</span>  buddyovereenkomsten";
             }
         }
-?>
+    ?>  
+</div>
+</footer>
+
+
 </body>
 </html>
 
