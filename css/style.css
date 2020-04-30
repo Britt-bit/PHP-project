@@ -69,3 +69,7 @@
     width: 50%;
     margin: 0 auto;
 }
+
+.loginSettings p{
+    font-family: Arial, Helvetica, sans-serif;
+}

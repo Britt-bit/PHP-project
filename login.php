@@ -65,50 +65,48 @@ if(!empty($_POST)){
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
-    <link href="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
-    <link rel="stylesheet" href="/css/style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Raleway:wght@800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="./css/login.css">
     <title>Login</title>
 </head>
 <body>
-<div class="container register-form">
-  <div class="form"></div>
-    <!--Error melding-->
-    <?php if( isset($error) ): ?>
-        <div class="alert alert-danger" role="alert">
-            <p> <?php echo $error; ?> </p>
-        </div>
-        <?php endif;?>
-    </div>
  
         <form action="" method="POST">
-            <div class="form-content">  
-            <div class="col-md-6">
-                <div class="note col-md-6">
-                    <p>Login</p>
-                </div>  
+            <div class="form">  
+
+            <!--Logo-->
+            <img class="logo" src="./images/logo.png" alt="Buddiez logo">
+
+            <!--Error melding-->
+            <?php if( isset($error) ): ?>
+            <div class="error" role="alert">
+                <p> <?php echo $error; ?> </p>
+            </div>
+            <?php endif;?>
+            <h1>Login</h1>
+
+
                 <!-- Email veld -->
-                <div class="form-group col-md-6">
-                    <input name="email" id="email" type="text" placeholder="Email" class= "form-control" value="<?php if(isset($_POST['email'])) echo $_POST['email']; ?>">
+                <div class="email">
+                    <input name="email" id="email" type="text" placeholder="Email" class= "inputField" value="<?php if(isset($_POST['email'])) echo $_POST['email']; ?>">
                 </div>
            
                 <!-- Password veld -->
-                <div class="form-group col-md-6">
-                    <input name="password" id="password" type="password" placeholder="Password" class= "form-control"  value="">
+                <div class="password">
+                    <input name="password" id="password" type="password" placeholder="Password" class= "inputField"  value="">
                 </div>    
  
                 <!--Login button-->
-                <div class="form-group col-md-6">
-                    <button type="submit" class="btnSubmit" style="border-radius: 20px; width: 150px;" >Login</button>
+                <div class="loginSettings">
+                    <button type="submit" class="btnSubmit" style="border-radius: 20px; width: 150px;" >LOGIN</button>
                         <br><br>
                         <!--onthoud mij checkbox-->  
-                    <input type="checkbox" id="rememberMe"><label for="rememberMe" class="">Remember me</label>
+                    <input type="checkbox" class="checkbox" id="rememberMe"><label for="rememberMe" class="rememberMe">Remember me</label>
                         <br>
 
                     <!--Nog geen account?-->
                     <p>Nog geen account? <a href="register.php">Register</a></p>    
-                </div>
-                </div>
+
             </div>        
         </form>
         </div>
