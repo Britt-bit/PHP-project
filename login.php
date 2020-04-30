@@ -34,12 +34,14 @@ if(!empty($_POST)){
    
     //Validatie: velden mogen niet leeg zijn
     if(!empty($email) && !empty($password)){
-        if(canLogin($email, $password,$user_id)){
-            session_start();
-            $_SESSION['email'] = $email;
-            $_SESSION['user_id'] = $user_id;
+        if($verified == 1){
+            if(canLogin($email, $password,$user_id)){
+                session_start();
+                $_SESSION['email'] = $email;
+                $_SESSION['user_id'] = $user_id;
 
-
+            
+//checken of email is gevalideerd
             //if ($verified == 1){
                header ("Location: index.php");
             //} else {
@@ -51,6 +53,10 @@ if(!empty($_POST)){
             //Error
             $error="Cannot log you in.";
         }
+    }else{
+        $error = "Email not verified yet";
+
+    }
     }else{
         //Indien leeg: error genereren
         $error = "Email and password are required.";

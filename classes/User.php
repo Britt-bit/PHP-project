@@ -238,6 +238,48 @@ include_once(__DIR__ . "/Db.php");
         }
 
 
+           /**
+         * Get the value of vkey
+         */ 
+        public function getVkey()
+        {
+                return $this->vkey;
+        }
+
+        /**
+         * Set the value of vkey
+         *
+         * @return  self
+         */ 
+        public function setVkey($vkey)
+        {
+                $this->vkey = $vkey;
+
+                return $this;
+        }
+
+
+        public function verified(){
+            $conn = Db::getConnection();
+            
+            $statement = $conn->prepare("SELECT `verified`, `vkey` FROM `user` WHERE `verified` = 0 AND `vkey` = :vkey LIMIT 1");
+
+            $vkey = $this->getVkey();
+            $statement->bindValue(":vkey", $vkey);
+            $result = $statement->execute();
+            
+            if($result = $result->fetch(PDO::FETCH_ASSOC)){
+                $update = $conn->prepare("UPDATE `user` SET `verified` = 1 WHERE `vkey` = :vkey LIMIT 1");
+                $update->bindValue(":vkey", $vkey);
+                $verified = $update->execute();
+                return $verified;
+                echo "It's alright";
+            } else {
+                echo "This account invalid or not yet verified";
+            }
+
+        }
+
 
         public function saveUser(){
             $conn = Db::getConnection();
@@ -286,11 +328,15 @@ include_once(__DIR__ . "/Db.php");
 
             $check_email = $conn->prepare("SELECT email FROM user WHERE email=':email'");
             $check_email->bindParam(':email', $email);
+            $check_email->execute();
             
-            foreach ($conn->query($check_email) as $row){
-                print $row['email'];
-            }
-            return $row;
+            $checked = $check_email->fetchAll(PDO::FETCH_ASSOC);
+            return $checked;
+            //foreach ($check_email as $row){
+            //    $checked = $row['email'];
+            //    var_dump($row['email']);
+            //}
+            //return $checked;
         }
         
         /* update user */
@@ -400,26 +446,6 @@ include_once(__DIR__ . "/Db.php");
             return $password;
         }
 
-
-        /**
-         * Get the value of vkey
-         */ 
-        public function getVkey()
-        {
-                return $this->vkey;
-        }
-
-        /**
-         * Set the value of vkey
-         *
-         * @return  self
-         */ 
-        public function setVkey($vkey)
-        {
-                $this->vkey = $vkey;
-
-                return $this;
-        }
         
         /* Aantal gebruikers weergeven */
         public static function countUsers(){
