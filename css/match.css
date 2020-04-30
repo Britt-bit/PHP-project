@@ -1,31 +1,38 @@
-.reaction-container{
-    max-width:40%;
-    margin:10px auto;
-    margin-left: -0px;
-    margin-bottom: -20px;
-    padding: 0px 0px;
-    position: relative;
-  }
-  
-  .like-btn {
-    font-weight: bold;
-    color: #0781d3;
-    position: relative;
-    cursor: pointer;
-    
-  }
-  
-  .like-btn:hover {
-    text-decoration: underline;
-  }
+/*matches*/
+.myMatches{
+  background-color: rgb(255, 255, 255);
+  margin-top: 200px;
+  width: 900px;
+  color: rgb(65, 65, 64);
+  font-family: Arial, Helvetica, sans-serif;
+  font-size: 16px;
+  border-radius: 20px;
+  box-shadow: 0px 0px 19px -2px rgba(0, 0, 0, 0.205);
+  padding-left: 50px;
+  padding-top: 10px;
+  padding-bottom: 50px;
+  float: left;
+  margin-left: -150px;
+}
 
-  .status{
-    font-weight: bold;
-    color: white;
-    background-color: #0781d3;
-    position: absolute;
-    width: 20px;
-    text-align: center;
-  }
-  
+/*Start chat*/
+.startChat{
+  width: 190px;
+  height: 35px;
+  border-radius: 13px;
+  border-style: hidden;
+  background: linear-gradient(90deg, rgb(41, 212, 255) 0%, rgb(78, 236, 228) 100%);
+  color: white;
+  font-family: 'Raleway', sans-serif;
+  font-size: 14px;
+  font-family: Arial, Helvetica, sans-serif;
+  font-weight: bold;
+  margin-left: 50px;
+  height: 50px;
+
+}
+
+.startChat:hover{
+  background: linear-gradient(90deg, rgba(255,141,41,1) 100%, rgba(255,61,61,1) 0%);
+}
 

@@ -17,10 +17,10 @@ body{
 /*Navigatie*/
 nav{
     height: 25px;
-    width: 700px;
+    width: 800px;
     float: right;
     display: block;
-    margin-right: 120px;
+    margin-right: 10px;
     margin-top: 50px;
 }
 
@@ -31,17 +31,31 @@ nav a{
     margin-left: 50px;
     font-size: 18px;
     float: left;
+
 }
 
 nav a:hover{
-    text-decoration-line: underline;
-    color: tomato;
+    text-decoration: underline;
 }
 
 .logout{
     font-weight: bold;
-    color: tomato;
-    text-decoration-line: underline;
+    color: rgb(255, 255, 255);
+    border-radius: 50px;
+    margin-top: -5px;
+    width: 100px;
+    text-align: center;
+    border: solid 2px;
+    padding: 5px;
+    
+
+}
+
+.logout:hover{
+    background: linear-gradient(90deg, rgba(255,141,41,1) 0%, rgba(255,61,61,1) 100%);
+    border:  none;
+    color: white;
+
 }
 
 /*header*/

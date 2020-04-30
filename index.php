@@ -31,7 +31,7 @@ $conn = Db::getConnection();
     <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
     <script src="https://code.jquery.com/jquery-3.5.0.js"></script>
 
-    <img class="logo" src="./images/logo.png" alt="Buddiez logo">
+    <a href="index.php"><img class="logo" src="./images/logo.png" alt="Buddiez logo"></a>
 
 
     <?php 
@@ -57,13 +57,15 @@ $conn = Db::getConnection();
 
 ?>
 
-    <!--navigatie-->        
-    <nav>
-    <a class="nav-link" href="profile.php?id=<?php $_SESSION['user_id'][0] ?>">Profile</a>
-    <a class="nav-link" href="buddy.php?id=<?php $_SESSION['user_id'] ?>">My buddies</a>
-    <a class="nav-link" href="match.php?id=<?php $_SESSION['email'] ?>">My matches</a>
+   <!--navigatie-->        
+   <nav>
+    <a style="color: rgb(245, 134, 124);"href="index.php?id=<?php $_SESSION['user_id'][0] ?>">Home</a>
+    <a href="profile.php?id=<?php $_SESSION['user_id'][0] ?>">Profile</a>
+    <a href="buddy.php?id=<?php $_SESSION['user_id'] ?>">My buddies</a>
+    <a href="match.php?id=<?php $_SESSION['email'] ?>">My matches</a>
     <a href="logout.php" class="logout">Logout</a>
     </nav>
+
 
 
     <!--Intro-->        
