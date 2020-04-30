@@ -72,34 +72,35 @@ $users = User::getAllUsers();
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://fonts.googleapis.com/css2?family=Raleway:wght@800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="./css/login.css">
+    <link rel="stylesheet" href="./css/register.css">
     <title>Registreer</title>
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
-    <link href="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
-    <link rel="stylesheet" href="css/style.css">
 </head>
 
 <body>
 
-    <div class="container register-form">
-        <div class="form">
-            <div class="note">
-                <p>Sign up voor de IMD buddy app.</p>
+    <div>
+        <div class="register">
+            <div>
+            <!--Logo-->
+            <img class="logo" src="./images/logo.png" alt="Buddiez logo">
+            <h1 style="font-size:30px; margin-top:-50px;">Sign up voor de IMD buddy app.</h1>
             </div>
 
             <form action="" method="POST">
-                <div class="form-content">
-                    <div class="row">
-                        <div class="col-md-6">
-                            <div class="form-group">
-                                <input name="firstname" id="firstname" type="text" class="form-control" placeholder="Jouw naam *" value="<?php if (isset($_POST['firstname'])) echo $_POST['firstname']; ?>" />
+                <div>
+                    <div>
+                        <div>
+                            <div>
+                                <input name="firstname" id="firstname" type="text" class="inputField" placeholder="Jouw naam *" value="<?php if (isset($_POST['firstname'])) echo $_POST['firstname']; ?>" />
                             </div>
-                            <div class="form-group">
-                                <input name="lastname" id="lastname" type="text" class="form-control" placeholder="Jouw achternaam *" value="<?php if (isset($_POST['lastname'])) echo $_POST['lastname']; ?>" />
+                            <div>
+                                <input name="lastname" id="lastname" type="text" class="inputField" placeholder="Jouw achternaam *" value="<?php if (isset($_POST['lastname'])) echo $_POST['lastname']; ?>" />
                             </div>
 
-                            <div class="form-group">
-                                <label for="year">Jaar</label>
-                                <select name="year" id="year">
+                            <div>
+                                <select class="inputField"name="year" id="year">
                                     <option value="1IMD">1IMD</option>
                                     <option value="2IMD">2IMD</option>
                                     <option value="3IMD">3IMD</option>
@@ -107,32 +108,34 @@ $users = User::getAllUsers();
                                 </select>
                             </div>
 
-                            <div class="form-group row col-md-4">
-                                <label for="buddy">Buddy</label>
-                                <select name="buddy" id="buddy">
+                            <div>
+                                <select class="inputField" name="buddy" id="buddy">
                                     <option value="">Ik zoek/ben een buddy ...</option>
                                     <option value="0">Ik zoek een buddy</option>
                                     <option value="1">Ik ben een buddy</option>
                                 </select>
                             </div>
                         </div>
-                        <div class="col-md-6">
-                            <div class="form-group">
-                                <input name="email" id="email" type="text" class="form-control" placeholder="Jouw email *" value="<?php if (isset($_POST['email'])) echo $_POST['email']; ?>" />
+                        <div>
+                            <div>
+                                <input name="email" id="email" type="text" class="inputField" placeholder="Jouw email *" value="<?php if (isset($_POST['email'])) echo $_POST['email']; ?>" />
                             </div>
-                            <div class="form-group">
-                                <input name="password" id="password" type="password" class="form-control" placeholder="Jouw Password *" value="" />
+                            <div>
+                                <input name="password" id="password" type="password" class="inputField" placeholder="Jouw Password *" value="" />
                             </div>
-                            <div class="form-group">
-                                <input name="passwordConfirmation" id="passwordConfirmation" type="password" class="form-control" placeholder="Bevestig je password *" value="" />
+                            <div>
+                                <input name="passwordConfirmation" id="passwordConfirmation" type="password" class="inputField" placeholder="Bevestig je password *" value="" />
                             </div>
                         </div>
                     </div>
+                    <div class="loginSettings">
                     <button type="submit" name="submit" class="btnSubmit">Registreer</button>
                     <br> <br>
                     <p>Al een account? <a href="login.php">Login</a></p>
+                    </div>
+                    <br>
                     <?php if( isset($error) ): ?>
-				    <div class="alert alert-danger" role="alert">
+				    <div class="registerError" role="alert">
 					    <p>
 						    <?php echo $error; ?>
 					    </p>
