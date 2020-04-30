@@ -1,0 +1,95 @@
+/*Profile formulier*/
+.profile{
+    background-color: rgb(255, 255, 255);
+    height: 670px;
+    width: 650px;
+    float: left;
+    margin-left: -150px;
+    margin-top: 100px;
+    border-radius: 50px;
+    box-shadow: 0px 0px 19px -2px rgba(0, 0, 0, 0.205);
+
+}
+
+.profile_title{
+    margin-top: 40px;
+}
+
+
+/*Labels*/
+label{
+    font-family: 'Raleway', sans-serif;
+
+}
+
+/*Input velden*/
+.fields{
+  /* background-color: rebeccapurple;*/
+    width: 500px;
+    margin-left: auto;
+    margin-right: auto;
+    display: block;
+    padding-top: 20px;
+}
+
+/*Avatar*/
+.avatar{
+    font-family: 'Raleway', sans-serif;
+    font-size: 20px;
+}
+
+.avatar input{
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 16px;
+}
+
+/*Firstname*/
+.firstname label{
+    margin-right: 80px;
+}
+
+/*Lastname*/
+.lastname label{
+    margin-right: 65px;
+}
+/*Email*/
+.email label{
+    margin-right: 115px;
+}
+/*Password*/
+.password label{
+    margin-right: 140px;
+}
+/*Bio*/
+.bio label{
+    margin-right: 80px;
+}
+/*Schooljaar*/
+.schoolyear label{
+    margin-right: 80px;
+}
+/*Buddy*/
+.buddy label{
+    margin-right: 110px;
+}
+
+/*Melding*/
+.warning{
+    background-color: rgb(250, 126, 95);
+    height: 50px;
+    width: 300px;
+    border-radius: 12px;
+    margin-top: 20px;
+    margin-bottom: 5px;
+    margin-left: 190px;
+}
+
+.warning p{
+    font-family: Arial, Helvetica, sans-serif;
+    font-weight: bold;
+    font-size: 12px;
+    text-align: center;
+    padding-top: 13px;
+    color:  rgb(149, 42, 15);
+  
+}
