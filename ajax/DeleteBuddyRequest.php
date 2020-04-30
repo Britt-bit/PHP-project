@@ -4,7 +4,7 @@
     $uid = $_POST['uid'];
     $response = [];
     if (Request::DeleteRequest($id, $uid)) {
-        $response['status'] = 'Declined';
+        $response['status'] = 'succes';
     } else {
         $response['status'] = 'something went wrong.';
     }

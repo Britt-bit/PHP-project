@@ -14,7 +14,14 @@ $features = new Feature();
 $getFeatures = $features->getFeaturesFromUser($_GET['id']);
 
 $request = new Request();
-$getRequest = $request->getRequest($_GET['id'], $_SESSION['user_id']);
+$getRequest = $request->getRequest($_SESSION['user_id']);
+
+$buddy = new Request();
+$getbuddy = $buddy->getbuddy($_GET['id']);
+
+$seeker = new Request();
+$getseeker = $seeker->getseeker($_SESSION['user_id']);
+
 /* Error */
 $errors = [];
 if (!empty($_POST)) {
@@ -91,8 +98,36 @@ if (!empty($_POST)) {
         <?php if ($getUser['user_id'] == $_SESSION['user_id']) : ?>
             <form action="" method="POST" enctype="multipart/form-data">
                 <div class="form-content">
+                    <!-- show if Buddy -->
+                    <?php if ($getRequest['request'] == null && $getRequest['accepted'] == null) : ?>
+                        <div class="alert alert-info">
+                            <p>You are a buddy you cannot send a request.</p>
+                        </div>
+                    <?php elseif ($getRequest['buddy_id'] == $_SESSION['user_id'] && $getRequest['request'] == 1) : ?>
+                        <div class="alert alert-info col-md-8 d-block">
+                            <p>You have a buddy request from <?php echo $getseeker['firstname'] ?>.</p>
+                        </div>
+                        <div class="d-block">
+                            <a href="#" id="AcceptRequest" class="btn btn-success btn-lg" role="button">Accept</a>
+                            <a href="#" id="DeleteRequest" class="btn btn-danger btn-lg ml-3" role="button">Decline</a>
+                        </div>
+                        <div class="hidden">
+                            <input type="hidden" name="id" id="id" value="<?php echo $_SESSION['user_id'] ?>">
+                            <input type="hidden" name="uid" id="uid" value="<?php echo $getseeker['user_id'] ?>">
+                        </div>
+                        <script type="text/javascript" src="js/AcceptBuddyRequest.js"></script>
+                        <script type="text/javascript" src="js/DeleteBuddyRequest.js"></script>
+                    <?php elseif ($getRequest['buddy_id'] == $_SESSION['user_id'] || $getRequest['seeker_id'] == $_SESSION['user_id'] && $getRequest['request'] == 0 && $getRequest['accepted'] == 1) : ?>
+                        <div class="alert alert-info col-md-8 d-block">
+                            <p>You are buddies with <?php if ($getseeker != false) {
+                                                        echo $getseeker['firstname'];
+                                                    } else {
+                                                        echo $getbuddy['firstname'];
+                                                    }  ?>.</p>
+                        </div>
+                    <?php endif ?>
                     <!-- Avatar field -->
-                    <div class="form-group row col-md-4">
+                    <div class="form-group row col-md-4 mt-3">
                         <img class="img-thumbnail" src="<?php echo $getUser['avatar'] ?>" alt="User Avatar">
                         <input type="file" name="avatar" id="avatar" class="form-control">
                     </div>
@@ -149,21 +184,33 @@ if (!empty($_POST)) {
                     </div>
                 </div>
             </form>
+            <div class="hidden">
+                <input id="id" type="hidden" name="id" value="<?php echo $_SESSION['user_id'] ?>">
+                <input id="uid" type="hidden" name="uid" value="<?php echo $getseeker['user_id']; ?>">
+                <input id="uri" type="hidden" value="<?php echo $_SERVER["REQUEST_URI"]; ?>">
+            </div>
             <script src="js/updateBuddy.js"></script>
+
+
         <?php elseif ($getUser['user_id'] != $_SESSION['user_id']) : ?>
+            <?php var_dump($getRequest) ?>
+            <?php if ($getRequest['buddy_id'] == $_SESSION['user_id'] || $getRequest['seeker_id'] == $_SESSION['user_id'] && $getRequest['request'] == 0 && $getRequest['accepted'] == 1) : ?>
+                <div class="alert alert-info col-md-8 d-block mt-3">
+                    <p>This is your buddy</p>
+                </div>
+                <a href="#" id="DeleteRequest" class="btn btn-danger btn-lg mb-3" role="button">Delete Buddy</a>
+                    <script type="text/javascript" src="js/DeleteBuddyRequest.js"></script>
+            <?php endif ?>
             <div class="form-group row col-md-12">
                 <img class="img-thumbnail" src="<?php echo $getUser['avatar'] ?>" alt="User Avatar">
             </div>
-            <?php if ($getRequest['accepted'] == 1 && $getRequest['seeker_id'] == $_GET['id']) : ?>
-                <div class="form-group row col-md-12">
-                    <p>You are buddies with <?php echo $getUser['firstname']; ?></p>
-                </div>
-            <?php endif ?>
             <div class="form-group row col-md-12">
-                <label for="firstname">Naam: </label>
-                <p id="person" class="ml-1"><?php echo $getUser['firstname'];
-                                echo ' ';
-                                echo $getUser['lastname'] ?>
+                <label for="fullname">Naam: </label>
+                <p id="fullname" class="ml-1" value='<?php echo $getUser['firstname'];
+                    echo ' ';
+                    echo $getUser['lastname'] ?>'><?php echo $getUser['firstname'];
+                    echo ' ';
+                    echo $getUser['lastname'] ?>
                 </p>
             </div>
             <div class="form-group row col-md-12">
@@ -185,28 +232,21 @@ if (!empty($_POST)) {
                 <input id="email" type="hidden" value="<?php echo $getUser['email']; ?>">
                 <input id="uri" type="hidden" value="<?php echo $_SERVER["REQUEST_URI"]; ?>">
             </div>
-            <div id="watchOut" class="alert alert-success">
-                <p>Something went wrong try again later.</p>
-            </div>
-            <div id="requestBtn" class="form-group row col-md-12">
-                <?php if ($getRequest['request'] == null && $getRequest['accepted'] == null) : ?>
-                    <a href="#" id="sendRequest" class="btn btn-primary btn-lg" role="button">Buddy Request</a>
-                <?php elseif ($getRequest['request'] == 1 && $getRequest['buddy_id'] == $_GET['id']) : ?>
-                    <a href="#" class="btn btn-secondary btn-lg disabled" role="button">Requested</a>
-                <?php elseif ($getRequest['seeker_id'] == $_GET['id'] && $getRequest['request'] == 1) : ?>
-                    <a href="#" id="AcceptRequest" class="btn btn-success btn-lg" role="button">Accept</a>
-                    <a href="#" id="DeleteRequest" class="btn btn-danger btn-lg ml-3" role="button">Decline</a>
-                    <script type="text/javascript" src="js/AcceptBuddyRequest.js"></script>
-                    <script type="text/javascript" src="js/DeleteBuddyRequest.js"></script>
-                <?php elseif ($getRequest['accepted'] == 1 && $getRequest['seeker_id'] == $_GET['id'] || $getRequest['seeker_id'] == $_SESSION['user_id']) : ?>
-                    <a href="#" id="DeleteRequest" class="btn btn-danger btn-lg" role="button">Delete Buddy</a>
-                    <script type="text/javascript" src="js/DeleteBuddyRequest.js"></script>
-                <?php elseif ($getRequest['accepted'] == 0 && $getRequest['accepted'] != null) : ?>
-                    <a href="#" class="btn btn-danger btn-lg disabled" role="button">Declined</a>
+
+            <?php if ($getUser['buddy'] == 1) : ?>
+                <div id="requestBtn" class="form-group row col-md-12">
+                    <?php if ($getRequest['request'] == null && $getRequest['accepted'] == null) : ?>
+                        <a href="#" id="sendRequest" class="btn btn-primary btn-lg" role="button">Buddy Request</a>
+                        <script type="text/javascript" src="js/sendBuddyRequest.js"></script>
+                    <?php elseif ($getRequest['request'] == 1 && $getRequest['buddy_id'] == $_GET['id']) : ?>
+                        <a href="#" class="btn btn-secondary btn-lg disabled" role="button">Requested</a>
+                    <?php elseif (class_exists('btn-danger')) : ?>
+                        <a href="#" class="btn btn-danger btn-lg disabled" role="button">Declined</a>
+                    <?php elseif (!class_exists('btn-danger')) : ?>
+                    <?php endif ?>
                 <?php endif ?>
-            </div>
-            <script type="text/javascript" src="js/sendBuddyRequest.js"></script>
-        <?php endif ?>
+                </div>
+            <?php endif ?>
     </div>
 
     <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>

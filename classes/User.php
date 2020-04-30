@@ -284,6 +284,17 @@ include_once(__DIR__ . "/Db.php");
             return $result;
         }
 
+        function getbuddyById($id, $uid){
+            $conn = Db::getConnection();
+            $statement = $conn->prepare('SELECT * FROM user WHERE id IN 
+            (SELECT * FROM buddy WHERE seeker_id in (:id, :uid)');
+            $statement->bindParam(':id', $id);
+            $statement->bindParam(':uid', $uid);
+            $statement->execute();
+            $result = $statement->fetchAll();
+            return $result;
+        }
+
         function updateUser($id)
         {
             if (move_uploaded_file($_FILES["avatar"]["tmp_name"], $this->avatar)) {

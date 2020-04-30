@@ -12,8 +12,7 @@ $("#AcceptRequest").on("click", function (e) {
     })
         .done(function (res) {
             if (res.status == "success") {
-                console.log(res.status);
-                $("#requestBtn").load(uri + "#requestBtn");
+                
 
             } else {
                 console.log(res.status);
@@ -21,6 +20,5 @@ $("#AcceptRequest").on("click", function (e) {
             }
         });
 
-    e.preventDefault();
 });
 
