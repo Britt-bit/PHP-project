@@ -102,6 +102,8 @@ include_once(__DIR__ ."/classes/User.php");
                     </div>
                     <div class=loginSettings>
                     <button type="submit" class="btnSubmit">Sign me up</button>
+                    <p>You already have an account? <a href="login.php">Login.</a></p>    
+
                     </div>
                     <br> <br>
 
