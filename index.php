@@ -22,11 +22,20 @@ ini_set('display_errors', 1);
     <title>Home</title>
 </head>
 <body>
+
 <img class="logo" src="./images/logo.png" alt="Buddiez logo">
     <nav>
-    <a href="logout.php" class="nav-link">Logout</a>
-    <a class="nav-link" href="profile.php?id=<?php $_SESSION['user'][0] ?>">Profile</a>
+    <a  href="profile.php?id=<?php $_SESSION['user'][0] ?>">Profile</a>
+    <a href="logout.php" class="logout">Logout</a>
     </nav>
+
+    <div class="intro">
+    <h1>Welcome, Buddy!</h1>
+    <p>Do you need some help to find your way in school? Don't worry! <br> You can make a lot of buddies!
+    <br>Less is more. <span>#ThomasMore</span>
+    </p>
+    </div>
+
 
     <?php 
     //check of user features al ingevuld heeft. zoniet->redirect naar invulformulier

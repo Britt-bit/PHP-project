@@ -36,3 +36,37 @@ nav a:hover{
     text-decoration-line: underline;
     color: tomato;
 }
+
+.logout{
+    font-weight: bold;
+    color: tomato;
+    text-decoration-line: underline;
+}
+
+/*header*/
+.intro{
+    /*background-color: gray;*/
+    width: 700px;
+    height: 400px;
+    padding-top: 300px;
+    padding-left: 100px;
+}
+
+
+
+/*titel*/
+h1{
+    font-size: 40px;
+    font-family: 'Raleway', sans-serif;
+    color: rgb(255, 129, 25);
+}
+
+.intro p{
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 20px;
+}
+
+.intro span{
+    font-weight: bold;
+    font: italic;
+}
