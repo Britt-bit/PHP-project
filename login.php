@@ -12,11 +12,33 @@ function canLogin($email, $password){
     $result = $conn->query($query);
     $user = $result->fetch_assoc();
 
+
     if(password_verify($password, $user['password'])){
         return true;
     }else{
         return false;
     }
+}
+
+
+
+function verified($email){
+    $conn = Db::getConnection();
+    $statement = $conn->prepare('SELECT `verified` FROM `user` WHERE email = :email');
+    $statement->bindParam(':email', $email);
+    $statement->execute();
+    $result = $statement->fetch(PDO::FETCH_COLUMN);
+    //$result->execute();
+
+    if($result == 1){
+        return true;
+    } else {
+        return false;
+    }
+    
+        
+    
+    
 }
  
 //Get de User
@@ -34,7 +56,7 @@ if(!empty($_POST)){
    
     //Validatie: velden mogen niet leeg zijn
     if(!empty($email) && !empty($password)){
-        if($verified == 1){
+        if(verified($email)){
             if(canLogin($email, $password,$user_id)){
                 session_start();
                 $_SESSION['email'] = $email;
@@ -52,11 +74,11 @@ if(!empty($_POST)){
             //User en password matchen niet
             //Error
             $error="Cannot log you in.";
+        }}
+        else {
+            $error="Email not yet verified";
         }
-    }else{
-        $error = "Email not verified yet";
-
-    }
+    
     }else{
         //Indien leeg: error genereren
         $error = "Email and password are required.";
