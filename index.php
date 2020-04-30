@@ -16,14 +16,17 @@ ini_set('display_errors', 1);
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>PHP project</title>
+    <link href="https://fonts.googleapis.com/css2?family=Raleway:wght@800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="./css/style.css">
+    <link rel="stylesheet" href="./css/home.css">
+    <title>Home</title>
 </head>
 <body>
-    <h1>Logged in</h1>
+<img class="logo" src="./images/logo.png" alt="Buddiez logo">
+    <nav>
     <a href="logout.php" class="nav-link">Logout</a>
-
     <a class="nav-link" href="profile.php?id=<?php $_SESSION['user'][0] ?>">Profile</a>
-    
+    </nav>
 
     <?php 
     //check of user features al ingevuld heeft. zoniet->redirect naar invulformulier

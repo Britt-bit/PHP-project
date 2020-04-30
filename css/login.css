@@ -5,40 +5,52 @@ body{
 }
 
 /*logo*/
+.logo{
+    width: 200px;
+    display: block;
+   /* margin-left: 150px;*/
+    margin-left: auto;
+    margin-right: auto;
+}
 
 
 h1{
     font-size: 40px;
     font-family: 'Raleway', sans-serif;
     margin-left: 50px;
-    margin-top: 70px;
+    margin-top: 0px;
 }
 
 /*foutmelding*/
 .error{
-    background-color: rgb(255, 165, 113);
+    background-color: rgb(250, 126, 95);
     height: 50px;
-    width: 400px;
+    width: 300px;
     border-radius: 12px;
+    margin-top: -80px;
+    margin-left: auto;
+    margin-right: auto;
+    margin-bottom: 5px;
+    display: block;
 }
 
 .error p{
     font-family: Arial, Helvetica, sans-serif;
-    font-size: 16px;
+    font-size: 14px;
     text-align: center;
     padding-top: 13px;
-    color: white;
+    color:  rgb(149, 42, 15);
     
 }
 
 /*Login formulier*/
 .form{
     background-color: rgb(255, 255, 255);
-    height: 470px;
+    height: 570px;
     width: 400px;
     float: left;
     margin-left: 150px;
-    margin-top: 280px;
+    margin-top: 180px;
     border-radius: 50px;
     box-shadow: 0px 0px 19px -2px rgba(0, 0, 0, 0.205);
 
@@ -81,8 +93,12 @@ h1{
 
 /*Checkbox*/
 .rememberMe{
-
+    font-family: Arial, Helvetica, sans-serif;
+    margin-left: 10px;
 }
+
+
+
 /*Registreren*/
 .loginSettings a{
     color: rgb(231, 92, 49);

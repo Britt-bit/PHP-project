@@ -63,11 +63,11 @@ if(!empty($_POST)){
     }else{
             //User en password matchen niet
             //Error
-            $error="Cannot log you in.";
+            $error="*Cannot log you in.";
     }
     }else{
         //Indien leeg: error genereren
-        $error = "Email and password are required.";
+        $error = "*Email and password are required.";
 }
 } catch(\Throwable $th) {
     $error = $th->getMessage();
@@ -90,19 +90,22 @@ if(!empty($_POST)){
 </head>
 <body>
 
-  <div>
-    <!--Error melding-->
-    <?php if( isset($error) ): ?>
-        <div class="error" role="alert">
-            <p>
-            <?php echo $error; ?>
-            </p>
-        </div>
-    <?php endif;?>
-  </div>
 
         <form action="" method="POST">
             <div class="form">  
+
+            <!--Logo-->
+            <img class="logo" src="./images/logo.png" alt="Buddiez logo">
+
+            <!--Error melding-->
+                <?php if( isset($error) ): ?>
+                    <div class="error" role="alert">
+                        <p>
+                        <?php echo $error; ?>
+                        </p>
+                    </div>
+                <?php endif;?>
+
                     <h1> Login</h1>
 
                 <!-- Email veld -->
@@ -120,7 +123,7 @@ if(!empty($_POST)){
                         <button type="submit" class="btnSubmit">LOGIN</button>
                         <br><br>
                         <!--onthoud mij checkbox-->  
-                        <input type="checkbox" class="rememberMe"><label for="rememberMe" class="">Remember me</label>
+                        <input type="checkbox" class="checkbox" checked="checked"><label class="rememberMe"for="rememberMe" class="">Remember me</label>
                         <br>
                         <!--Password vergeten-->
                         <!--<a href="">Forgot password?</a>

@@ -31,17 +31,21 @@ error_reporting(E_ALL);
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
-    <link href="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
-    <link rel="stylesheet" href="css/style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Raleway:wght@800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="./css/style.css">
+    <link rel="stylesheet" href="./css/login.css">
+    <link rel="stylesheet" href="./css/features.css">
+
+    <title>Features</title>
 </head>
 <body>
 
-    <div class="container register-form">
+    <div class="features">
+
+    <img class="logo" src="./images/logo.png" alt="Buddiez logo">
+   
         <div class="note">
-            <p>Kenmerken</p>
-                
+            <h1 style="font-size:30px; margin-top:-50px;">Kenmerken</h1>
         </div>
 
         <form action="" method="post">
@@ -49,7 +53,7 @@ error_reporting(E_ALL);
  
             <h4>Wat voor soort games speelt u graag?</h4>
             <label for="games"></label>
-            <select id="games" name="games">
+            <select class="dropDown"id="games" name="games">
                 <option value="shooter">Shooter</option>
                 <option value="moba">MOBA</option>
                 <option value="rpg">RPG</option>
@@ -58,7 +62,7 @@ error_reporting(E_ALL);
   
             <h4>Wat vind je de leukste vakken in IMD?</h4>
             <label for="vak"></label>
-            <select id="vak" name="vak">
+            <select class="dropDown" id="vak" name="vak">
                 <option value="development">Development</option>
                 <option value="design">Design</option>
                 <option value="entrepeneurship">Entrepreneurship</option>
@@ -67,7 +71,7 @@ error_reporting(E_ALL);
             
             <h4>Welke films kijk je graag?</h4>
             <label for="film"></label>
-            <select id="film" name="film">
+            <select class="dropDown" id="film" name="film">
                 <option value="actie">Actie</option>
                 <option value="komedie">Komedie</option>
                 <option value="horror">Horror</option>
@@ -77,7 +81,7 @@ error_reporting(E_ALL);
   
             <h4>Welke muziek luistert u graag?</h4>
             <label for="muziek"></label>
-            <select id="muziek" name="muziek">
+            <select class="dropDown" id="muziek" name="muziek">
                 <option value="pop">Pop</option>
                 <option value="klassiek">Klassiek</option>
                 <option value="rap">Rap</option>
@@ -90,9 +94,9 @@ error_reporting(E_ALL);
 
             <h4>wat is je hobby?</h4>
             <label for="hobby"></label><br>
-            <input type="text" id="hobby" name="hobby" value=""><br><br>
+            <input class="dropDown" type="text" id="hobby" name="hobby" value=""><br><br>
 
-            <button type="submit" class="btnSubmit">Vervolledig profiel</button>
+            <button type="submit" class="loginSettings btnSubmit">Vervolledig profiel</button>
             </form>
 
     </div>

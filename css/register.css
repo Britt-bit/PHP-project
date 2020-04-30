@@ -1,0 +1,33 @@
+/*register formulier*/
+.register{
+    background-color: rgb(255, 255, 255);
+    height: 670px;
+    width: 400px;
+    float: left;
+    margin-left: 150px;
+    margin-top: 130px;
+    border-radius: 50px;
+    box-shadow: 0px 0px 19px -2px rgba(0, 0, 0, 0.205);
+
+}
+
+/*Error*/
+.registerError{
+    background-color: rgb(250, 126, 95);
+    height: 50px;
+    width: 300px;
+    border-radius: 12px;
+    margin-top: -30px;
+    margin-left: auto;
+    margin-right: auto;
+    margin-bottom: 5px;
+    display: block;
+}
+
+.registerError p{
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 14px;
+    text-align: center;
+    padding-top: 13px;
+    color:  rgb(149, 42, 15);;
+}

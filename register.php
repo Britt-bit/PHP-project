@@ -60,52 +60,60 @@ include_once(__DIR__ ."/classes/User.php");
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
-    <link href="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
-    <link rel="stylesheet" href="css/style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Raleway:wght@800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="./css/style.css">
+    <link rel="stylesheet" href="./css/login.css">
+    <link rel="stylesheet" href="./css/register.css">
+    <title>Register</title>
 </head>
 <body>
 
-    <div class="container register-form">
-        <div class="form">
-            <div class="note">
-                <p>Sign up voor de IMD buddy app.</p>
-                
+    <div>
+        <div class="register">
+            <div>
+                 <!--Logo-->
+                 <img class="logo" src="./images/logo.png" alt="Buddiez logo">
+
+                <h1 style="font-size:30px; margin-top:-50px;">Sign up voor de IMD buddy app.</h1>
             </div>
 
             <form action="" method="POST">
-                <div class="form-content">
-                    <div class="row">
-                        <div class="col-md-6">
-                            <div class="form-group">
-                                <input name="firstname" id="firstname" type="text" class="form-control" placeholder="Your Name *" value="<?php if(isset($_POST['firstname'])) echo $_POST['firstname']; ?>"/>
+                <div>
+                    <div>
+                        <div>
+                            <div>
+                                <input name="firstname" id="firstname" type="text" class="inputField" placeholder="Your Name *" value="<?php if(isset($_POST['firstname'])) echo $_POST['firstname']; ?>"/>
                             </div>
-                            <div class="form-group">
-                                <input name="lastname" id="lastname" type="text" class="form-control" placeholder="Your lastname *" value="<?php if(isset($_POST['lastname'])) echo $_POST['lastname']; ?>"/>
+                            <div>
+                                <input name="lastname" id="lastname" type="text" class="inputField" placeholder="Your lastname *" value="<?php if(isset($_POST['lastname'])) echo $_POST['lastname']; ?>"/>
                             </div>
                         </div>
-                        <div class="col-md-6">
-                            <div class="form-group">
-                                <input name="email" id="email" type="text" class="form-control" placeholder="Your email *" value="<?php if(isset($_POST['email'])) echo $_POST['email']; ?>"/>
+                        <div>
+                            <div>
+                                <input name="email" id="email" type="text" class="inputField" placeholder="Your email *" value="<?php if(isset($_POST['email'])) echo $_POST['email']; ?>"/>
                             </div>
-                            <div class="form-group">
-                                <input name="password" id="password" type="password" class="form-control" placeholder="Your Password *" value=""/>
+                            <div>
+                                <input name="password" id="password" type="password" class="inputField" placeholder="Your Password *" value=""/>
                             </div>
-                            <div class="form-group">
-                                <input name="passwordConfirmation" id="passwordConfirmation" type="password" class="form-control" placeholder="Confirm your password *" value=""/>
+                            <div>
+                                <input name="passwordConfirmation" id="passwordConfirmation" type="password" class="inputField" placeholder="Confirm your password *" value=""/>
                             </div>
                         </div>
                     </div>
+                    <div class=loginSettings>
                     <button type="submit" class="btnSubmit">Sign me up</button>
+                    </div>
                     <br> <br>
-                    <?php if( isset($error) ): ?>
-				    <div class="alert alert-danger" role="alert">
+
+                <!--Error-->
+                <?php if( isset($error) ): ?>
+				    <div class="registerError" role="alert">
 					    <p>
 						    <?php echo $error; ?>
 					    </p>
 				    </div>
-				<?php endif; ?>
+                    <?php endif; ?>
+                
                 </div>
                 </form>
             </div>
