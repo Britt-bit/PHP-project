@@ -470,4 +470,19 @@ include_once(__DIR__ . "/Db.php");
             return $countBuddyAgreements;
 
         }
+
+        public static function isUserVerified($email){
+            $conn = Db::getConnection();
+            $statement = $conn->prepare('SELECT `verified` FROM `user` WHERE email = :email');
+            $statement->bindParam(':email', $email);
+            $statement->execute();
+            $result = $statement->fetch(PDO::FETCH_COLUMN);
+            //$result->execute();
+        
+            if($result == 1){
+                return true;
+            } else {
+                return false;
+            }   
+        }
     }

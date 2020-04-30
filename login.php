@@ -19,27 +19,6 @@ function canLogin($email, $password){
         return false;
     }
 }
-
-
-
-function verified($email){
-    $conn = Db::getConnection();
-    $statement = $conn->prepare('SELECT `verified` FROM `user` WHERE email = :email');
-    $statement->bindParam(':email', $email);
-    $statement->execute();
-    $result = $statement->fetch(PDO::FETCH_COLUMN);
-    //$result->execute();
-
-    if($result == 1){
-        return true;
-    } else {
-        return false;
-    }
-    
-        
-    
-    
-}
  
 //Get de User
 //Error
@@ -56,7 +35,7 @@ if(!empty($_POST)){
    
     //Validatie: velden mogen niet leeg zijn
     if(!empty($email) && !empty($password)){
-        if(verified($email)){
+        if(User::isUserVerified($email)){
             if(canLogin($email, $password,$user_id)){
                 session_start();
                 $_SESSION['email'] = $email;
