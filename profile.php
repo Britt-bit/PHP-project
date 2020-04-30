@@ -56,66 +56,71 @@ if (!empty($_POST)) {
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://fonts.googleapis.com/css2?family=Raleway:wght@800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="./css/style.css">
+    <link rel="stylesheet" href="./css/login.css">
+    <link rel="stylesheet" href="./css/home.css">
+    <link rel="stylesheet" href="./css/profile.css">
     <title>Profiel</title>
-    <link rel="stylesheet" href="css/style.css">
 </head>
 
 <body>
+    <a href="index.php"><img class="logo" src="./images/logo.png" alt="Buddiez logo"></a>
 
-    <div class="container">
-        <?php if (count($errors) > 0) : ?>
-            <div class="alert alert-danger mt-5">
-                <p>
-                    <?php foreach ($errors as $error) : ?>
-                        <?php echo $error; ?> <br>
-                    <?php endforeach ?>
-                </p>
-            </div>
-        <?php endif; ?>
+        <form class="profile" action="" method="POST" enctype="multipart/form-data">
 
-        <div class="note">
-            <p>Profiel</p>
-        </div>
 
-        <form action="" method="POST" enctype="multipart/form-data">
-            <div class="form-content">
+                <div class="profile_error">
+                <?php if (count($errors) > 0) : ?>
+                    <div>
+                        <p>
+                            <?php foreach ($errors as $error) : ?>
+                                <?php echo $error; ?> <br>
+                            <?php endforeach ?>
+                        </p>
+                    </div>
+                <?php endif; ?>
+
+                <h1 class="profile_title">Profiel</h1>
+
+                <div class="fields">
                 <!-- Avatar field -->
-                <div class="form-group row col-md-4">
+                <div class="avatar">
                     <img class="img-thumbnail" src="<?php echo $getUser['avatar'] ?>" alt="User Avatar">
-                    <input type="file" name="avatar" id="avatar" class="form-control">
+                    <input type="file" name="avatar" id="avatar" class="inputField">
                 </div>
                 <!-- Firstname field -->
-                <div class="form-group row col-md-4">
+                <div class="firstname">
                     <label for="firstname">Voornaam:</label>
-                    <input type="text" name="firstname" id="firstname" value="<?php echo $getUser['firstname'] ?>">
+                    <input type="text" name="firstname" id="firstname"class="inputField" value="<?php echo $getUser['firstname'] ?>">
                 </div>
                 <!-- Lastname field -->
-                <div class="form-group row col-md-4">
+                <div class="lastname">
                     <label for="lastname">Achternaam:</label>
-                    <input type="text" name="lastname" id="lastname" value="<?php echo $getUser['lastname'] ?>">
+                    <input type="text" name="lastname" id="lastname" class="inputField"value="<?php echo $getUser['lastname'] ?>">
                 </div>
                 <!-- email field -->
-                <div class="form-group row col-md-4">
+                <div class="email">
                     <label for="email">Email:</label>
-                    <input type="text" name="email" id="email" value="<?php echo $getUser['email'] ?>">
+                    <input type="text" name="email" id="email" class="inputField"value="<?php echo $getUser['email'] ?>">
                 </div>
                 <!-- password field -->
-                <div class="form-group row col-md-4">
+                <div class="password">
                     <label for="password">Password:</label>
-                    <a class="nav-link" href="updatePassword.php?id=<?php echo $_GET['id'] ?>">Change password</a>
+                    <a class="changePassword" href="updatePassword.php?id=<?php echo $_GET['id'] ?>">Change password</a>
                 </div>
                 <!-- Biography field -->
-                <div class="form-group row col-md-4">
+                <div class="bio">
                     <label for="bio">Biography:</label>
-                    <textarea name="bio" id="bio" cols="30" rows="5"><?php echo $getUser['bio'] ?></textarea>
+                    <textarea name="bio" id="bio" cols="30" rows="5" class="inputField"><?php echo $getUser['bio'] ?></textarea>
                 </div>
                 <!-- Year field -->
-                <div id="watchOut" class="alert alert-warning">
+                <div id="watchOut" class="warning">
                     <p>Kijk uit! Je zit in je eerste jaar. Best een buddy zoeken.</p>
                 </div>
-                <div class="form-group row col-md-4">
+                <div class="schoolyear">
                     <label for="year">Schooljaar</label>
-                    <select class="form-control" name="school_year" id="year">
+                    <select class="inputField" name="school_year" id="year">
                         <option value="">Kies uw jaar ...</option>
                         <option value="1">1IMD</option>
                         <option value="2">2IMD</option>
@@ -123,21 +128,21 @@ if (!empty($_POST)) {
                     </select>
                 </div>
                 <!-- Year field -->
-                <div class="form-group row col-md-4">
+                <div class="buddy">
                     <label for="buddy">Buddy</label>
-                    <select class="form-control" name="buddy" id="buddy">
+                    <select class="inputField" name="buddy" id="buddy">
                         <option value="">Ik zoek/ben een buddy ...</option>
                         <option value="0">Ik zoek een buddy</option>
                         <option value="1">Ik ben een buddy</option>
                     </select>
                 </div>
                 <!-- submit button -->
-                <div class="form-group row col-md-4 text-center">
-                    <input type="submit" class="btn btn-primary" value="Update">
+                <div class="loginSettings">
+                    <input type="submit" class="btnSubmit" style="margin-left:300px" value="Update">
                 </div>
             </div>
+            </div>
         </form>
-    </div>
 
     <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
