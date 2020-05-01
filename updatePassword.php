@@ -21,10 +21,10 @@ error_reporting(E_ALL);
                     header('location: profile.php?id='.$_GET['id'] );
                 }
                 else {
-                    $errors[] = 'Oud password was incorrect';
+                    $errors[] = 'Old password was false';
                 }
             } catch (\Throwable $th) {
-               $errors[] = 'Password niet geupdate';
+               $errors[] = 'Password not geupdated';
             }
         }
     }
@@ -34,48 +34,62 @@ error_reporting(E_ALL);
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Update</title>
+    <link href="https://fonts.googleapis.com/css2?family=Raleway:wght@800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="css/register.css">
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/home.css">
+    <link rel="stylesheet" href="css/login.css">
+    <link rel="stylesheet" href="css/profile.css">
+    <link rel="stylesheet" href="css/updatePassword.css">
+
+    <title>Update Password</title>
 </head>
 <body>
-    <div class="container">
-    <?php if (count($errors) > 0): ?>
-		<div class="alert alert-danger mt-5">
-			<p>
-				<?php foreach ($errors as $error):?>
-                <?php echo $error; ?> <br>
-                <?php endforeach?>		
-			</p>
-		</div>
-    <?php endif; ?>
-        <div class="note">
-            <p>Password</p>
-        </div>
 
-        <form action="" method="POST" enctype="multipart/form-data">
-            <div class="form-content">
+<!--Logo-->
+<a href="index.php"><img class="logo" src="./images/logo.png" alt="Buddiez logo"></a>
+
+
+        <form class="passForm" action="" method="POST" enctype="multipart/form-data">
+
+        <h1 class="profile_title">Password</h1>
+        <h4 style="margin-left:50px; font-size:15px">Do you want to set a new password?</h4>
+        <!--Error-->
+        
+            <?php if (count($errors) > 0): ?>
+                <div class="passError">
+                    <p>
+                        <?php foreach ($errors as $error):?>
+                        <?php echo $error; ?> <br>
+                        <?php endforeach?>		
+                    </p>
+                </div>
+            <?php endif; ?>
+                <div class="note">
+                    
+    
                 <!-- Old password field -->
-                <div class="form-group row col-md-4 text-center">
-                        <label for="password">Oud password:</label>
-                        <input type="password" name="password" id="password">
+                <div class="oldPassword">
+                        <label class="labelFields" for="password">Old password:</label>
+                        <input type="password" class="inputField" name="password" id="password">
                     </div>
                 <div class="passcheck">
                     
                 </div>
                  <!-- New password field -->
-                    <div class="form-group row col-md-7 text-center">
-                        <label for="newPassword">Nieuw password:</label>
-                        <input type="password" name="newPassword" id="newPassword">
+                    <div class="newPassword">
+                        <label class="labelFields" for="newPassword">New password:</label>
+                        <input type="password" class="inputField" name="newPassword" id="newPassword">
                     </div>
                 <!-- Confirm password field -->
-                    <div class="form-group row col-md-7 text-center">
-                        <label for="confirmPassword">Bevestig password:</label>
-                        <input type="password" name="confirmPassword" id="confirmPassword">
+                    <div class="confirmPassword">
+                        <label class="labelFields" for="confirmPassword">Confirm password:</label>
+                        <input type="password" class="inputField" name="confirmPassword" id="confirmPassword">
                     </div>
                 <!-- submit button -->
-                    <div class="form-group row col-md-7 text-center">
-                        <input type="submit" class="btn btn-primary" value="Update">
-                        <a class="btn btn-primary ml-2" href="profile.php?id=<?php echo $_GET['id'] ?>">Cancel</a>
+                    <div class="loginSettings">
+                        <input type="submit" class="btnSubmit" value="Update">
+                       <p><a href="profile.php?id=<?php echo $_GET['id'] ?>">Cancel</a></p> 
                     </div>
             </div>
         </form>

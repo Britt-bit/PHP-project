@@ -85,7 +85,7 @@ $users = User::getAllUsers();
             <div>
             <!--Logo-->
             <img class="logo" src="./images/logo.png" alt="Buddiez logo">
-            <h1 style="font-size:30px; margin-top:-50px;">Sign up voor de IMD buddy app.</h1>
+            <h1 style="font-size:30px; margin-top:-50px;">Sign up for the IMD buddy app.</h1>
             </div>
 
             <form action="" method="POST">
@@ -93,10 +93,10 @@ $users = User::getAllUsers();
                     <div>
                         <div>
                             <div>
-                                <input name="firstname" id="firstname" type="text" class="inputField" placeholder="Jouw naam *" value="<?php if (isset($_POST['firstname'])) echo $_POST['firstname']; ?>" />
+                                <input name="firstname" id="firstname" type="text" class="inputField" placeholder="Your name *" value="<?php if (isset($_POST['firstname'])) echo $_POST['firstname']; ?>" />
                             </div>
                             <div>
-                                <input name="lastname" id="lastname" type="text" class="inputField" placeholder="Jouw achternaam *" value="<?php if (isset($_POST['lastname'])) echo $_POST['lastname']; ?>" />
+                                <input name="lastname" id="lastname" type="text" class="inputField" placeholder="Your lastname *" value="<?php if (isset($_POST['lastname'])) echo $_POST['lastname']; ?>" />
                             </div>
 
                             <div>
@@ -104,34 +104,34 @@ $users = User::getAllUsers();
                                     <option value="1IMD">1IMD</option>
                                     <option value="2IMD">2IMD</option>
                                     <option value="3IMD">3IMD</option>
-                                    <option value="mix">Een mix</option>
+                                    <option value="mix">A mix</option>
                                 </select>
                             </div>
 
                             <div>
                                 <select class="inputField" name="buddy" id="buddy">
-                                    <option value="">Ik zoek/ben een buddy ...</option>
-                                    <option value="0">Ik zoek een buddy</option>
-                                    <option value="1">Ik ben een buddy</option>
+                                    <option value="">I'm looking/ i'm a buddy ...</option>
+                                    <option value="0">I'm looking for a buddy</option>
+                                    <option value="1">I'm a buddy</option>
                                 </select>
                             </div>
                         </div>
                         <div>
                             <div>
-                                <input name="email" id="email" type="text" class="inputField" placeholder="Jouw email *" value="<?php if (isset($_POST['email'])) echo $_POST['email']; ?>" />
+                                <input name="email" id="email" type="text" class="inputField" placeholder="Your email *" value="<?php if (isset($_POST['email'])) echo $_POST['email']; ?>" />
                             </div>
                             <div>
-                                <input name="password" id="password" type="password" class="inputField" placeholder="Jouw Password *" value="" />
+                                <input name="password" id="password" type="password" class="inputField" placeholder="Your password *" value="" />
                             </div>
                             <div>
-                                <input name="passwordConfirmation" id="passwordConfirmation" type="password" class="inputField" placeholder="Bevestig je password *" value="" />
+                                <input name="passwordConfirmation" id="passwordConfirmation" type="password" class="inputField" placeholder="Cofirm password *" value="" />
                             </div>
                         </div>
                     </div>
                     <div class="loginSettings">
-                    <button type="submit" name="submit" class="btnSubmit">Registreer</button>
+                    <button type="submit" name="submit" class="btnSubmit">Register</button>
                     <br> <br>
-                    <p>Al een account? <a href="login.php">Login</a></p>
+                    <p>Already an account? <a href="login.php">Login</a></p>
                     </div>
                     <br>
                     <?php if( isset($error) ): ?>

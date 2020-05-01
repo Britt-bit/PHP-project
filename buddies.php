@@ -3,10 +3,16 @@
 //Include_once
 include_once(__DIR__ . "/classes/User.php");
 include_once(__DIR__ . "/classes/Db.php");
-include_once(__DIR__ ."/classes/Match.php");
+include_once(__DIR__ . "/classes/Match.php");
+
+//include_once(__DIR__ ."/classes/buddies.php");
 
 //connectie met databank
 $conn = Db::getConnection();
+
+//Hier staat er te weinig vanboven!
+
+
 ?>
 
 <!DOCTYPE html>

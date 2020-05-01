@@ -105,7 +105,7 @@ if(!empty($_POST)){
                         <br>
 
                     <!--Nog geen account?-->
-                    <p>Nog geen account? <a href="register.php">Register</a></p>    
+                    <p>Don't have an account yet? <a href="register.php">Register</a></p>    
 
             </div>        
         </form>
