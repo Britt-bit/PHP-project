@@ -70,9 +70,14 @@ $conn = Db::getConnection();
     <a style="color: rgb(245, 134, 124);"href="index.php?id=<?php $_SESSION['user_id'][0] ?>">Home</a>
     <a href="profile.php?id=<?php $_SESSION['user_id'][0] ?>">Profile</a>
     <a href="buddies.php?id=<?php $_SESSION['user_id'][0] ?>">My buddies</a>
-    <a href="match.php?id=<?php $_SESSION['email'] ?>">My matches</a>
+    <a href="match.php?id=<?php $_SESSION['user_id'] ?>">My matches</a>
     <a href="logout.php" class="logout">Logout</a>
     </nav>
+    <h1>Je bent ingelogd</h1>
+    <a href="logout.php" class="nav-link">Logout</a>
+    <a class="nav-link" href="profile.php?id=<?php echo $_SESSION['user_id'] ?>">Profiel</a>
+    <a class="nav-link" href="match.php?id=<?php echo $_SESSION['user_id']  ?>">Mijn matches</a>
+    
 
 
 

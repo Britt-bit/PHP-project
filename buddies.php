@@ -94,12 +94,5 @@ $conn = Db::getConnection();
     
   </div>
 
-
-
-
-
-
-
-
 </body>
 </html>
