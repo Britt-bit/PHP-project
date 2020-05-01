@@ -51,6 +51,7 @@ $conn = Db::getConnection();
     <a href="logout.php" class="nav-link">Logout</a>
     <a class="nav-link" href="profile.php?id=<?php echo $_SESSION['user_id'] ?>">Profiel</a>
     <a class="nav-link" href="match.php?id=<?php echo $_SESSION['user_id']  ?>">Mijn matches</a>
+    <a class="nav-link" href="finder.php">Lokaal finder</a>
 
 
 
