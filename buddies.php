@@ -7,7 +7,6 @@ include_once(__DIR__ ."/classes/Match.php");
 
 //connectie met databank
 $conn = Db::getConnection();
-
 ?>
 
 <!DOCTYPE html>
@@ -17,7 +16,7 @@ $conn = Db::getConnection();
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link href="https://fonts.googleapis.com/css2?family=Raleway:wght@800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="./css/style.css">
-    <link rel="stylesheet" href="./css/buddy.css">
+    <link rel="stylesheet" href="./css/buddies.css">
     <link rel="stylesheet" href="./css/home.css">
     <title>My buddies</title>
 </head>
@@ -35,29 +34,56 @@ $conn = Db::getConnection();
     </nav>
 
 
-<h1>My buddies</h1>
+
 
   <div class="buddyBox">
-    
-    <ul>
-        <li><div class="buddy">
+  <h1>My buddies</h1>   
 
-        <!--Hier komt buddy 1-->
-            <div class="buddies" style=" border-radius: 20px;padding-top:20px;width: 290px;height: 100px;float:left;">
-                <img src="images/profile.jpeg" alt="" style="width:90px; height:90px;border-radius:50%; margin-left:20px;">
-                <h4 style="margin-top:35px; float:right;">Firstname Lastname</h4>
-            </div>
+    <h4>
+  
 
-            <h2 style="width:10px; margin-top:50px; color: rgb(169, 100, 209);float:left; margin-left:50px;">X</h2>
+      <?php
+          //Als je buddies hebt, komt deze in je lijst te staan
+          $countUsers = User::countUsers();
+          foreach($countUsers as $count) {
+          echo "Buddies: $count ";
+          echo "<br/>";
+          echo "<br/>";
+         //Eigen Username afdrukken
+         echo 'username: ' . get_current_user();
+         echo "<br/>";
+         echo "<br/>";
+        //Alle gebruikers afprinten
+        }
+        
+      ?>  
 
-        </div></li>
+        <?php
+            $users = $statement->fetch(PDO::FETCH_ASSOC);
+
+            $firstname = $users['firstname'];
+            $lastname = $users['lastname'];
+
+            echo "$firstname ";
+            echo " $lastname"
 
 
 
 
-    </ul>
+        ?>
+
+
+      
+    </h4>
     
   </div>
+
+
+
+
+
+
+
 
 </body>
 </html>
