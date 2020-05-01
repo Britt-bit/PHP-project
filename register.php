@@ -3,6 +3,13 @@ ini_set('display_errors', 1);
 ini_set('display_startup_errors', 1);
 error_reporting(E_ALL);
 include_once(__DIR__ . "/classes/User.php");
+
+use PHPMailer\PHPMailer\PHPMailer;
+use PHPMailer\PHPMailer\SMTP;
+use PHPMailer\PHPMailer\Exception;
+require 'vendor/autoload.php';
+
+
 /* Als post niet leeg is, spreek setters aan */
 if (!empty($_POST)) {
     try {
@@ -30,33 +37,68 @@ if (!empty($_POST)) {
             return (substr($str, -$count) === $lastString);
         }
 
-        if (!empty($_POST['firstname']) || !empty($_POST['lastname'])  || !empty($email) || !empty($_POST['password']) || !empty($_POST['year'])) {
+        if (!empty($_POST['firstname']) || !empty($_POST['lastname'])  || !empty($email) || !empty($_POST['password']) || !empty($_POST['year']) || !empty($_POST['buddy'])) {
             if (endFunc($email, "@student.thomasmore.be")) {
-                if ($user->emailValidation() < 1) {
+                var_dump($user->emailValidation());
+                if ($user->emailValidation() != 0) {
                     if ($_POST['password'] === $passwordConfirmation) {
 
                         //email eindigd op @student.thomasmore.be
                         //passwords match
                         //password hashen met functie
                         
-                        $user->setPassword($user->passwordHash($password));
-                        $user->saveUser();
-                        $succes = "User saved";   
-                            
-
+                        $user->setPassword($user->passwordHash($_POST['password']));
                         
-                        header("Location: login.php");
+                        //var_dump($user);
+                        
+                            
+                        if($user->saveUser()){
+                            $succes = "User saved";
+                            $mail = new PHPMailer(true);
+
+                            try {
+                            //Server settings
+                                $mail->SMTPDebug = SMTP::DEBUG_SERVER;                      // Enable verbose debug output
+                                $mail->isSMTP();                                            // Send using SMTP
+                                $mail->Host       = 'smtp.gmail.com';                    // Set the SMTP server to send through
+                                $mail->SMTPAuth   = true;                                   // Enable SMTP authentication
+                                $mail->Username   = 'Buddiez.PHP@gmail.com';                     // SMTP username
+                                $mail->Password   = '4@1dgbo(w@93G8B';                               // SMTP password
+                                //$mail->SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS;         // Enable TLS encryption; `PHPMailer::ENCRYPTION_SMTPS` encouraged
+                                //$mail->Port       = 587;                                    // TCP port to connect to, use 465 for `PHPMailer::ENCRYPTION_SMTPS` above
+                                $mail->Port       = 465; 
+                                $mail->SMTPSecure = "ssl"; 
+
+                                //Recipients
+                                $mail->setFrom('Buddiez.PHP@gmail.com', 'Buddiez team');
+                                $mail->addAddress($email);     // Add a recipient
+
+                                // Content
+                                $mail->isHTML(true);                                  // Set email format to HTML
+                                $mail->Subject = 'Email verification';
+                                $mail->Body    = '<a href="http://localhost/PHP-project/verify.php?vkey=' . $vkey . '"> Register Account</a>';
+                                //$mail->AltBody = 'This is the body in plain text for non-HTML mail clients';
+
+                                $mail->send();
+                                echo 'Message has been sent';
+                                header("Location: login.php");
+                                
+                            } catch (Exception $e) {
+                                echo "Something went wrong, please try again";
+                                //echo "Message could not be sent. Mailer Error: {$mail->ErrorInfo}";
+                            }
+                        } 
                     } else {
                         throw new Exception("Passwords matchen niet");
                     }
                 } else {
-                    throw new Exception("Passwords matchen niet");
+                    throw new Exception("Email bestaat al");
                 }
             } else {
-                throw new Exception("Email bestaat al");
+                throw new Exception("Email moet eindigen op @student.thomasmore.be");
             }
         } else {
-            throw new Exception("Email moet eindigen op @student.thomasmore.be");
+            throw new Exception("Vul aub alles in");
         }
     } catch (\Throwable $th) {
         $error = $th->getMessage();
@@ -108,7 +150,6 @@ $users = User::getAllUsers();
                             <div class="form-group row col-md-4">
                                 <label for="buddy">Buddy</label>
                                 <select name="buddy" id="buddy">
-                                    <option value="">Ik zoek/ben een buddy ...</option>
                                     <option value="0">Ik zoek een buddy</option>
                                     <option value="1">Ik ben een buddy</option>
                                 </select>
