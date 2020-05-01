@@ -48,12 +48,12 @@ if (!empty($_POST)) {
                         //password hashen met functie
                         
                         $user->setPassword($user->passwordHash($_POST['password']));
-                        $user->saveUser();
+                        
                         //var_dump($user);
-                        $succes = "User saved";
+                        
                             
-                        if($succes == "User saved"){
-                            
+                        if($user->saveUser()){
+                            $succes = "User saved";
                             $mail = new PHPMailer(true);
 
                             try {

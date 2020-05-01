@@ -17,21 +17,24 @@ if (isset($_GET['vkey'])){
     //$result->fetch(PDO::count($result));
 
     //$result = $result->execute();
-    var_dump($result);
-    var_dump($count);
+    //var_dump($result);
+    //var_dump($count);
 
             
     if($count == 1){
         $update = $conn->prepare("UPDATE `user` SET `verified` = 1 WHERE `vkey` = :vkey LIMIT 1");
-        var_dump($vkey);
+        //var_dump($vkey);
         $update->bindValue(":vkey", $vkey);
-        var_dump($update);
+        //var_dump($update);
         $verified = $update->execute();
-        var_dump($verified);
+        //var_dump($verified);
+        echo "Thank you for verifying.";
+        echo "</br>";
+        echo '<a class="nav-link" href="login.php">Login</a>';
         return $verified;
-        var_dump("It's alright");
+        //var_dump("It's alright");
     } else {
-        var_dump("This account invalid or already verified");
+        var_dump("This account is invalid or already verified");
     }
 
     //var_dump($vkey);
@@ -52,7 +55,8 @@ if (isset($_GET['vkey'])){
     <title>Verification</title>
 </head>
 <body>
-    <p>Thank you for registering. We have sent a verification email to the address provided.</p>
+    <p>Thank you for verifying.</p>
+    <a class="nav-link" href="login.php">Login</a>
 
 </body>
 </html>
