@@ -34,6 +34,7 @@ if(!empty($_POST)){
    
     //Validatie: velden mogen niet leeg zijn
     if(!empty($email) && !empty($password)){
+     if(User::isUserVerified($email)){
         if(canLogin($email, $password,$user_id)){
             session_start();
             $_SESSION['email'] = $email;
@@ -50,6 +51,9 @@ if(!empty($_POST)){
             //User en password matchen niet
             //Error
             $error="Cannot log you in.";
+        }}
+        else {
+            $error="Email not yet verified";
         }
     }else{
         //Indien leeg: error genereren
