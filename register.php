@@ -150,10 +150,9 @@ $users = User::getAllUsers();
 
 
                             <div>
-                                <label for="buddy">Buddy</label>
                                 <select  class="inputField" name="buddy" id="buddy">
-                                    <option value="0">Ik zoek een buddy</option>
-                                    <option value="1">Ik ben een buddy</option>
+                                    <option value="0">I'm looking for a buddy</option>
+                                    <option value="1">I'm a buddy</option>
                                 </select>
                             </div>
                         </div>
