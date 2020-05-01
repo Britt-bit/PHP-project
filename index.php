@@ -7,8 +7,12 @@ session_start();
 include_once(__DIR__ . "/classes/User.php");
 include_once(__DIR__ . "/classes/Db.php");
 include_once(__DIR__ ."/classes/Features.class.php");
+$user = new User();
+$getUser = $user->getUserByEmail($_SESSION['email']);
+$_SESSION['user_id'] = $getUser['user_id'];
 include_once(__DIR__ ."/classes/Match.php"); 
 $conn = Db::getConnection();
+
 
 ?>
 <!DOCTYPE html>
@@ -49,13 +53,15 @@ $conn = Db::getConnection();
                 include_once("includes/completeFeatures.inc.php");
     
             }
+
             // laten zien wanneer hobby nog niet is ingevuld 
             if(empty($hobby) && $checkFeatures == true ){
                 include_once(__DIR__ ."/completeFeatures.php");
 
             }  
 
-         include_once(__DIR__ ."/includes/nav.inc.php");
+
+         include_once(__DIR__ ."../includes/nav.inc.php");
 
 ?>
 
@@ -146,7 +152,7 @@ $conn = Db::getConnection();
                     echo "<br/>";
                     echo "<br/>";
                     print("You matched with " . htmlspecialchars($yourName) . " " . htmlspecialchars($yourLastname) . " on the features "); 
-                    for($tel = 0; $tel < sizeof($result) +2; ++$tel){
+                    for($tel = 0; $tel < count($result) +2; ++$tel){
                         echo(htmlspecialchars($result[$tel]) . "  ");
                     }
                     if($status == 1){
@@ -154,8 +160,8 @@ $conn = Db::getConnection();
                      } else {
                          $statusReturn = "";
                      }
-                echo '<button name="btn" type="button" class="btnSubmit" data-touserid="'. $yourID . '" data-userid="'. $id . '" data-tousername="'. $yourName . '">Buddy request</button>';
-                   
+                    echo '<button type="button" class="btnSubmit start_chat" data-touserid="'. $yourID . '" data-tousername="'. $yourName . '">Buddy request</button>';
+                    echo '<a class="btnSubmit" href="profile.php?id='. $yourID . '">watch profile</a>';
             ?>
             </tr>
             <?php
@@ -164,7 +170,7 @@ $conn = Db::getConnection();
                     echo "<br/>";
                     //<p style='margin-left:20px';> 
                     echo("You matched with " . htmlspecialchars($yourName) . " " . htmlspecialchars($yourLastname) . " on the features "); 
-                    for($tel = 0; $tel < sizeof($result) +2; ++$tel){
+                    for($tel = 0; $tel < count($result) +2; ++$tel){
                         echo(htmlspecialchars($result[$tel]) . " ");   
                     }
                     //echo("</p>");
@@ -173,8 +179,8 @@ $conn = Db::getConnection();
                      } else {
                          $statusReturn = "";
                      }
-                echo '<button name="btn" type="button" class="btnSubmit" data-touserid="'. $yourID . '"  data-userid="'. $id . '" data-tousername="'. $yourName . '">Buddy request</button>';
-                
+                echo '<button type="button" class="btnSubmitstart_chat" data-touserid="'. $yourID . '" data-tousername="'. $yourName . '">Buddy request</button>';
+                echo '<a class="btnSubmit" href="profile.php?id='. $yourID . '">watch profile</a>';
   
             ?>
             </tr>
@@ -209,5 +215,3 @@ $conn = Db::getConnection();
 
 </body>
 </html>
-
-
