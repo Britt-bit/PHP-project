@@ -14,26 +14,20 @@ $conn = Db::getConnection();
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <link href="https://fonts.googleapis.com/css2?family=Raleway:wght@800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="./css/style.css">
+    <link rel="stylesheet" href="./css/home.css">
+    <link rel="stylesheet" href="./css/classrooms.css">
 
-    <style>
-table {
-  border-collapse: collapse;
-  width: 100%;
-}
 
-th, td {
-  padding: 8px;
-  text-align: left;
-  border-bottom: 1px solid #ddd;
-}
-tr:hover {
-    background-color:#f5f5f5;
-}
-</style>
+    <title>Classrooms</title>
+
+
 </head>
 <body>
-    <h1>Search page</h1>
+
+
+    <h2>Looking for classroom?</h2>
     <div class="lokaal-container">
         <?php
          if(isset($_POST['submit-search'])){

@@ -16,7 +16,7 @@ error_reporting(E_ALL);
     <link rel="stylesheet" href="../css/style.css">
     <link rel="stylesheet" href="../css/home.css">
 
-    <title>Document</title>
+    <title>Classrooms</title>
 </head>
 <body>
     
