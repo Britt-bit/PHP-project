@@ -17,35 +17,33 @@ $search = Post::search(strtolower($_GET['search']));
 <head>
 
 <link href="https://fonts.googleapis.com/css2?family=Raleway:wght@800&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="./css/style.css">
-    <link rel="stylesheet" href="./css/home.css">
     <link rel="stylesheet" href="./css/search.css">
 
     <title>Search</title>
 </head>
 <body>
- <!--Logo-->
- <a href="index.php"><img class="logo" src="./images/logo.png" alt="Buddiez logo"></a>
+<a href="index.php"><img class="logo" src="./images/logo.png" alt="Buddiez logo"></a>
+
    <!--navigatie-->        
    <nav>
 
-   <nav>
     <a style="color: rgb(245, 134, 124);"href="index.php?id=<?php $_SESSION['user_id'][0] ?>">Home</a>
     <a href="profile.php?id=<?php $_SESSION['user_id'][0] ?>">Profile</a>
-    <a href="buddies.php?id=<?php $_SESSION['user_id'][0] ?>">My buddies</a>
+    <a href="buddy.php?id=<?php $_SESSION['user_id'] ?>">My buddies</a>
     <a href="match.php?id=<?php $_SESSION['email'] ?>">My matches</a>
     <a href="logout.php" class="logout">Logout</a>
     </nav>
 
 
-
+<div class="box">
+<h6>You were looking for...</h6>
  <!--Zoekfunctie-->  
- <div class="probeer">
+ <div>
 <?php include_once 'includes/nav.inc.php'; ?>
-<h4><?php echo htmlspecialchars($_GET['search']); ?></h4>
-</div> 
+<h5><?php echo htmlspecialchars($_GET['search']); ?></h5>
+</div>  
 
- <!-- zoekresultaat tonen -->
+<!-- zoekresultaat tonen -->
 
 <?php $conn = Db::getConnection(); ?>
 
@@ -64,7 +62,9 @@ $search = Post::search(strtolower($_GET['search']));
     </div>     
  
 <?php endforeach; ?> 
-<?php endif; ?>
+<?php endif; ?>   
+</div>
+ 
 
 </body>
 </html>
