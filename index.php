@@ -65,6 +65,11 @@ $conn = Db::getConnection();
 
 ?>
 
+<form action="search-classroom.php" method="POST">
+    <input type="text" name="search" placeholder="Search classroom">
+    <button type="submit" name="submit-search">Search</button>
+</form>
+
    <!--navigatie-->        
    <nav>
     <a style="color: rgb(245, 134, 124);"href="index.php?id=<?php $_SESSION['user_id'][0] ?>">Home</a>
@@ -74,9 +79,6 @@ $conn = Db::getConnection();
     <a href="logout.php" class="logout">Logout</a>
     </nav>
     <h1>Je bent ingelogd</h1>
-    <a href="logout.php" class="nav-link">Logout</a>
-    <a class="nav-link" href="profile.php?id=<?php echo $_SESSION['user_id'] ?>">Profiel</a>
-    <a class="nav-link" href="match.php?id=<?php echo $_SESSION['user_id']  ?>">Mijn matches</a>
     
 
 
