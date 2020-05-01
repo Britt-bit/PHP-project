@@ -31,6 +31,14 @@ class Post{
         return $search;
     }
 
+    public static function searchClassroom($searchClassroom){
+        $conn = Db::getConnection();
+        $searchQuerry = $conn->prepare("SELECT * FROM `finder` WHERE classroom LIKE :search OR campus LIKE :search"); //or die($mysqli->error);
+        $searchQuerry->bindValue(":search", '%'.$searchClassroom.'%');
+        $searchQuerry->execute();
+        return $searchQuerry;
+    }
+
 }
 
 ?>

@@ -17,42 +17,8 @@ include_once(__DIR__ . "/classes/Db.php");
 <body>
 
 <form action="search-classroom.php" method="POST">
-    <input type="text" name="search" placeholder="Search">
+    <input type="text" name="search" placeholder="Search classroom">
     <button type="submit" name="submit-search">Search</button>
 </form>
-
-<h1>Front page</h1>
-<h2>All articles:</h2>
-
-<div class="lokaal-container">
-    <?php
-
-    $conn = Db::getConnection();
-    
-    $sql = $conn->prepare("SELECT * FROM `finder`");
-    $sql->execute();
-    //var_dump($sql);
-    $queryResults = $sql->fetch(PDO::FETCH_COLUMN);
-    //$queryResults->execute();
-    //return $queryResults;
-    
-    //var_dump($queryResults);
-
-        //$sql = "SELECT * FROM finder";
-        //$result = mysqli_query($conn, $sql);
-        
-
-        if($queryResults > 0){
-            //var_dump($queryResults);
-            while($row = $sql->fetch( PDO::FETCH_ASSOC)){
-                //var_dump($row);
-                echo "<div>
-                    <h3>".$row['classroom']."</h3>
-                </div>";
-            }
-        }
-    ?>
-</div>
-    
 </body>
 </html>
