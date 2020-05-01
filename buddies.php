@@ -65,14 +65,24 @@ $conn = Db::getConnection();
             $lastname = $users['lastname'];
 
             echo "$firstname ";
-            echo " $lastname"
-
-
+            echo " $lastname";
+            echo "<br/>";
+            echo count($users);
+            echo "<br/>";
 
 
         ?>
 
 
+
+
+<?php
+
+  for($i=0; $i<count($users); $i++)
+  var_dump($firstname)
+
+
+?>
       
     </h4>
     
