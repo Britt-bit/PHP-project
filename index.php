@@ -21,6 +21,8 @@ $conn = Db::getConnection();
     <link rel="stylesheet" href="./css/home.css">
 
 
+
+
     <title>Home</title>
     <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
     <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
@@ -61,7 +63,7 @@ $conn = Db::getConnection();
    <nav>
     <a style="color: rgb(245, 134, 124);"href="index.php?id=<?php $_SESSION['user_id'][0] ?>">Home</a>
     <a href="profile.php?id=<?php $_SESSION['user_id'][0] ?>">Profile</a>
-    <a href="buddy.php?id=<?php $_SESSION['user_id'] ?>">My buddies</a>
+    <a href="buddies.php?id=<?php $_SESSION['user_id'][0] ?>">My buddies</a>
     <a href="match.php?id=<?php $_SESSION['email'] ?>">My matches</a>
     <a href="logout.php" class="logout">Logout</a>
     </nav>

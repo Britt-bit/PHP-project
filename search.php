@@ -15,15 +15,35 @@ $search = Post::search(strtolower($_GET['search']));
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <title>Zoek</title>
-    <link rel="stylesheet" href="css/style.css">
+
+<link href="https://fonts.googleapis.com/css2?family=Raleway:wght@800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="./css/style.css">
+    <link rel="stylesheet" href="./css/home.css">
+    <link rel="stylesheet" href="./css/search.css">
+
+    <title>Search</title>
 </head>
 <body>
+ <!--Logo-->
+ <a href="index.php"><img class="logo" src="./images/logo.png" alt="Buddiez logo"></a>
+   <!--navigatie-->        
+   <nav>
 
+   <nav>
+    <a style="color: rgb(245, 134, 124);"href="index.php?id=<?php $_SESSION['user_id'][0] ?>">Home</a>
+    <a href="profile.php?id=<?php $_SESSION['user_id'][0] ?>">Profile</a>
+    <a href="buddies.php?id=<?php $_SESSION['user_id'][0] ?>">My buddies</a>
+    <a href="match.php?id=<?php $_SESSION['email'] ?>">My matches</a>
+    <a href="logout.php" class="logout">Logout</a>
+    </nav>
+
+
+
+ <!--Zoekfunctie-->  
+ <div class="probeer">
 <?php include_once 'includes/nav.inc.php'; ?>
-
-
-<h3><?php echo htmlspecialchars($_GET['search']); ?></h3>
+<h4><?php echo htmlspecialchars($_GET['search']); ?></h4>
+</div> 
 
  <!-- zoekresultaat tonen -->
 
@@ -32,15 +52,15 @@ $search = Post::search(strtolower($_GET['search']));
 
 <?php if ($search > 0): foreach ($search as $searchResult):?>
 
-    <div class="profile">
-        <img class="avatar" src="<?php echo $searchResult['avatar']?>" alt="">
-        <h1><?php echo htmlspecialchars($searchResult['firstname']) . " " . htmlspecialchars($searchResult['lastname']); ?></h1>
+    <div class="searchResult">
+        <img class="profilePic" src="<?php echo $searchResult['avatar']?>" alt="">
+        <h2><?php echo htmlspecialchars($searchResult['firstname']) . " " . htmlspecialchars($searchResult['lastname']); ?></h2>
         <p>Games: <?php echo $searchResult['games']; ?></p>
         <p>Films:<?php echo $searchResult['films']; ?></p>
         <p>Muziek:<?php echo $searchResult['muziek']; ?></p>
         <p>Vak:<?php echo $searchResult['vak']; ?></p>
         <p>hobby:<?php echo htmlspecialchars($searchResult['hobby']); ?></p>
-        <p><button class="">Profiel</button></p> 
+        <p><button class="lookProfile">Profiel</button></p>
     </div>     
  
 <?php endforeach; ?> 
