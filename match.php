@@ -68,7 +68,7 @@ $emoji = $qry->fetch(PDO::FETCH_COLUMN);
     <nav>
     <a href="index.php?id=<?php $_SESSION['user_id'][0] ?>">Home</a>
     <a href="profile.php?id=<?php $_SESSION['user_id'][0] ?>">Profile</a>
-    <a href="buddy.php?id=<?php $_SESSION['user_id'] ?>">My buddies</a>
+    <a href="buddies.php?id=<?php $_SESSION['user_id'][0] ?>">My buddies</a>
     <a style="color: rgb(245, 134, 124);"href="match.php?id=<?php $_SESSION['email'] ?>">My matches</a>
     <a href="logout.php" class="logout">Logout</a>
     </nav>
