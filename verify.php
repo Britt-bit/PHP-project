@@ -1,45 +1,62 @@
 <?php
+include_once(__DIR__ . "/classes/User.php");
+include_once(__DIR__ . "/classes/Db.php");
 
-$api = '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'; 
+if (isset($_GET['vkey'])){
+    //Process Verification
+    $vkey = $_GET['vkey'];
 
+    $conn = Db::getConnection();
+            
+    $statement = $conn->prepare("SELECT `verified`, `vkey` FROM `user` WHERE `verified` = 0 AND `vkey` = :vkey LIMIT 1");
 
-//require 'vendor/autoload.php'; // If you're using Composer (recommended)
-// Comment out the above line if not using Composer
- require("sendgrid-php/sendgrid-php.php");
- require("./sendgrid-php/sendgrid-php.php");
-// If not using Composer, uncomment the above line and
-// download sendgrid-php.zip from the latest release here,
-// replacing  with the path to the sendgrid-php.php file,
-// which is included in the download:
-// https://github.com/sendgrid/sendgrid-php/releases
+            //$vkey = $this->getVkey();
+    $statement->bindValue(":vkey", $vkey);
+    $result = $statement->execute();
+    $count = count($result);
+    //$result->fetch(PDO::count($result));
 
-$email = new \SendGrid\Mail\Mail(); 
-$email->setFrom("test@example.com", "Example User");
-$email->setSubject("Sending with SendGrid is Fun");
-$email->addTo("britt110100@gmail.com", "you");
-$email->addContent("text/plain", "and easy to do anywhere, even with PHP");
-$email->addContent(
-    "text/html", "<strong>and easy to do anywhere, even with PHP</strong>"
-);
-$sendgrid = new \SendGrid(getenv($api));
-try {
-    $response = $sendgrid->send($email);
-    print $response->statusCode() . "\n";
-    print_r($response->headers());
-    print $response->body() . "\n";
-} catch (Exception $e) {
-    echo 'Caught exception: '. $e->getMessage() ."\n";
-}                   
+    //$result = $result->execute();
+    //var_dump($result);
+    //var_dump($count);
 
+            
+    if($count == 1){
+        $update = $conn->prepare("UPDATE `user` SET `verified` = 1 WHERE `vkey` = :vkey LIMIT 1");
+        //var_dump($vkey);
+        $update->bindValue(":vkey", $vkey);
+        //var_dump($update);
+        $verified = $update->execute();
+        //var_dump($verified);
+        echo "Thank you for verifying.";
+        echo "</br>";
+        echo '<a class="nav-link" href="login.php">Login</a>';
+        return $verified;
+        //var_dump("It's alright");
+    } else {
+        var_dump("This account is invalid or already verified");
+    }
+
+    //var_dump($vkey);
+
+    // via classes in de databank updaten
+    // -> (update user set verified = 1 where vkey = $vkey limit 1)
+    //$verified = User::verified();
+    //var_dump ($verified);
+} else {
+    die("Something went wrong");
+}
 ?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Verification</title>
 </head>
 <body>
-    <p>verification</p>
+    <p>Thank you for verifying.</p>
+    <a class="nav-link" href="login.php">Login</a>
+
 </body>
 </html>
