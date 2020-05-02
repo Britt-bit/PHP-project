@@ -455,7 +455,8 @@ include_once(__DIR__ . "/Db.php");
             $conn = Db::getConnection();
             $statement = $conn->prepare("SELECT count(*) FROM user");
             $statement->execute() ;
-            $countUsers = $statement->fetch(PDO::FETCH_ASSOC);
+            $countUsers = $statement->fetchColumn();
+            
 
             return $countUsers;
 
@@ -465,9 +466,10 @@ include_once(__DIR__ . "/Db.php");
         public static function countBuddyAgreements(){
 
             $conn = Db::getConnection();
-            $statement = $conn->prepare("SELECT count(*) FROM buddy WHERE accepted = 1 ");
+            $statement = $conn->prepare("SELECT count(*) FROM buddy WHERE accepted = :accepted ");
+            $statement->bindParam(':accepted', 1);
             $statement->execute() ;
-            $countBuddyAgreements = $statement->fetch(PDO::FETCH_ASSOC);
+            $countBuddyAgreements = $statement->fetchColumn();
 
             return $countBuddyAgreements;
 
@@ -485,5 +487,31 @@ include_once(__DIR__ . "/Db.php");
             } else {
                 return false;
             }   
+        }
+
+        public static function limitLogin(){
+
+            $ip = $_SERVER['REMOTE_ADDR']; //getting the IP Address
+            $diff = (time()-600); // Here 600 mean 10 minutes 10*60
+            $conn = Db::getConnection();
+            $statement = $conn->prepare("SELECT COUNT(*) FROM loginLimit WHERE ipAdress LIKE :ip
+            AND timeDiffrence > :diff "); //Fetching Data 
+            $statement->bindParam(":ip", $ip);
+            $statement->bindParam(":diff", $diff);
+            $statement->execute();
+            $re = $statement->fetchColumn();
+
+            return $re;
+        
+        }
+
+        public static function insertLoginAttempts(){
+            $conn = Db::getConnection();
+            $ip = $_SERVER['REMOTE_ADDR']; //getting the IP Address
+            $t=time(); //Storing time in variable
+            $statement = $conn->prepare("INSERT INTO loginLimit (ipAdress, timeDiffrence) VALUES (:ip, :t)"); //Insert Query
+            $statement->bindParam(":ip", $ip);
+            $statement->bindParam(":t", $t);
+            $statement->execute();
         }
     }
