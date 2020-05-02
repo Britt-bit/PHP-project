@@ -18,11 +18,14 @@ function canLogin($email, $password){
         return false;
     }
 }
- 
+
+
+
 //Get de User
 //Error
+$re = User::limitLogin();
+
 $errors = [];
- 
 //Detecteer submit
 if(!empty($_POST)){
     try{
@@ -36,9 +39,11 @@ if(!empty($_POST)){
     if(!empty($email) && !empty($password)){
      if(User::isUserVerified($email)){
         if(canLogin($email, $password,$user_id)){
-            session_start();
-            $_SESSION['email'] = $email;
-            $_SESSION['user_id'] = $user_id;
+            if(($re < 3)){
+
+                session_start();
+                $_SESSION['email'] = $email;
+                $_SESSION['user_id'] = $user_id;
 
 
             //if ($verified == 1){
@@ -46,12 +51,22 @@ if(!empty($_POST)){
             //} else {
             //    $error="Dit account is nog niet geverifieerd";
             //}
+            }else{
+                $error="Te veel ongeldige logins. Wacht 10 minuten.";
+            }
+
             
         }else{
+
+            
             //User en password matchen niet
             //Error
             $error="Cannot log you in.";
-        }}
+
+            User::insertLoginAttempts();
+            
+        }
+        }
         else {
             $error="Email not yet verified";
         }
