@@ -359,16 +359,6 @@ include_once(__DIR__ . "/Db.php");
             return $result;
         }
 
-        /* update user */
-        function getUserByEmail($email){
-            $conn = Db::getConnection();
-            $statement = $conn->prepare('SELECT * FROM user WHERE email = :email');
-            $statement->bindParam(':email', $email);
-            $statement->execute();
-            $result = $statement->fetch();
-            return $result;
-        }
-
         function getbuddyById($id, $uid){
             $conn = Db::getConnection();
             $statement = $conn->prepare('SELECT * FROM user WHERE id IN 
