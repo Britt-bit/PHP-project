@@ -467,7 +467,7 @@ include_once(__DIR__ . "/Db.php");
 
             $conn = Db::getConnection();
             $statement = $conn->prepare("SELECT count(*) FROM buddy WHERE accepted = :accepted ");
-            $statement->bindParam(':accepted', 1);
+            $statement->bindValue(':accepted', 1);
             $statement->execute() ;
             $countBuddyAgreements = $statement->fetchColumn();
 
