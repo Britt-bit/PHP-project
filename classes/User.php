@@ -509,7 +509,7 @@ include_once(__DIR__ . "/Db.php");
             $conn = Db::getConnection();
             $ip = $_SERVER['REMOTE_ADDR'];
             $t=time(); //tijd opslaan
-            $statement = $conn->prepare("INSERT INTO loginLimit (ipAdress, timeDiffrence) VALUES (:ip, :t)"); //Insert Query
+            $statement = $conn->prepare("INSERT INTO loginLimit (ipAdress, timeDiffrence) VALUES (:ip, :t)");
             $statement->bindParam(":ip", $ip);
             $statement->bindParam(":t", $t);
             $statement->execute();
