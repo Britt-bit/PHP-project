@@ -491,11 +491,11 @@ include_once(__DIR__ . "/Db.php");
 
         public static function limitLogin(){
 
-            $ip = $_SERVER['REMOTE_ADDR']; //getting the IP Address
-            $diff = (time()-600); // Here 600 mean 10 minutes 10*60
+            $ip = $_SERVER['REMOTE_ADDR']; 
+            $diff = (time()-600); // tijd - 10 minuten
             $conn = Db::getConnection();
             $statement = $conn->prepare("SELECT COUNT(*) FROM loginLimit WHERE ipAdress LIKE :ip
-            AND timeDiffrence > :diff "); //Fetching Data 
+            AND timeDiffrence > :diff "); 
             $statement->bindParam(":ip", $ip);
             $statement->bindParam(":diff", $diff);
             $statement->execute();
@@ -507,8 +507,8 @@ include_once(__DIR__ . "/Db.php");
 
         public static function insertLoginAttempts(){
             $conn = Db::getConnection();
-            $ip = $_SERVER['REMOTE_ADDR']; //getting the IP Address
-            $t=time(); //Storing time in variable
+            $ip = $_SERVER['REMOTE_ADDR'];
+            $t=time(); //tijd opslaan
             $statement = $conn->prepare("INSERT INTO loginLimit (ipAdress, timeDiffrence) VALUES (:ip, :t)"); //Insert Query
             $statement->bindParam(":ip", $ip);
             $statement->bindParam(":t", $t);
