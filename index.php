@@ -210,11 +210,10 @@ $conn = Db::getConnection();
     // aantal users + matches tonen
         $countBuddyAgreements = User::countBuddyAgreements();
         $countUsers = User::countUsers();
-        foreach($countUsers as $count) {
-            foreach($countBuddyAgreements as $countBuddy){
-        echo "Buddiez heeft <span>$count</span> gerigistreerde gebruikers en er zijn al <span>$countBuddy</span>  buddyovereenkomsten";
-            }
-        }
+        
+        echo "Buddiez heeft <span>$countUsers</span> gerigistreerde gebruikers en er zijn al <span>$countBuddyAgreements</span>  buddyovereenkomsten";
+            
+        
     ?>  
 </div>
 </footer>
