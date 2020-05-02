@@ -1,0 +1,116 @@
+/*Achtergrond*/
+body{
+    background: url(../images/bg.png) no-repeat  center fixed; 
+    background-size: 100%;
+}
+
+/*logo*/
+.logo{
+    width: 200px;
+    display: block;
+   /* margin-left: 150px;*/
+    margin-left: auto;
+    margin-right: auto;
+}
+
+
+h1{
+    font-size: 40px;
+    font-family: 'Raleway', sans-serif;
+    margin-left: 50px;
+    margin-top: 0px;
+}
+
+/*foutmelding*/
+.error{
+    background-color: rgb(250, 126, 95);
+    height: 50px;
+    width: 300px;
+    border-radius: 12px;
+    margin-top: -80px;
+    margin-left: auto;
+    margin-right: auto;
+    margin-bottom: 5px;
+    display: block;
+}
+
+.error p{
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 14px;
+    text-align: center;
+    padding-top: 13px;
+    color:  rgb(149, 42, 15);
+    
+}
+
+/*Login formulier*/
+.form{
+    background-color: rgb(255, 255, 255);
+    height: 570px;
+    width: 400px;
+    float: left;
+    margin-left: 150px;
+    margin-top: 180px;
+    border-radius: 50px;
+    box-shadow: 0px 0px 19px -2px rgba(0, 0, 0, 0.205);
+
+}
+
+/*NOG ZIEN + REKENING HOUDEN MET DE ERROR!*/
+.formbox{
+    background-color: rebeccapurple;
+}
+
+/*Input veld*/
+.inputField{
+    width: 250px;
+    height: 35px;
+    border-radius: 10px;
+    margin-top: 10px;
+    margin-left: 50px;
+    border-style: hidden;
+    border-radius: 9px;
+    padding-top: 5px;
+    padding-bottom: 5px;
+    background-color: rgb(240, 240, 240);
+    padding-left: 15px;
+}
+
+/*Submit button*/
+.btnSubmit{
+    width: 150px;
+    height: 35px;
+    border-radius: 16px;
+    border-style: hidden;
+    background: linear-gradient(90deg, rgba(255,141,41,1) 0%, rgba(255,61,61,1) 100%);
+    color: white;
+    font-family: 'Raleway', sans-serif;
+    font-size: 14px;
+    font-family: Arial, Helvetica, sans-serif;
+    font-weight: bold;
+}
+
+
+/*Checkbox*/
+.rememberMe{
+    font-family: Arial, Helvetica, sans-serif;
+    margin-left: 10px;
+}
+
+
+
+/*Registreren*/
+.loginSettings a{
+    color: rgb(231, 92, 49);
+    font-weight: bold;
+}
+
+/**/
+.loginSettings{
+    margin-left: 50px;
+    margin-top: 20px;
+}
+
+.loginSettings p{
+    font-family: Arial, Helvetica, sans-serif;
+}

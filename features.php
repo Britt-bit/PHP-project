@@ -27,33 +27,35 @@ error_reporting(E_ALL);
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://fonts.googleapis.com/css2?family=Raleway:wght@800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="./css/login.css">
+    <link rel="stylesheet" href="./css/features.css">   
     <title>Features</title>
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
-    <link href="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
-    <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
 
-    <div class="container register-form">
+    <div class="features">
+
+    <img class="logo" src="./images/logo.png" alt="Buddiez logo">
         <div class="note">
-            <p>Kenmerken</p>  
+            <h1 style="font-size:30px; margin-top:-50px;">Kenmerken</h1>  
         </div>
 
         <form action="" method="post">
             <h4>Wat voor soort games speel je graag?</h4>
             <label for="games"></label>
-            <select id="games" name="games">
+            <select class="dropDown" id="games" name="games">
                 <option value="shooter">Shooter</option>
                 <option value="moba">MOBA</option>
                 <option value="rpg">RPG</option>
                 <option value="mmo">MMO</option>
-                <option value="mmo">RTS</option>
-                <option value="mmo">Gezelschapspelletjes</option>
+                <option value="RTS">RTS</option>
+                <option value="gezelchapspelletjes">Gezelschapspelletjes</option>
             </select>
   
             <h4>Wat vind je de leukste vakken in IMD?</h4>
             <label for="vak"></label>
-            <select id="vak" name="vak">
+            <select class="dropDown" id="vak" name="vak">
                 <option value="development">Development</option>
                 <option value="design">Design</option>
                 <option value="entrepeneurship">Entrepreneurship</option>
@@ -62,7 +64,7 @@ error_reporting(E_ALL);
             
             <h4>Welke films kijk je graag?</h4>
             <label for="film"></label>
-            <select id="film" name="film">
+            <select class="dropDown" id="film" name="film">
                 <option value="actie">Actie</option>
                 <option value="komedie">Komedie</option>
                 <option value="horror">Horror</option>
@@ -76,7 +78,7 @@ error_reporting(E_ALL);
   
             <h4>Welke muziek luistert je graag?</h4>
             <label for="muziek"></label>
-            <select id="muziek" name="muziek">
+            <select class="dropDown" id="muziek" name="muziek">
                 <option value="pop">Pop</option>
                 <option value="klassiek">Klassiek</option>
                 <option value="rap">Rap</option>
@@ -90,14 +92,13 @@ error_reporting(E_ALL);
 
             <h4>Wat is je hobby?</h4>
             <label for="hobby"></label><br>
-            <input type="text" id="hobby" name="hobby" value=""><br><br>
+            <input class="dropDown" type="text" id="hobby" name="hobby" value=""><br><br>
 
-            <button type="submit" class="btnSubmit">Vervolledig profiel</button>
+            <button type="submit" class="loginSettings btnSubmit">Vervolledig profiel</button>
             </form>
     </div>
 
 <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
 <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
-<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
 </body>
 </html>

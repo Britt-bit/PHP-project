@@ -2,20 +2,15 @@
 
 //Include_once
 include_once(__DIR__ . "/classes/User.php");
-include_once(__DIR__ . "/Db.php");
-include_once(__DIR__ ."/classes/Features.class.php");
-include_once(__DIR__ ."/classes/Match.php");
+include_once(__DIR__ . "/classes/Db.php");
+include_once(__DIR__ . "/classes/Match.php");
 
+//include_once(__DIR__ ."/classes/buddies.php");
 
 //connectie met databank
-
 $conn = Db::getConnection();
 
-$getBuddies = $conn->prepare("SELECT * FROM user WHERE buddy= 2");
-
-$getBuddies->execute();
-
-var_dump ($getBuddies);
+//Hier staat er te weinig vanboven!
 
 
 ?>
@@ -25,42 +20,77 @@ var_dump ($getBuddies);
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="./css/buddy.css">
+    <link href="https://fonts.googleapis.com/css2?family=Raleway:wght@800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="./css/style.css">
+    <link rel="stylesheet" href="./css/buddies.css">
+    <link rel="stylesheet" href="./css/home.css">
     <title>My buddies</title>
 </head>
 <body>
+<!--Logo-->
+<a href="index.php"><img class="logo" src="./images/logo.png" alt="Buddiez logo"></a>
 
-<a href="index.php">Home</a>
-<h1>Buddies #2020</h1>
+<!--navigatie-->
+<nav>
+    <a href="index.php?id=<?php $_SESSION['user_id'][0] ?>">Home</a>
+    <a href="profile.php?id=<?php $_SESSION['user_id'][0] ?>">Profile</a>
+    <a style="color: rgb(245, 134, 124);"href="buddies.php?id=<?php $_SESSION['user_id'][0] ?>">My buddies</a>
+    <a href="match.php?id=<?php $_SESSION['email'] ?>">My matches</a>
+    <a href="logout.php" class="logout">Logout</a>
+    </nav>
+
+
+
 
   <div class="buddyBox">
-    
-    <ul>
-        <li><div class="buddy">
+  <h1>My buddies</h1>   
 
-        <!--Hier komt buddy 1-->
-            <div class="buddies" style=" border-radius: 20px;padding-top:20px;width: 290px;height: 100px;float:left;">
-                <img src="images/profile.jpeg" alt="" style="width:90px; height:90px;border-radius:50%; margin-left:20px;">
-                <h4 style="margin-top:35px; float:right;">Firstname Lastname</h4>
-            </div>
+    <h4>
+  
 
-            <h2 style="width:10px; margin-top:50px; color: rgb(169, 100, 209);float:left; margin-left:50px;">X</h2>
+      <?php
+          //Als je buddies hebt, komt deze in je lijst te staan
+          $countUsers = User::countUsers();
+          foreach($countUsers as $count) {
+          echo "Buddies: $count ";
+          echo "<br/>";
+          echo "<br/>";
+         //Eigen Username afdrukken
+         echo 'username: ' . get_current_user();
+         echo "<br/>";
+         echo "<br/>";
+        //Alle gebruikers afprinten
+        }
+        
+      ?>  
 
-          <!--Hier komt buddy 2-->      
-            <div class="buddies" style=" border-radius: 20px;padding-top:20px;width: 290px;height: 100px; float:right;">
-                <h4 style="margin-top:35px; float:left;">Firstname Lastname</h4>
-                <img src="images/profile.jpeg" alt="" style="width:90px; height:90px;border-radius:50%; margin-right:20px;float:right;">
-            </div>
+        <?php
+            $users = $statement->fetch(PDO::FETCH_ASSOC);
 
-        </div></li>
+            $firstname = $users['firstname'];
+            $lastname = $users['lastname'];
+
+            echo "$firstname ";
+            echo " $lastname";
+            echo "<br/>";
+            echo count($users);
+            echo "<br/>";
 
 
-        <li><div class="buddy"></div></li>
-        <li><div class="buddy"></div></li>
-        <li><div class="buddy"></div></li>
-        <li><div class="buddy"></div></li>
+        ?>
 
-    </ul>
+
+
+
+<?php
+
+  for($i=0; $i<count($users); $i++)
+  var_dump($firstname)
+
+
+?>
+      
+    </h4>
     
   </div>
 

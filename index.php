@@ -20,9 +20,26 @@ $conn = Db::getConnection();
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>PHP project</title>
+    <link href="https://fonts.googleapis.com/css2?family=Raleway:wght@800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="./css/style.css">
+    <link rel="stylesheet" href="./css/home.css">
+
+
+
+
+    <title>Home</title>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.5.0.js"></script>
 </head>
 <body>
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.5.0.js"></script>
+
+    <a href="index.php"><img class="logo" src="./images/logo.png" alt="Buddiez logo"></a>
+
+
     <?php 
 
         //check of user features al ingevuld heeft. zoniet-> toon warning
@@ -47,32 +64,36 @@ $conn = Db::getConnection();
          include_once(__DIR__ ."../includes/nav.inc.php");
 
 ?>
+
+<form action="search-classroom.php" method="POST">
+    <input type="text" name="search" placeholder="Search classroom">
+    <button type="submit" name="submit-search">Search</button>
+</form>
+
+   <!--navigatie-->        
+   <nav>
+    <a style="color: rgb(245, 134, 124);"href="index.php?id=<?php $_SESSION['user_id'][0] ?>">Home</a>
+    <a href="profile.php?id=<?php $_SESSION['user_id'][0] ?>">Profile</a>
+    <a href="buddies.php?id=<?php $_SESSION['user_id'][0] ?>">My buddies</a>
+    <a href="match.php?id=<?php $_SESSION['user_id'] ?>">My matches</a>
+    <a href="logout.php" class="logout">Logout</a>
+    </nav>
     <h1>Je bent ingelogd</h1>
-    <a href="logout.php" class="nav-link">Logout</a>
-    <a class="nav-link" href="profile.php?id=<?php echo $_SESSION['user_id'] ?>">Profiel</a>
-    <!-- <a class="nav-link" href="match.php?id=<?php echo $_SESSION['user_id']  ?>">Mijn matches</a> -->
-
-    <?php 
-    //check of user features al ingevuld heeft. zoniet->redirect naar invulformulier
-    $checkFeatures = feature::checkFeatures();
-    if ($checkFeatures == false){
-        //echo"features nog niet ingevuld";
-        header("Location: features.php");
-        exit();
-    }
-
-    // laten zien wanneer hobby nog niet is ingevuld 
-    $hobby = feature::hobby();
-    if(empty($hobby)){
-        echo"hobby nog niet ingevuld";
-        include_once(__DIR__ ."/completeFeatures.php");
-    }  
-    ?>
+    
 
 
 
-<h1>My matches</h1>
-    <form method="POST">
+    <!--Intro-->        
+    <div class="intro">
+    <h1>Welcome, Buddy!</h1>
+    <p>Do you need some help to find your way in school? Don't worry! <br> You can make a lot of buddies!
+    <br>Less is more. <span>#ThomasMore</span>
+    </p>
+    </div>
+
+
+    <form class="matches" method="POST">
+    <h3>My matches</h3>
     <table>
         <tr>
             <!-- Alle mogelijke matches oplijsten
@@ -178,8 +199,26 @@ $conn = Db::getConnection();
     }
     }
 ?>
+
+
 </table>
 </form>
+
+<footer>
+    <!--<script src="js/buddy.js"></script>-->
+<div class="signedIn">
+    <?php
+    // aantal users + matches tonen
+        $countBuddyAgreements = User::countBuddyAgreements();
+        $countUsers = User::countUsers();
+        
+        echo "Buddiez heeft <span>$countUsers</span> gerigistreerde gebruikers en er zijn al <span>$countBuddyAgreements</span>  buddyovereenkomsten";
+            
+        
+    ?>  
+</div>
+</footer>
+
 
 </body>
 </html>

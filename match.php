@@ -41,17 +41,19 @@ $emoji = $qry->fetch(PDO::FETCH_COLUMN);
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Matches</title>
+    <link href="https://fonts.googleapis.com/css2?family=Raleway:wght@800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="./css/style.css">
+    <link rel="stylesheet" href="./css/home.css">
+    <link rel="stylesheet" href="./css/match.css">
+    <link rel="stylesheet" href="css/reaction.css">
+
+
+    <title>My matches</title>
     <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
     <link rel="stylesheet" href="https://cdn.rawgit.com/mervick/emojionearea/master/dist/emojionearea.min.css">
-
-
-<link rel="stylesheet" href="css/reaction.css">
-
     <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
     <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
-
     <script src="js/jquery.min.js"></script>
 <script src="js/jquery.livequery.js"></script>
 <script src="js/jquery.tooltipsterReaction.js"></script>
@@ -93,8 +95,19 @@ $emoji = $qry->fetch(PDO::FETCH_COLUMN);
 </style>
 <body>
 
+<a href="index.php"><img class="logo" src="./images/logo.png" alt="Buddiez logo"></a>
+
+   <!--navigatie-->        
+    <nav>
+    <a href="index.php?id=<?php $_SESSION['user_id'][0] ?>">Home</a>
+    <a href="profile.php?id=<?php $_SESSION['user_id'][0] ?>">Profile</a>
+    <a href="buddies.php?id=<?php $_SESSION['user_id'][0] ?>">My buddies</a>
+    <a style="color: rgb(245, 134, 124);"href="match.php?id=<?php $_SESSION['email'] ?>">My matches</a>
+    <a href="logout.php" class="logout">Logout</a>
+    </nav>
+
+    <form class="myMatches"method="POST">
     <h1>My matches</h1>
-    <form method="POST">
     <table>
         <tr>
             <!-- Alle mogelijke matches oplijsten
@@ -151,7 +164,7 @@ $emoji = $qry->fetch(PDO::FETCH_COLUMN);
                          } else {
                              $statusReturn = "";
                          }
-                    echo '<button type="button" class="btn btn-info btn-xs start_chat" data-touserid="'. $yourID . '" data-tousername="'. $yourName . '">Start Chat '.$statusReturn.'</button>';
+                    echo '<button type="button" class="startChat btn btn-info btn-xs start_chat" data-touserid="'. $yourID . '" data-tousername="'. $yourName . '">Start Chat '.$statusReturn.'</button>';
                     
                 ?>
             </tr>
@@ -168,7 +181,7 @@ $emoji = $qry->fetch(PDO::FETCH_COLUMN);
                      } else {
                          $statusReturn = "";
                      }
-                    echo '<button type="button" class="btn btn-info btn-xs start_chat" data-touserid="'. $yourID . '" data-tousername="'. $yourName . '">Start Chat'.$statusReturn.'</button>';
+                    echo '<button type="button" class="startChat btn btn-info btn-xs start_chat" data-touserid="'. $yourID . '" data-tousername="'. $yourName . '">Start Chat'.$statusReturn.'</button>';
                    
             ?>
             </tr>
@@ -179,15 +192,17 @@ $emoji = $qry->fetch(PDO::FETCH_COLUMN);
                     //<p style='margin-left:20px';> 
                     echo("You matched with " . htmlspecialchars($yourName) . " " . htmlspecialchars($yourLastname) . " on the features "); 
                     for($tel = 0; $tel < sizeof($result) +2; ++$tel){
-                        echo(htmlspecialchars($result[$tel]) . " ");   
+                        echo(htmlspecialchars($result[$tel]) . " ");  
+                         
                     }
                     //echo("</p>");
                     if($status == 1){
                         $statusReturn = '<p>New message</p>';
+                        
                      } else {
                          $statusReturn = "";
                      }
-                echo '<button type="button" class="btn btn-info btn-xs start_chat" data-touserid="'. $yourID . '" data-tousername="'. $yourName . '">Start Chat'.$statusReturn.'</button>';
+                echo '<button type="button" class="startChat btn btn-info btn-xs start_chat" data-touserid="'. $yourID . '" data-tousername="'. $yourName . '">Start Chat'.$statusReturn.'</button>';
                 
   
             ?>

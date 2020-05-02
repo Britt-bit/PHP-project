@@ -11,6 +11,8 @@ include_once(__DIR__ . "/Db.php");
         private $newpassword;
         private $buddy;
         private $year;
+        private $verified;
+        private $vkey;
 
         /**
          * Get the value of firstname
@@ -212,10 +214,76 @@ include_once(__DIR__ . "/Db.php");
         }
 
 
+        /**
+         * Get the value of verified
+         */ 
+        public function getVerified()
+        {
+                return $this->verified;
+        }
+
+        /**
+         * Set the value of verified
+         *
+         * @return  self
+         */ 
+        public function setVerified($verified)
+        {
+            if(empty($verified)){
+                throw new Exception("You must be verified");
+            }
+                $this->verified = $verified;
+
+                return $this;
+        }
+        
+         /**
+         * Get the value of vkey
+         */ 
+        public function getVkey()
+        {
+                return $this->vkey;
+        }
+
+        /**
+         * Set the value of vkey
+         *
+         * @return  self
+         */ 
+        public function setVkey($vkey)
+        {
+                $this->vkey = $vkey;
+
+                return $this;
+        }
+        
+        public function verified(){
+            $conn = Db::getConnection();
+            
+            $statement = $conn->prepare("SELECT `verified`, `vkey` FROM `user` WHERE `verified` = 0 AND `vkey` = :vkey LIMIT 1");
+
+            $vkey = $this->getVkey();
+            $statement->bindValue(":vkey", $vkey);
+            $result = $statement->execute();
+            
+            if($result = $result->fetch(PDO::FETCH_ASSOC)){
+                $update = $conn->prepare("UPDATE `user` SET `verified` = 1 WHERE `vkey` = :vkey LIMIT 1");
+                $update->bindValue(":vkey", $vkey);
+                $verified = $update->execute();
+                return $verified;
+                echo "It's alright";
+            } else {
+                echo "This account invalid or not yet verified";
+            }
+
+        }
+
+
+
         public function saveUser(){
             $conn = Db::getConnection();
 
-            $statement = $conn->prepare("INSERT INTO user (firstname, lastname, email, password, avatar, bio, school_year, buddy) VALUES (:firstname, :lastname, :email, :password, :avatar, :bio, :schoolyear, :buddy)");
+            $statement = $conn->prepare("INSERT INTO user (firstname, lastname, email, password, avatar, bio, school_year, buddy, vkey) VALUES (:firstname, :lastname, :email, :password, :avatar, :bio, :schoolyear, :buddy, :vkey)");
 
             $firstname = $this->getFirstname();
             $lastname = $this->getLastname();
@@ -225,6 +293,7 @@ include_once(__DIR__ . "/Db.php");
             $bio = $this->getBio();
             $year = $this->getYear();
             $buddy = $this->getBuddy();
+            $vkey = $this->getVkey();
 
             $statement->bindValue(":firstname", $firstname);
             $statement->bindValue(":lastname", $lastname);
@@ -234,6 +303,7 @@ include_once(__DIR__ . "/Db.php");
             $statement->bindValue(":bio", $bio);
             $statement->bindValue(":schoolyear", $year);
             $statement->bindValue(":buddy", $buddy);
+            $statement->bindValue(":vkey", $vkey);
 
             $result = $statement->execute();
 
@@ -251,17 +321,21 @@ include_once(__DIR__ . "/Db.php");
             return $users;
         }
 
-        public function emailValidation(){
+     public function emailValidation(){
             $email = $this->getEmail();
             $conn = Db::getConnection();
 
             $check_email = $conn->prepare("SELECT email FROM user WHERE email=':email'");
             $check_email->bindParam(':email', $email);
+            $check_email->execute();
             
-            foreach ($conn->query($check_email) as $row){
-                print $row['email'];
-            }
-            return $row;
+            $checked = $check_email->fetchAll(PDO::FETCH_ASSOC);
+            return $checked;
+            //foreach ($check_email as $row){
+            //    $checked = $row['email'];
+            //    var_dump($row['email']);
+            //}
+            //return $checked;
         }
         
         /* update user */
@@ -269,6 +343,17 @@ include_once(__DIR__ . "/Db.php");
             $conn = Db::getConnection();
             $statement = $conn->prepare('SELECT * FROM user WHERE user_id = :id');
             $statement->bindParam(':id', $id);
+            $statement->execute();
+            $result = $statement->fetch();
+            return $result;
+        }
+        
+
+        /* update user */
+        function getUserByEmail($email){
+            $conn = Db::getConnection();
+            $statement = $conn->prepare('SELECT * FROM user WHERE email = :email');
+            $statement->bindParam(':email', $email);
             $statement->execute();
             $result = $statement->fetch();
             return $result;
@@ -382,4 +467,72 @@ include_once(__DIR__ . "/Db.php");
             return $password;
         }
 
+
+       
+        
+        /* Aantal gebruikers weergeven */
+        public static function countUsers(){
+
+            $conn = Db::getConnection();
+            $statement = $conn->prepare("SELECT count(*) FROM user");
+            $statement->execute() ;
+            $countUsers = $statement->fetchColumn();
+            
+
+            return $countUsers;
+
+        }
+
+        /* Aantal buddy overeenkomsten weergeven */
+        public static function countBuddyAgreements(){
+
+            $conn = Db::getConnection();
+            $statement = $conn->prepare("SELECT count(*) FROM buddy WHERE accepted = :accepted ");
+            $statement->bindValue(':accepted', 1);
+            $statement->execute() ;
+            $countBuddyAgreements = $statement->fetchColumn();
+
+            return $countBuddyAgreements;
+
+        }
+        public static function isUserVerified($email){
+            $conn = Db::getConnection();
+            $statement = $conn->prepare('SELECT `verified` FROM `user` WHERE email = :email');
+            $statement->bindParam(':email', $email);
+            $statement->execute();
+            $result = $statement->fetch(PDO::FETCH_COLUMN);
+            //$result->execute();
+        
+            if($result == 1){
+                return true;
+            } else {
+                return false;
+            }   
+        }
+
+        public static function limitLogin(){
+
+            $ip = $_SERVER['REMOTE_ADDR']; 
+            $diff = (time()-600); // tijd - 10 minuten
+            $conn = Db::getConnection();
+            $statement = $conn->prepare("SELECT COUNT(*) FROM loginLimit WHERE ipAdress LIKE :ip
+            AND timeDiffrence > :diff "); 
+            $statement->bindParam(":ip", $ip);
+            $statement->bindParam(":diff", $diff);
+            $statement->execute();
+            $re = $statement->fetchColumn();
+
+            return $re;
+        
+        }
+
+        public static function insertLoginAttempts(){
+            $conn = Db::getConnection();
+            $ip = $_SERVER['REMOTE_ADDR'];
+            $t=time(); //tijd opslaan
+            $statement = $conn->prepare("INSERT INTO loginLimit (ipAdress, timeDiffrence) VALUES (:ip, :t)");
+            $statement->bindParam(":ip", $ip);
+            $statement->bindParam(":t", $t);
+            $statement->execute();
+        }
     }

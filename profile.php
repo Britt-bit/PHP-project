@@ -71,6 +71,11 @@ if (!empty($_POST)) {
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://fonts.googleapis.com/css2?family=Raleway:wght@800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="./css/style.css">
+    <link rel="stylesheet" href="./css/login.css">
+    <link rel="stylesheet" href="./css/home.css">
+    <link rel="stylesheet" href="./css/profile.css">
     <title>Profiel</title>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
     <link href="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
@@ -80,17 +85,9 @@ if (!empty($_POST)) {
 </head>
 
 <body>
+    <a href="index.php"><img class="logo" src="./images/logo.png" alt="Buddiez logo"></a>
 
-    <div class="container">
-        <?php if (count($errors) > 0) : ?>
-            <div class="alert alert-danger mt-5">
-                <p>
-                    <?php foreach ($errors as $error) : ?>
-                        <?php echo $error; ?> <br>
-                    <?php endforeach ?>
-                </p>
-            </div>
-        <?php endif; ?>
+        <form class="profile" action="" method="POST" enctype="multipart/form-data">
 
         <div class="note">
             <p>Profiel</p>
