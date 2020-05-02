@@ -3,6 +3,10 @@ session_start();
 error_reporting(E_ALL);
 ini_set('display_errors', 1);
 
+if ($_SESSION['email']  == '') {
+    header ("Location: login.php");
+}
+
 //include_once(__DIR__ . "/classes/Finder.php");
 include_once(__DIR__ . "/classes/Db.php");
 //$conn = Db::getConnection();

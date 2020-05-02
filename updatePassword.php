@@ -1,4 +1,5 @@
 <?php
+session_start();
 ini_set('display_errors', 1);
 ini_set('display_startup_errors',1);
 error_reporting(E_ALL);
@@ -7,6 +8,10 @@ error_reporting(E_ALL);
     /* get user */
     $user = new User();
     $getUser = $user->getUserById($_GET['id']);
+
+    if ($_SESSION['email']  == '') {
+        header ("Location: login.php");
+    }
 
     /* Error */
     $errors = [];

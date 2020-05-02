@@ -6,7 +6,9 @@ include_once(__DIR__ ."/classes/Post.php");
 include_once(__DIR__ . "/classes/Db.php");
 $conn = Db::getConnection();
 
-
+if ($_SESSION['email']  == '') {
+    header ("Location: login.php");
+}
 
 ?>
 <!DOCTYPE html>

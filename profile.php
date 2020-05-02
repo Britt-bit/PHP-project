@@ -22,6 +22,10 @@ $getbuddy = $buddy->getbuddy($_GET['id']);
 $seeker = new Request();
 $getseeker = $seeker->getseeker($_SESSION['user_id']);
 
+
+if ($_SESSION['email']  == '') {
+    header ("Location: login.php");
+}
 /* Error */
 $errors = [];
 if (!empty($_POST)) {

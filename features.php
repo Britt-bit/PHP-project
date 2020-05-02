@@ -4,6 +4,10 @@ ini_set('display_errors', 1);
 ini_set('display_startup_errors',1);
 error_reporting(E_ALL);
 
+if ($_SESSION['email']  == '') {
+    header ("Location: login.php");
+}
+
     include_once(__DIR__ ."/classes/User.php");
     include_once(__DIR__ ."/classes/Features.class.php");
     include_once(__DIR__ ."/classes/Db.php");

@@ -9,6 +9,9 @@ include_once(__DIR__ ."/classes/Features.class.php");
 include_once(__DIR__ ."/classes/Match.php"); 
 $conn = Db::getConnection();
 
+if ($_SESSION['email']  == '') {
+    header ("Location: login.php");
+}
 //if(isset($_GET['chat'])){
 //    $id = $_GET['chat'];
     

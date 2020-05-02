@@ -6,6 +6,9 @@ include_once(__DIR__ ."/classes/Post.php");
 include_once(__DIR__ ."/classes/Db.php");
 include_once(__DIR__ ."/includes/nav.inc.php");
 
+if ($_SESSION['email']  == '') {
+    header ("Location: login.php");
+}
 
 
 $search = Post::search(strtolower($_GET['search']));

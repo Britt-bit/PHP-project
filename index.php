@@ -13,6 +13,9 @@ $_SESSION['user_id'] = $getUser['user_id'];
 include_once(__DIR__ ."/classes/Match.php"); 
 $conn = Db::getConnection();
 
+if ($_SESSION['email']  == '') {
+    header ("Location: login.php");
+}
 
 ?>
 <!DOCTYPE html>

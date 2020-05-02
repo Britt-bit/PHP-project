@@ -2,6 +2,9 @@
 include_once(__DIR__ . "/classes/User.php");
 include_once(__DIR__ . "/classes/Db.php");
 
+if ($_SESSION['email']  == '') {
+    header ("Location: login.php");
+}
 if (isset($_GET['vkey'])){
     //Process Verification
     $vkey = $_GET['vkey'];
