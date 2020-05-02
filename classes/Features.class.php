@@ -110,7 +110,8 @@ include_once(__DIR__ . "/User.php");
 
         public function insertFeatures(){
                 $conn = Db::getConnection();
-                $statement = $conn->prepare("SELECT user_id FROM user WHERE email = '".$_SESSION['email']."'");
+                $statement = $conn->prepare("SELECT user_id FROM user WHERE email = :email");
+                $statement->bindValue(":email", $_SESSION['email']);
                     $statement->execute();
                     $id = $statement->fetch(PDO::FETCH_COLUMN);
                     $statement = $conn->prepare("INSERT INTO features (user_id, games, films, muziek, vak, hobby) VALUES (:id, :games, :film, :muziek, :vak, :hobby)");
@@ -134,7 +135,8 @@ include_once(__DIR__ . "/User.php");
         public static function hobby(){
                 $conn = Db::getConnection();
 
-                $statement = $conn->prepare("SELECT user_id FROM user WHERE email = '".$_SESSION['email']."'");
+                $statement = $conn->prepare("SELECT user_id FROM user WHERE email = :email");
+                $statement->bindValue(":email", $_SESSION['email']);
                 $statement->execute();
                 $id = $statement->fetch(PDO::FETCH_COLUMN);
             
@@ -148,7 +150,8 @@ include_once(__DIR__ . "/User.php");
         public static function checkFeatures(){
                 $conn = Db::getConnection();
 
-                $statement = $conn->prepare("SELECT user_id FROM user WHERE email = '".$_SESSION['email']."'");
+                $statement = $conn->prepare("SELECT user_id FROM user WHERE email = :email");
+                $statement->bindValue(":email", $_SESSION['email']);
                 $statement->execute();
                 $id = $statement->fetch(PDO::FETCH_COLUMN);
                     
@@ -162,7 +165,8 @@ include_once(__DIR__ . "/User.php");
         public function insertHobby(){
                 $conn = Db::getConnection();
 
-                $statement = $conn->prepare("SELECT user_id FROM user WHERE email = '".$_SESSION['email']."'");
+                $statement = $conn->prepare("SELECT user_id FROM user WHERE email = :email");
+                $statement->bindValue(":email", $_SESSION['email']);
                 $statement->execute();
                 $id = $statement->fetch(PDO::FETCH_COLUMN);
                     
