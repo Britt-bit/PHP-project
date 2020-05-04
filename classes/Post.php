@@ -6,12 +6,13 @@ class Post{
 
         $conn = Db::getConnection();
 
-        $statement = $conn->prepare("SELECT user_id FROM user WHERE email = '".$_SESSION['email']."'");
+        $statement = $conn->prepare("SELECT user_id FROM user WHERE email = :email ");
+        $statement->bindValue(":email", $_SESSION['email']);
         $statement->execute();
         $id = $statement->fetch(PDO::FETCH_COLUMN);
         
         
-        $statement = $conn->prepare("SELECT firstname, lastname, avatar, email, games, films, muziek, vak, hobby FROM user
+        $statement = $conn->prepare("SELECT user.user_id, firstname, lastname, avatar, email, games, films, muziek, vak, hobby FROM user
         INNER JOIN features on user.user_id=features.user_id WHERE 
         (CONCAT(firstname, ' ', lastname) LIKE :search
         OR firstname like :search 
