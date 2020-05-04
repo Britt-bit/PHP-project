@@ -64,7 +64,7 @@ if ($_SESSION['email']  == '') {
             }  
 
 
-         include_once(__DIR__ ."../includes/nav.inc.php");
+         include_once(__DIR__ ."/includes/nav.inc.php");
 
 ?>
 
