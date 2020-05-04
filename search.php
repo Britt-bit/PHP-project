@@ -32,7 +32,7 @@ $search = Post::search(strtolower($_GET['search']));
 
     <a style="color: rgb(245, 134, 124);"href="index.php?id=<?php $_SESSION['user_id'][0] ?>">Home</a>
     <a href="profile.php?id=<?php $_SESSION['user_id'][0] ?>">Profile</a>
-    <a href="buddy.php?id=<?php $_SESSION['user_id'] ?>">My buddies</a>
+    <a href="buddies.php?id=<?php $_SESSION['user_id'] ?>">My buddies</a>
     <a href="match.php?id=<?php $_SESSION['email'] ?>">My matches</a>
     <a href="logout.php" class="logout">Logout</a>
     </nav>
@@ -51,6 +51,7 @@ $search = Post::search(strtolower($_GET['search']));
 <?php $conn = Db::getConnection(); ?>
 
 
+
 <?php if ($search > 0): foreach ($search as $searchResult):?>
 
     <div class="searchResult">
@@ -61,7 +62,13 @@ $search = Post::search(strtolower($_GET['search']));
         <p>Muziek:<?php echo $searchResult['muziek']; ?></p>
         <p>Vak:<?php echo $searchResult['vak']; ?></p>
         <p>hobby:<?php echo htmlspecialchars($searchResult['hobby']); ?></p>
-        <p><button class="lookProfile">Profiel</button></p>
+        
+       
+       <?php echo "<a class='lookProfile' href='profile.php?id=".$searchResult["user_id"]."'>Profiel</a>" ?>
+       
+
+        
+       
     </div>     
  
 <?php endforeach; ?> 
