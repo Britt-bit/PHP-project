@@ -74,10 +74,10 @@ if ($_SESSION['email']  == '') {
                 <option value="horror">Horror</option>
                 <option value="romantisch">Romantisch</option>
                 <option value="thriller">Thriller</option>
-                <option value="actie">Drama</option>
-                <option value="komedie">Misdaad</option>
-                <option value="horror">Scifi</option>
-                <option value="romantisch">Fantasy</option>
+                <option value="drama">Drama</option>
+                <option value="misdaad">Misdaad</option>
+                <option value="scifi">Scifi</option>
+                <option value="fantasy">Fantasy</option>
             </select>
   
             <h4>Welke muziek luistert je graag?</h4>
@@ -89,8 +89,8 @@ if ($_SESSION['email']  == '') {
                 <option value="r&b">R&B</option>
                 <option value="hardstyle">Hardstyle</option>
                 <option value="schlager">Schlager</option>
-                <option value="pop">Heavy metal</option>
-                <option value="klassiek">Jazz</option>
+                <option value="heavy metal">Heavy metal</option>
+                <option value="jazz">Jazz</option>
                 <option value="allesSlecht">Niets van hierboven</option>
             </select>
 
