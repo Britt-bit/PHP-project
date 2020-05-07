@@ -189,4 +189,15 @@ include_once(__DIR__ . "/User.php");
                 $result = $statement->fetch();
                 return $result;
         }
+        
+        public static function sameHobby($hobby){
+                 // Check zelfde hobby
+                $conn = Db::getConnection();
+                $statement = $conn->prepare("SELECT count(*) as count FROM features WHERE hobby=:hobby");
+                $statement->bindValue(':hobby', $hobby);
+                $statement->execute(); 
+                $count = $statement->fetchColumn();
+
+                return $count;
+        }
     }
