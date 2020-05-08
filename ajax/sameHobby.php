@@ -23,11 +23,9 @@ if(isset($_POST['hobby'])){
     $response = "<span style='color: green; margin-left: 50px;'>$count users have the same hobby as you.</span>";
  }
 
- 
 
    echo $response;
-   exit;
+   exit; 
+   
 
 }
-
-?>
