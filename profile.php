@@ -43,7 +43,8 @@ if (!empty($_POST)) {
             $user->setAvatar($target_file);
             $user->setYear($_POST['school_year']);
             $user->setBuddy($_POST['buddy']);
-
+            
+            
             $user->updateUser($_GET['id']);
             header('location: profile.php?id=' . $_GET['id']);
         } catch (\Throwable $th) {
@@ -86,6 +87,33 @@ if (!empty($_POST)) {
         <?php if ($getUser['user_id'] == $_SESSION['user_id']) : ?>
             <form action="" method="POST" enctype="multipart/form-data">
                 <div class="form-content">
+<<<<<<< Updated upstream
+=======
+                    <!-- show if Buddy -->
+                    <?php if ($getRequest['buddy_id'] == $_SESSION['user_id'] && $getRequest['request'] == 1) : ?>
+                        <div class="alert alert-info col-md-8 d-block">
+                            <p>You have a buddy request from <?php echo $getseeker['firstname'] ?>.</p>
+                        </div>
+                        <div class="d-block">
+                            <a href="#" id="AcceptRequest" class="btn btn-success btn-lg" role="button">Accept</a>
+                            <a href="#" id="DeleteRequest" class="btn btn-danger btn-lg ml-3" role="button">Decline</a>
+                        </div>
+                        <div class="hidden">
+                            <input type="hidden" name="id" id="id" value="<?php echo $_SESSION['user_id'] ?>">
+                            <input type="hidden" name="uid" id="uid" value="<?php echo $getseeker['user_id'] ?>">
+                        </div>
+                        <script type="text/javascript" src="js/AcceptBuddyRequest.js"></script>
+                        <script type="text/javascript" src="js/DeleteBuddyRequest.js"></script>
+                    <?php elseif ($getRequest['buddy_id'] == $_SESSION['user_id'] || $getRequest['seeker_id'] == $_SESSION['user_id'] && $getRequest['request'] == 0 && $getRequest['accepted'] == 1) : ?>
+                        <div class="alert alert-info col-md-8 d-block">
+                            <p>You are buddies with <?php if ($getseeker != false) {
+                                                        echo $getseeker['firstname'];
+                                                    } else {
+                                                        echo $getbuddy['firstname'];
+                                                    }  ?>.</p>
+                        </div>
+                    <?php endif ?>
+>>>>>>> Stashed changes
                     <!-- Avatar field -->
                     <div class="form-group row col-md-4">
                         <img class="img-thumbnail" src="<?php echo $getUser['avatar'] ?>" alt="User Avatar">
@@ -121,12 +149,13 @@ if (!empty($_POST)) {
                         <p>Kijk uit! Je zit in je eerste jaar. Best een buddy zoeken.</p>
                     </div>
                     <div class="form-group row col-md-4">
-                        <label for="year">Schooljaar</label>
+                        <label for="school_year">Schooljaar</label>
                         <select class="form-control" name="school_year" id="year">
-                            <option value="">Kies uw jaar ...</option>
-                            <option value="1">1IMD</option>
-                            <option value="2">2IMD</option>
-                            <option value="3">3IMD</option>
+                            <option value="default">Kies uw jaar ...</option>
+                            <option value="1IMD">1IMD</option>
+                            <option value="2IMD">2IMD</option>
+                            <option value="3IMD">3IMD</option>
+                            <option value="mix">mix</option>
                         </select>
                     </div>
                     <!-- Year field -->
@@ -145,6 +174,22 @@ if (!empty($_POST)) {
                 </div>
             </form>
         <?php elseif ($getUser['user_id'] != $_SESSION['user_id']) : ?>
+<<<<<<< Updated upstream
+=======
+            
+            <?php if ($getRequest['buddy_id'] == $_SESSION['user_id'] || $getRequest['seeker_id'] == $_SESSION['user_id'] && $getRequest['request'] == 0 && $getRequest['accepted'] == 1) : ?>
+                <div class="alert alert-info col-md-8 d-block mt-3">
+                    <p>This is your buddy</p>
+                </div>
+                <a href="#" id="DeleteRequest" class="btn btn-danger btn-lg mb-3" role="button">Delete Buddy</a>
+                    <script type="text/javascript" src="js/DeleteBuddyRequest.js"></script>
+            <?php endif ?>
+            <?php if ($getRequest['request'] == null && $getRequest['accepted'] == null && $getRequest['buddy'] == 1) : ?>
+                <div class="alert alert-info col-md-8 d-block mt-3">
+                    <p>You are a buddy you cannot send a request</p>
+                </div>
+            <?php endif ?>
+>>>>>>> Stashed changes
             <div class="form-group row col-md-12">
                 <img class="img-thumbnail" src="<?php echo $getUser['avatar'] ?>" alt="User Avatar">
             </div>

@@ -141,6 +141,7 @@ include_once(__DIR__ . "/Db.php");
          */ 
         public function setYear($year)
         {
+            echo $year;
             if(empty($year)){
                 throw new Exception("Year cannot be empty");
             }
@@ -286,32 +287,32 @@ include_once(__DIR__ . "/Db.php");
 
         function updateUser($id)
         {
+            $conn = Db::getConnection();
             if (move_uploaded_file($_FILES["avatar"]["tmp_name"], $this->avatar)) {
-                $conn = Db::getConnection();
-                $statement = $conn->prepare("UPDATE user SET firstname= :firstname, lastname= :lastname, email= :email, school_year= :schoolyear, buddy= :buddy, avatar= :avatar, bio= :bio WHERE user_id= :id");
-                $statement->bindParam(":firstname", $this->firstname);
-                $statement->bindParam(":lastname", $this->lastname);
-                $statement->bindParam(":email", $this->email);
+                $statement = $conn->prepare("UPDATE user SET firstname= :firstname, lastname= :lastname, email= :email, buddy= :buddy, avatar= :avatar, bio= :bio WHERE user_id= :id");
                 $statement->bindParam(":avatar", $this->avatar);
-                $statement->bindParam(":bio", $this->bio);
-                $statement->bindParam(":schoolyear", $this->year);
-                $statement->bindParam(":buddy", $this->buddy);
-                $statement->bindParam(":id", $id);
-                
-                $statement->execute();
-            }else {
-                $conn = Db::getConnection();
+            }
+            elseif($this->year != 'default'){
                 $statement = $conn->prepare("UPDATE user SET firstname= :firstname, lastname= :lastname, email= :email, school_year= :schoolyear, buddy= :buddy, bio= :bio WHERE user_id= :id");
-                $statement->bindParam(":firstname", $this->firstname);
-                $statement->bindParam(":lastname", $this->lastname);
-                $statement->bindParam(":email", $this->email);
-                $statement->bindParam(":bio", $this->bio);
                 $statement->bindParam(":schoolyear", $this->year);
-                $statement->bindParam(":buddy", $this->buddy);
-                $statement->bindParam(":id", $id);
-
-                $statement->execute();
+            }
+            elseif($this->year != 'default' && move_uploaded_file($_FILES["avatar"]["tmp_name"], $this->avatar)){
+                $statement = $conn->prepare("UPDATE user SET firstname= :firstname, lastname= :lastname, email= :email, school_year= :schoolyear, buddy= :buddy, avatar= :avatar, bio= :bio WHERE user_id= :id");
+                $statement->bindParam(":schoolyear", $this->year);
+                $statement->bindParam(":avatar", $this->avatar);
+            }
+            else {
+                $statement = $conn->prepare("UPDATE user SET firstname= :firstname, lastname= :lastname, email= :email, buddy= :buddy, bio= :bio WHERE user_id= :id");  
             }  
+            $statement->bindParam(":schoolyear", $this->year);
+            $statement->bindParam(":firstname", $this->firstname);
+            $statement->bindParam(":lastname", $this->lastname);
+            $statement->bindParam(":email", $this->email);
+            $statement->bindParam(":bio", $this->bio);
+            $statement->bindParam(":buddy", $this->buddy);
+            $statement->bindParam(":id", $id);
+
+            $statement->execute();
         }
         function updatePassword($id)
         {
