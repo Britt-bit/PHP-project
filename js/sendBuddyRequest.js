@@ -2,9 +2,9 @@ $("#sendRequest").on("click", function (e) {
     let id = $("#id").val();
     let uid = $("#uid").val();
     let email = $("#email").val();
-    let person = $("#fullname").val();
+    let person = $("#fullname").text();
     let uri = $("#uri").val();
-    console.table(id, uid, uri);
+    console.table(id, uid, person, uri);
     
     $.ajax({
         method: "POST",

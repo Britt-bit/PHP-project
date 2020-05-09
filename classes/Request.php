@@ -64,6 +64,7 @@ class Request
                 //$mail->AltBody = 'This is the body in plain text for non-HTML mail clients';
 
                 $mail->send();
+                return true;
             } catch (Exception $e) {
                 return false;
             }
