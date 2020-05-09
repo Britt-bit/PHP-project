@@ -31,4 +31,22 @@
     padding-top: 13px;
     color:  rgb(149, 42, 15);;
 }
+.alert{
+    margin-left: 50px;
+    margin-top: 10px;
+    width: 250px;
+    border-radius: 9px;
+    padding: 1px 10px;
+    font-size: 0.7rem;
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+.alert-success{
+    background-color: limegreen;
+    color: whitesmoke;
+}
+.alert-danger{
+    background-color: salmon;
+    color: whitesmoke;
+}
 

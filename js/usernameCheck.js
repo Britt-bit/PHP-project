@@ -13,7 +13,7 @@ $("#email").on("keyup", function(e){
                     $('#errorMessage').html('');
                     $('#errorMessage').html(`
                     <div class="alert alert-success" role="alert">
-                        <p>This email has not been registered yet</p>
+                        <p>This email has not been registered yet.</p>
                     </div>
                     `);
                     

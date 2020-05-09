@@ -157,6 +157,9 @@ $users = User::getAllUsers();
                             </div>
                         </div>
                         <div>
+                            <div id="errorMessage">
+                                
+                            </div>
                             <div>
                                 <input name="email" id="email" type="text" class="inputField" placeholder="Your email *" value="<?php if (isset($_POST['email'])) echo $_POST['email']; ?>" />
                             </div>
