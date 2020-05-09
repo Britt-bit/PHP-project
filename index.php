@@ -47,6 +47,23 @@ $conn = Db::getConnection();
          include_once(__DIR__ ."../includes/nav.inc.php");
 
 ?>
+<<<<<<< Updated upstream
+=======
+
+<form action="search-classroom.php" method="POST">
+    <input type="text" name="search" placeholder="Search classroom">
+    <button type="submit" name="submit-search">Search</button>
+</form>
+
+   <!--navigatie-->        
+   <nav>
+    <a style="color: rgb(245, 134, 124);"href="index.php?id=<?php echo $_SESSION['user_id'] ?>">Home</a>
+    <a href="profile.php?id=<?php echo $_SESSION['user_id'] ?>">Profile</a>
+    <a href="buddies.php?id=<?php echo $_SESSION['user_id'] ?>">My buddies</a>
+    <a href="match.php?id=<?php echo $_SESSION['user_id'] ?>">My matches</a>
+    <a href="logout.php" class="logout">Logout</a>
+    </nav>
+>>>>>>> Stashed changes
     <h1>Je bent ingelogd</h1>
     <a href="logout.php" class="nav-link">Logout</a>
     <a class="nav-link" href="profile.php?id=<?php echo $_SESSION['user_id'] ?>">Profiel</a>
