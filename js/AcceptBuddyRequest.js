@@ -19,6 +19,6 @@ $("#AcceptRequest").on("click", function (e) {
                 $("#watchOut").show(); 
             }
         });
-
+        e.preventDefault();
 });
 

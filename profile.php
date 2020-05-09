@@ -190,7 +190,6 @@ if (!empty($_POST)) {
 
 
         <?php elseif ($getUser['user_id'] != $_SESSION['user_id']) : ?>
-            <?php var_dump($getRequest) ?>
             <?php if ($getRequest['buddy_id'] == $_SESSION['user_id'] || $getRequest['seeker_id'] == $_SESSION['user_id'] && $getRequest['request'] == 0 && $getRequest['accepted'] == 1) : ?>
                 <div class="alert alert-info col-md-8 d-block mt-3">
                     <p>This is your buddy</p>

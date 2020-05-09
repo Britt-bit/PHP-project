@@ -4,10 +4,10 @@
     $id = $_POST['id'];
     $uid = $_POST['uid'];
     $email = $_POST['email'];
+    $person = $_POST['person'];
     $response = [];
-    if (Request::sendRequest($id, $uid)) {
+    if (Request::sendRequest($id, $uid, $email, $person)) {
         $response['status'] = 'success';
-        Request::mailto($email);
     } else {
         $response['status'] = 'something went wrong.';
     }

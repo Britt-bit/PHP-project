@@ -1,14 +1,15 @@
 $("#sendRequest").on("click", function (e) {
     let id = $("#id").val();
     let uid = $("#uid").val();
-    let email = $('#email').val();
+    let email = $("#email").val();
+    let person = $("#fullname").val();
     let uri = $("#uri").val();
     console.table(id, uid, uri);
     
     $.ajax({
         method: "POST",
         url: "ajax/sendBuddyRequest.php",
-        data: { id: id, uid: uid, email: email},
+        data: { id: id, uid: uid,person: person , email: email},
         dataType: 'json'
     })
         .done(function (res) {
