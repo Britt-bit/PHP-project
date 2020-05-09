@@ -16,11 +16,11 @@ if(isset($_POST['hobby'])){
  }
    
    if($count == 1){
-      $response = "<span style='color: green; margin-left: 50px;'>$count user has the same hobby as you.</span>";
+      $response = "<span style='color: green; margin-left: 50px;'>$count gebruiker heeft dezelfde hobby als u.</span>";
    }
 
    if($count > 1){
-    $response = "<span style='color: green; margin-left: 50px;'>$count users have the same hobby as you.</span>";
+    $response = "<span style='color: green; margin-left: 50px;'>$count gebruikers hebben dezelfde hobby als u.</span>";
  }
 
 
