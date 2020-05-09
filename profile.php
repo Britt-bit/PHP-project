@@ -164,10 +164,10 @@ if (!empty($_POST)) {
                     <div class="form-group row col-md-4">
                         <label for="year">Schooljaar</label>
                         <select class="form-control" name="school_year" id="year">
-                            <option value="">Kies uw jaar ...</option>
-                            <option value="1">1IMD</option>
-                            <option value="2">2IMD</option>
-                            <option value="3">3IMD</option>
+                            <option value="default">Kies uw jaar ...</option>
+                            <option value="1IMD">1IMD</option>
+                            <option value="2IMD">2IMD</option>
+                            <option value="3IMD">3IMD</option>
                         </select>
                     </div>
                     <!-- Year field -->
