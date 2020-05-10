@@ -201,7 +201,7 @@ if (!empty($_POST)) {
                 </div>
                 <a href="#" id="DeleteRequest" class="btn btn-danger btn-lg mb-3" role="button">Delete Buddy</a>
                     <script type="text/javascript" src="js/DeleteBuddyRequest.js"></script>
-            <?php elseif ($getRequest['buddy_id'] == $_SESSION['user_id'] || $getRequest['seeker_id'] == $_SESSION['user_id'] && $getRequest['request'] == 'no' && $getRequest['accepted'] == 'no' && $getRequest != false) : ?>
+            <?php elseif ($getRequest['buddy_id'] == $_SESSION['user_id'] || $getRequest['seeker_id'] == $_SESSION['user_id'] && $getRequest['buddy_id'] == $_GET['id'] || $getRequest['seeker_id'] == $_GET['id'] && $getRequest['request'] == 'no' && $getRequest['accepted'] == 'no' && $getRequest != false) : ?>
                 <div class="alert alert-info col-md-8 d-block mt-3">
                     <p>You already sended a request once, but is was declined or you are no longer buddies.</p>
                 </div>
@@ -240,10 +240,10 @@ if (!empty($_POST)) {
 
             <?php if ($getUser['buddy'] == 1) : ?>
                 <div id="requestBtn" class="form-group row col-md-12">
-                    <?php if ($getRequest['request'] == null && $getRequest['accepted'] == null) : ?>
+                    <?php if ($getRequest['buddy_id'] != $_GET['id'] && $getRequest['accepted'] != 'yes') : ?>
                         <a href="#" id="sendRequest" class="btn btn-primary btn-lg" role="button">Buddy Request</a>
                         <script type="text/javascript" src="js/sendBuddyRequest.js"></script>
-                    <?php elseif ($getRequest['request'] == 'yes' && $getRequest['buddy_id'] == $_GET['id']) : ?>
+                    <?php elseif ($getRequest['request'] == 'yes' && $getRequest['request'] != 'yes' && $getRequest['buddy_id'] == $_GET['id']) : ?>
                         <a href="#" class="btn btn-secondary btn-lg disabled" role="button">Requested</a>
                     <?php endif ?>
                 <?php endif ?>
