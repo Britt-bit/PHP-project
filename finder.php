@@ -1,8 +1,8 @@
 <?php
 session_start();
-error_reporting(E_ALL);
+/* error_reporting(E_ALL);
 ini_set('display_errors', 1);
-
+ */
 //include_once(__DIR__ . "/classes/Finder.php");
 include_once(__DIR__ . "/classes/Db.php");
 //$conn = Db::getConnection();

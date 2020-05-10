@@ -1,7 +1,7 @@
 <?php
-ini_set('display_errors', 1);
-ini_set('display_startup_errors', 1);
-error_reporting(E_ALL);
+//ini_set('display_errors', 1);
+//ini_set('display_startup_errors', 1);
+//error_reporting(E_ALL);
 session_start();
 include_once(__DIR__ . "/classes/User.php");
 include_once(__DIR__ . "/classes/Features.class.php");
@@ -196,6 +196,10 @@ if (!empty($_POST)) {
                 </div>
                 <a href="#" id="DeleteRequest" class="btn btn-danger btn-lg mb-3" role="button">Delete Buddy</a>
                     <script type="text/javascript" src="js/DeleteBuddyRequest.js"></script>
+            <?php elseif ($getRequest['request'] == 0 && $getRequest['accepted'] == 0) : ?>
+                <div class="alert alert-info col-md-8 d-block mt-3">
+                    <p>You already sended a request once, but is was declined or you are no longer buddies.</p>
+                </div>
             <?php endif ?>
             <div class="form-group row col-md-12">
                 <img class="img-thumbnail" src="<?php echo $getUser['avatar'] ?>" alt="User Avatar">
@@ -236,9 +240,6 @@ if (!empty($_POST)) {
                         <script type="text/javascript" src="js/sendBuddyRequest.js"></script>
                     <?php elseif ($getRequest['request'] == 1 && $getRequest['buddy_id'] == $_GET['id']) : ?>
                         <a href="#" class="btn btn-secondary btn-lg disabled" role="button">Requested</a>
-                    <?php elseif (class_exists('btn-danger')) : ?>
-                        <a href="#" class="btn btn-danger btn-lg disabled" role="button">Declined</a>
-                    <?php elseif (!class_exists('btn-danger')) : ?>
                     <?php endif ?>
                 <?php endif ?>
                 </div>
