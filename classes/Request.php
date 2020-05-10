@@ -25,7 +25,7 @@ class Request
         try {
             $conn = Db::getConnection();
 
-            $statement = $conn->prepare("INSERT INTO buddy (buddy_id, seeker_id, request) VALUES (:buddy_id, :seeker_id , 1)");
+            $statement = $conn->prepare("INSERT INTO buddy (buddy_id, seeker_id, request) VALUES (:buddy_id, :seeker_id , 'yes')");
             $statement->bindParam(':buddy_id', $id);
             $statement->bindParam(':seeker_id', $uid);
             $statement->execute();
@@ -41,7 +41,7 @@ class Request
         try {
             $conn = Db::getConnection();
 
-            $statement = $conn->prepare("UPDATE buddy SET `accepted`= 1, `request`= 0 WHERE `buddy_id`= $id AND`seeker_id`= $uid");
+            $statement = $conn->prepare("UPDATE buddy SET `accepted`= 'yes', `request`= 'no' WHERE `buddy_id`= $id AND`seeker_id`= $uid");
             $statement->execute();
 
             return true;
@@ -55,7 +55,7 @@ class Request
         try {
             $conn = Db::getConnection();
 
-            $statement = $conn->prepare("UPDATE buddy SET `accepted`= 0, `request`= 0  WHERE `buddy_id`= $id AND`seeker_id`= $uid OR `buddy_id`= $uid AND`seeker_id`= $id");
+            $statement = $conn->prepare("UPDATE buddy SET `accepted`= 'no', `request`= 'no'  WHERE `buddy_id`= $id AND`seeker_id`= $uid OR `buddy_id`= $uid AND`seeker_id`= $id");
             $statement->execute();
 
             return true;
@@ -86,23 +86,5 @@ class Request
         $statement->execute();
         $request = $statement->fetch();
         return $request;
-    }
-
-    public function mailto($email)
-    {
-        $to = $email;
-        $subject = 'Buddy Request';
-        $message = '
-                <html>
-                    <head>
-                        <title>You have a Buddy request</title>
-                    </head>
-                    <body>
-                        <p>You have a buddy request.</p>                  
-                    </body>
-                </html>';
-        $headers  = "Content-type: text/html; charset=utf-8 \r\n";
-        $headers .= "From: Buddiez <info@buddiez.com>\r\n";
-        mail($to, $subject, $message, $headers);
     }
 }

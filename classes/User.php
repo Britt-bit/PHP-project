@@ -382,15 +382,9 @@ include_once(__DIR__ . "/Db.php");
                 $statement = $conn->prepare("UPDATE user SET firstname= :firstname, lastname= :lastname, email= :email, school_year= :schoolyear, buddy= :buddy, bio= :bio WHERE user_id= :id");
                 $statement->bindParam(":schoolyear", $this->year);
             }
-            elseif($this->year != 'default' && move_uploaded_file($_FILES["avatar"]["tmp_name"], $this->avatar)){
-                $statement = $conn->prepare("UPDATE user SET firstname= :firstname, lastname= :lastname, email= :email, school_year= :schoolyear, buddy= :buddy, avatar= :avatar, bio= :bio WHERE user_id= :id");
-                $statement->bindParam(":schoolyear", $this->year);
-                $statement->bindParam(":avatar", $this->avatar);
-            }
             else {
                 $statement = $conn->prepare("UPDATE user SET firstname= :firstname, lastname= :lastname, email= :email, buddy= :buddy, bio= :bio WHERE user_id= :id");  
             }  
-            $statement->bindParam(":schoolyear", $this->year);
             $statement->bindParam(":firstname", $this->firstname);
             $statement->bindParam(":lastname", $this->lastname);
             $statement->bindParam(":email", $this->email);
@@ -399,6 +393,7 @@ include_once(__DIR__ . "/Db.php");
             $statement->bindParam(":id", $id);
 
             $statement->execute();
+            return $statement;
         }
         function updatePassword($id)
         {

@@ -1,7 +1,7 @@
 <?php
-//ini_set('display_errors', 1);
-//ini_set('display_startup_errors', 1);
-//error_reporting(E_ALL);
+/* ini_set('display_errors', 1);
+ini_set('display_startup_errors', 1);
+error_reporting(E_ALL); */
 session_start();
 include_once(__DIR__ . "/classes/User.php");
 include_once(__DIR__ . "/classes/Features.class.php");
@@ -101,11 +101,11 @@ if (!empty($_POST)) {
             <form action="" method="POST" enctype="multipart/form-data">
                 <div class="form-content">
                     <!-- show if Buddy -->
-                    <?php if ($getRequest['request'] == null && $getRequest['accepted'] == null) : ?>
+                    <?php if ($getRequest['request'] == null && $getRequest['accepted'] == null && $getUser['buddy'] == 1 ) : ?>
                         <div class="alert alert-info">
                             <p>You are a buddy you cannot send a request.</p>
                         </div>
-                    <?php elseif ($getRequest['buddy_id'] == $_SESSION['user_id'] && $getRequest['request'] == 1) : ?>
+                    <?php elseif ($getRequest['buddy_id'] == $_SESSION['user_id'] && $getRequest['request'] == 'yes') : ?>
                         <div class="alert alert-info col-md-8 d-block">
                             <p>You have a buddy request from <?php echo $getseeker['firstname'] ?>.</p>
                         </div>
@@ -119,7 +119,7 @@ if (!empty($_POST)) {
                         </div>
                         <script type="text/javascript" src="js/AcceptBuddyRequest.js"></script>
                         <script type="text/javascript" src="js/DeleteBuddyRequest.js"></script>
-                    <?php elseif ($getRequest['buddy_id'] == $_SESSION['user_id'] || $getRequest['seeker_id'] == $_SESSION['user_id'] && $getRequest['request'] == 0 && $getRequest['accepted'] == 1) : ?>
+                    <?php elseif ($getRequest['buddy_id'] == $_SESSION['user_id'] || $getRequest['seeker_id'] == $_SESSION['user_id'] && $getRequest['request'] == 'no' && $getRequest['accepted'] == 'yes') : ?>
                         <div class="alert alert-info col-md-8 d-block">
                             <p>You are buddies with <?php if ($getseeker != false) {
                                                         echo $getseeker['firstname'];
@@ -195,19 +195,15 @@ if (!empty($_POST)) {
 
 
         <?php elseif ($getUser['user_id'] != $_SESSION['user_id']) : ?>
-            <?php if ($getRequest['buddy_id'] == $_SESSION['user_id'] || $getRequest['seeker_id'] == $_SESSION['user_id'] && $getRequest['request'] == 0 && $getRequest['accepted'] == 1) : ?>
+            <?php if ($getRequest['buddy_id'] == $_SESSION['user_id'] || $getRequest['seeker_id'] == $_SESSION['user_id'] && $getRequest['buddy_id'] == $_GET['id'] || $getRequest['seeker_id'] == $_GET['id'] && $getRequest['request'] == 'no' && $getRequest['accepted'] == 'yes') : ?>
                 <div class="alert alert-info col-md-8 d-block mt-3">
                     <p>This is your buddy</p>
                 </div>
                 <a href="#" id="DeleteRequest" class="btn btn-danger btn-lg mb-3" role="button">Delete Buddy</a>
                     <script type="text/javascript" src="js/DeleteBuddyRequest.js"></script>
-            <?php elseif ($getRequest['request'] == 0 && $getRequest['accepted'] == 0) : ?>
+            <?php elseif ($getRequest['buddy_id'] == $_SESSION['user_id'] || $getRequest['seeker_id'] == $_SESSION['user_id'] && $getRequest['request'] == 'no' && $getRequest['accepted'] == 'no' && $getRequest != false) : ?>
                 <div class="alert alert-info col-md-8 d-block mt-3">
                     <p>You already sended a request once, but is was declined or you are no longer buddies.</p>
-                </div>
-            <?php elseif ($getRequest['request'] == null && $getRequest['accepted'] == null && $getRequest['buddy'] == 1) : ?>
-                <div class="alert alert-info col-md-8 d-block mt-3">
-                    <p>You are a buddy you cannot send a request</p>
                 </div>
             <?php endif ?>
             <div class="form-group row col-md-12">
@@ -247,7 +243,7 @@ if (!empty($_POST)) {
                     <?php if ($getRequest['request'] == null && $getRequest['accepted'] == null) : ?>
                         <a href="#" id="sendRequest" class="btn btn-primary btn-lg" role="button">Buddy Request</a>
                         <script type="text/javascript" src="js/sendBuddyRequest.js"></script>
-                    <?php elseif ($getRequest['request'] == 1 && $getRequest['buddy_id'] == $_GET['id']) : ?>
+                    <?php elseif ($getRequest['request'] == 'yes' && $getRequest['buddy_id'] == $_GET['id']) : ?>
                         <a href="#" class="btn btn-secondary btn-lg disabled" role="button">Requested</a>
                     <?php endif ?>
                 <?php endif ?>
