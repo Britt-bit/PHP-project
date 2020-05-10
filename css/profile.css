@@ -1,7 +1,7 @@
 /*Profile formulier*/
 .profile{
     background-color: rgb(255, 255, 255);
-    height: 700px;
+    height: 1200px;
     width: 650px;
     float: left;
     margin-left: -150px;
@@ -12,7 +12,7 @@
 }
 
 .profile_title{
-    margin-top: 40px;
+    margin-top: 60px;
 }
 
 
