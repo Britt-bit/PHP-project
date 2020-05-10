@@ -25,6 +25,19 @@ if ($_SESSION['email']  == '') {
         $feature->insertFeatures();
         header("Location: index.php");
     }
+
+    //indien al ingevuld, niet meer naar deze pagina.
+    $checkFeatures = feature::checkFeatures();
+    
+        if ($checkFeatures == true){
+        //echo"features nog niet ingevuld";
+        header("Location: index.php");
+        
+
+            
+
+        }
+
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -46,7 +59,7 @@ if ($_SESSION['email']  == '') {
         </div>
 
         <form action="" method="post">
-            <h4>Wat voor soort games speel je graag?</h4>
+            <h4>What kind of games do you like??</h4>
             <label for="games"></label>
             <select class="dropDown" id="games" name="games">
                 <option value="shooter">Shooter</option>
@@ -54,52 +67,52 @@ if ($_SESSION['email']  == '') {
                 <option value="rpg">RPG</option>
                 <option value="mmo">MMO</option>
                 <option value="RTS">RTS</option>
-                <option value="gezelchapspelletjes">Gezelschapspelletjes</option>
+                <option value="gezelchapspelletjes">Board games</option>
             </select>
   
-            <h4>Wat vind je de leukste vakken in IMD?</h4>
+            <h4>What do you like most in IMD?</h4>
             <label for="vak"></label>
             <select class="dropDown" id="vak" name="vak">
                 <option value="development">Development</option>
                 <option value="design">Design</option>
                 <option value="entrepeneurship">Entrepreneurship</option>
-                <option value="communicatie">Communicatie</option>
+                <option value="communicatie">Communication</option>
             </select>
             
-            <h4>Welke films kijk je graag?</h4>
+            <h4>What movies do you like?</h4>
             <label for="film"></label>
             <select class="dropDown" id="film" name="film">
-                <option value="actie">Actie</option>
-                <option value="komedie">Komedie</option>
+                <option value="actie">Action</option>
+                <option value="komedie">Comedy</option>
                 <option value="horror">Horror</option>
-                <option value="romantisch">Romantisch</option>
+                <option value="romantisch">Romantic</option>
                 <option value="thriller">Thriller</option>
                 <option value="drama">Drama</option>
-                <option value="misdaad">Misdaad</option>
+                <option value="misdaad">Crime</option>
                 <option value="scifi">Scifi</option>
                 <option value="fantasy">Fantasy</option>
             </select>
   
-            <h4>Welke muziek luistert je graag?</h4>
+            <h4>What music do you like?</h4>
             <label for="muziek"></label>
             <select class="dropDown" id="muziek" name="muziek">
                 <option value="pop">Pop</option>
-                <option value="klassiek">Klassiek</option>
+                <option value="klassiek">Classic</option>
                 <option value="rap">Rap</option>
                 <option value="r&b">R&B</option>
                 <option value="hardstyle">Hardstyle</option>
                 <option value="schlager">Schlager</option>
                 <option value="heavy metal">Heavy metal</option>
                 <option value="jazz">Jazz</option>
-                <option value="allesSlecht">Niets van hierboven</option>
+                <option value="allesSlecht">Nothing</option>
             </select>
 
-            <h4>Wat is je hobby?</h4>
+            <h4>What is your hobby?</h4>
             <label for="hobby"></label><br>
             <input class="dropDown" type="text" id="hobby" name="hobby" value=""><br><br>
             <div id="hobbyCount" ></div>
 
-            <button type="submit" class="loginSettings btnSubmit">Vervolledig profiel</button>
+            <button type="submit" class="loginSettings btnSubmit">Complete profile</button>
             </form>
     </div>
 

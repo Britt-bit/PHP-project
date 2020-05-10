@@ -31,7 +31,7 @@ error_reporting(E_ALL);
     <div class="vervolledigHobby">
 
         <form action="" method="post">
-            <label for="hobby">Je hebt je hobby not niet ingevuld. Doe dit hier om je profiel te vervolledigen.</label><br>
+            <label for="hobby">You didn't fill in your hobby yet, do it here to complete your profile.</label><br>
             <input type="text" id="hobby" name="hobby" value=""><input type="submit" value="vervolledig profiel">
 
         </form>

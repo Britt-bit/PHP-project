@@ -3,6 +3,7 @@
 //klasse en database copy pasten naar hier
 include_once(__DIR__ . "/classes/User.php");
 include_once(__DIR__ . "/classes/Db.php");
+
  
 //connectie met de database
 function canLogin($email, $password){
@@ -76,6 +77,7 @@ if(!empty($_POST)){
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link href="https://fonts.googleapis.com/css2?family=Raleway:wght@800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="./css/login.css">
+    <link rel="stylesheet" href="./css/home.css">
     <title>Login</title>
 </head>
 <body>
@@ -121,7 +123,22 @@ if(!empty($_POST)){
         </div>
     </div>
 </div>
-   
+
+<footer>
+    <!--<script src="js/buddy.js"></script>-->
+<div class="signedIn">
+    <?php
+    // aantal users + matches tonen
+        $countBuddyAgreements = User::countBuddyAgreements();
+        $countUsers = User::countUsers();
+        
+        echo "Buddiez has <span>$countUsers</span> registered users and there are <span>$countBuddyAgreements</span> buddy agreements.";
+            
+        
+    ?>  
+</div>
+</footer>
+
 </body>
 <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
 <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>

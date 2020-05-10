@@ -56,9 +56,9 @@ $search = Post::search(strtolower($_GET['search']));
         <img class="profilePic" src="<?php echo $searchResult['avatar']?>" alt="">
         <h2><?php echo htmlspecialchars($searchResult['firstname']) . " " . htmlspecialchars($searchResult['lastname']); ?></h2>
         <p>Games: <?php echo $searchResult['games']; ?></p>
-        <p>Films:<?php echo $searchResult['films']; ?></p>
-        <p>Muziek:<?php echo $searchResult['muziek']; ?></p>
-        <p>Vak:<?php echo $searchResult['vak']; ?></p>
+        <p>Movies:<?php echo $searchResult['films']; ?></p>
+        <p>Music:<?php echo $searchResult['muziek']; ?></p>
+        <p>Course:<?php echo $searchResult['vak']; ?></p>
         <p>hobby:<?php echo htmlspecialchars($searchResult['hobby']); ?></p>
         
        
