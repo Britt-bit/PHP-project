@@ -57,7 +57,8 @@ if (!empty($_POST)) {
             $user->setAvatar($target_file);
             $user->setYear($_POST['school_year']);
             $user->setBuddy($_POST['buddy']);
-
+            
+            
             $user->updateUser($_GET['id']);
             header('location: profile.php?id=' . $_GET['id']);
         } catch (\Throwable $th) {
@@ -162,7 +163,7 @@ if (!empty($_POST)) {
                         <p>Kijk uit! Je zit in je eerste jaar. Best een buddy zoeken.</p>
                     </div>
                     <div class="form-group row col-md-4">
-                        <label for="year">Schooljaar</label>
+                        <label for="school_year">Schooljaar</label>
                         <select class="form-control" name="school_year" id="year">
                             <option value="default">Kies uw jaar ...</option>
                             <option value="1IMD">1IMD</option>
@@ -203,6 +204,10 @@ if (!empty($_POST)) {
             <?php elseif ($getRequest['request'] == 0 && $getRequest['accepted'] == 0) : ?>
                 <div class="alert alert-info col-md-8 d-block mt-3">
                     <p>You already sended a request once, but is was declined or you are no longer buddies.</p>
+                </div>
+            <?php elseif ($getRequest['request'] == null && $getRequest['accepted'] == null && $getRequest['buddy'] == 1) : ?>
+                <div class="alert alert-info col-md-8 d-block mt-3">
+                    <p>You are a buddy you cannot send a request</p>
                 </div>
             <?php endif ?>
             <div class="form-group row col-md-12">

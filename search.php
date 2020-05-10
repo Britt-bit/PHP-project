@@ -26,14 +26,13 @@ $search = Post::search(strtolower($_GET['search']));
 </head>
 <body>
 <a href="index.php"><img class="logo" src="./images/logo.png" alt="Buddiez logo"></a>
-
    <!--navigatie-->        
    <nav>
 
-    <a style="color: rgb(245, 134, 124);"href="index.php?id=<?php $_SESSION['user_id'][0] ?>">Home</a>
-    <a href="profile.php?id=<?php $_SESSION['user_id'][0] ?>">Profile</a>
-    <a href="buddies.php?id=<?php $_SESSION['user_id'] ?>">My buddies</a>
-    <a href="match.php?id=<?php $_SESSION['email'] ?>">My matches</a>
+    <a style="color: rgb(245, 134, 124);"href="index.php?id=<?php echo $_SESSION['user_id'] ?>">Home</a>
+    <a href="profile.php?id=<?php echo $_SESSION['user_id'] ?>">Profile</a>
+    <a href="buddies.php?id=<?php echo $_SESSION['user_id'] ?>">My buddies</a>
+    <a href="match.php?id=<?php echo $_SESSION['email'] ?>">My matches</a>
     <a href="logout.php" class="logout">Logout</a>
     </nav>
 
@@ -53,7 +52,6 @@ $search = Post::search(strtolower($_GET['search']));
 
 
 <?php if ($search > 0): foreach ($search as $searchResult):?>
-
     <div class="searchResult">
         <img class="profilePic" src="<?php echo $searchResult['avatar']?>" alt="">
         <h2><?php echo htmlspecialchars($searchResult['firstname']) . " " . htmlspecialchars($searchResult['lastname']); ?></h2>

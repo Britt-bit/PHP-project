@@ -75,10 +75,10 @@ if ($_SESSION['email']  == '') {
 
    <!--navigatie-->        
    <nav>
-    <a style="color: rgb(245, 134, 124);"href="index.php?id=<?php $_SESSION['user_id'][0] ?>">Home</a>
-    <a href="profile.php?id=<?php $_SESSION['user_id'][0] ?>">Profile</a>
-    <a href="buddies.php?id=<?php $_SESSION['user_id'][0] ?>">My buddies</a>
-    <a href="match.php?id=<?php $_SESSION['user_id'] ?>">My matches</a>
+    <a style="color: rgb(245, 134, 124);"href="index.php?id=<?php echo $_SESSION['user_id'] ?>">Home</a>
+    <a href="profile.php?id=<?php echo $_SESSION['user_id'] ?>">Profile</a>
+    <a href="buddies.php?id=<?php echo $_SESSION['user_id'] ?>">My buddies</a>
+    <a href="match.php?id=<?php echo $_SESSION['user_id'] ?>">My matches</a>
     <a href="logout.php" class="logout">Logout</a>
     </nav>
     <h1>Je bent ingelogd</h1>

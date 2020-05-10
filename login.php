@@ -16,6 +16,7 @@ function canLogin($email, $password){
     }else{
         return false;
     }
+    return $user;
 }
  
 //Get de User
@@ -31,7 +32,7 @@ if(!empty($_POST)){
     //Velden uitlezen in variabelen
     $email = $_POST['email'];
     $password = $_POST['password'];
-   
+    $user_id = $user->id;
     //Validatie: velden mogen niet leeg zijn
     if(!empty($email) && !empty($password)){
      if(User::isUserVerified($email)){
