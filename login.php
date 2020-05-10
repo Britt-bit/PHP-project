@@ -131,7 +131,7 @@ if(!empty($_POST)){
         $countBuddyAgreements = User::countBuddyAgreements();
         $countUsers = User::countUsers();
         
-        echo "Buddiez heeft <span>$countUsers</span> gerigistreerde gebruikers en er zijn al <span>$countBuddyAgreements</span>  buddyovereenkomsten";
+        echo "Buddiez has <span>$countUsers</span> registered users and there are <span>$countBuddyAgreements</span> buddy agreements.";
             
         
     ?>  
