@@ -26,8 +26,8 @@ class Request
             $conn = Db::getConnection();
 
             $statement = $conn->prepare("INSERT INTO buddy (buddy_id, seeker_id, request) VALUES (:buddy_id, :seeker_id , 1)");
-            $statement->bindValue(':buddy_id', $id);
-            $statement->bindValue(':seeker_id', $uid);
+            $statement->bindParam(':buddy_id', $id);
+            $statement->bindParam(':seeker_id', $uid);
             $statement->execute();
 
             return true;
