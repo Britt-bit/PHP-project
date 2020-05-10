@@ -25,6 +25,19 @@ if ($_SESSION['email']  == '') {
         $feature->insertFeatures();
         header("Location: index.php");
     }
+
+    //indien al ingevuld, niet meer naar deze pagina.
+    $checkFeatures = feature::checkFeatures();
+    
+        if ($checkFeatures == true){
+        //echo"features nog niet ingevuld";
+        header("Location: index.php");
+        
+
+            
+
+        }
+
 ?>
 <!DOCTYPE html>
 <html lang="en">
