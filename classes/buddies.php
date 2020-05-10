@@ -28,7 +28,7 @@ class buddies{
           SELECT seeker_id as user_id FROM buddy WHERE buddy_id = :id 
           AND accepted = 1") ;
 
-        $statement->bindValue(":id", $user_id);
+        $statement->bindValue(":id", $u_id);
         if ($statement->rowCount()>0){
         $buddies = $statement->fetchAll(PDO::FETCH_ASSOC);
         return $buddies;
