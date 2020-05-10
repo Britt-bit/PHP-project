@@ -209,17 +209,7 @@ if ($_SESSION['email']  == '') {
 
 <footer>
     <!--<script src="js/buddy.js"></script>-->
-<div class="signedIn">
-    <?php
-    // aantal users + matches tonen
-        $countBuddyAgreements = User::countBuddyAgreements();
-        $countUsers = User::countUsers();
-        
-        echo "Buddiez heeft <span>$countUsers</span> gerigistreerde gebruikers en er zijn al <span>$countBuddyAgreements</span>  buddyovereenkomsten";
-            
-        
-    ?>  
-</div>
+
 </footer>
 
 
